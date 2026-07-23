@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Leilão Reverso · Time e IA</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{
+  --bg:#07080a;--panel:#0e1013;--panel2:#12151a;--line:#1b1f25;--line2:#272d35;
+  --lar:#ff4d1c;--rox:#7B2FFF;--verde:#2fd672;--ama:#ffc233;--azul:#3d9bff;--verm:#ff3b3b;
+  --t1:#f4f6f9;--t2:#9aa2b1;--t3:#5b6472;--t4:#3a414d;
+  --acento:var(--lar);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;line-height:1.68;-webkit-font-smoothing:antialiased}
+body.ia{--acento:var(--azul)}
+.mono{font-family:'Space Mono',monospace}
+
+/* ═══ TOPO ═══ */
+header{position:sticky;top:0;z-index:60;background:rgba(7,8,10,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hwrap{display:flex;align-items:center;gap:20px;padding:0 26px;height:60px;max-width:1500px;margin:0 auto}
+.logo{font-family:'Bebas Neue';font-size:19px;letter-spacing:2px;white-space:nowrap}
+.logo b{color:var(--acento);font-weight:400;transition:color .3s}
+.logo span{font-family:'Space Mono';font-size:9.5px;color:var(--t3);letter-spacing:2px;margin-left:8px}
+.hwrap .gap{flex:1}
+/* seletor */
+.switch{display:flex;background:var(--panel2);border:1px solid var(--line2);border-radius:11px;padding:3px;gap:3px}
+.switch button{
+  border:none;background:transparent;color:var(--t3);cursor:pointer;
+  font-family:'Space Mono';font-size:11px;letter-spacing:1.5px;font-weight:700;
+  padding:9px 17px;border-radius:8px;transition:.2s;white-space:nowrap;
+}
+.switch button:hover{color:var(--t1)}
+.switch button.on{background:var(--lar);color:#fff}
+.switch button.on.ia{background:var(--azul)}
+.switch button:focus-visible{outline:2px solid var(--acento);outline-offset:2px}
+
+/* ═══ LAYOUT ═══ */
+.corpo{display:flex;max-width:1500px;margin:0 auto}
+nav{
+  width:280px;flex-shrink:0;position:sticky;top:60px;height:calc(100vh - 60px);
+  overflow-y:auto;border-right:1px solid var(--line);padding:22px 0;
+}
+nav .grupo{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--acento);padding:16px 22px 6px;transition:color .3s}
+nav a{display:block;padding:7px 22px;color:var(--t2);text-decoration:none;font-size:13px;border-left:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--t1);background:var(--panel);border-left-color:var(--acento)}
+main{flex:1;min-width:0;padding:44px 52px 120px;max-width:920px}
+
+/* ═══ MODOS ═══ */
+.modo{display:none}
+.modo.on{display:block;animation:sobe .35s cubic-bezier(.2,.8,.3,1)}
+@keyframes sobe{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+/* ═══ TIPOGRAFIA ═══ */
+.capa{padding:26px 0 40px;border-bottom:1px solid var(--line);margin-bottom:16px}
+.capa .olho{font-family:'Space Mono';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--acento);margin-bottom:16px;transition:color .3s}
+.capa h1{font-family:'Bebas Neue';font-size:clamp(44px,6.5vw,76px);line-height:.95;letter-spacing:1.5px}
+.capa p{font-size:17px;color:var(--t2);max-width:640px;margin-top:16px}
+h2{font-family:'Bebas Neue';font-size:clamp(26px,3.4vw,36px);letter-spacing:1.2px;margin:52px 0 6px;color:var(--acento);scroll-margin-top:76px;transition:color .3s}
+h3{font-family:'Outfit';font-weight:700;font-size:20px;margin:30px 0 8px;letter-spacing:-.2px;color:#fff}
+h4{font-family:'Space Mono';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--t3);margin:26px 0 8px}
+p{margin:12px 0;font-size:15.5px;color:#e2e6ed}
+strong{color:#fff;font-weight:600}
+ul,ol{margin:12px 0 12px 20px}
+li{margin:7px 0;font-size:15.5px;color:#e2e6ed}
+hr{border:none;border-top:1px solid var(--line);margin:48px 0}
+
+/* ═══ COMPONENTES ═══ */
+.lei{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:26px 28px;margin:22px 0;position:relative;overflow:hidden}
+.lei::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--acento);transition:background .3s}
+.lei .num{font-family:'Space Mono';font-size:10px;letter-spacing:2px;color:var(--acento);margin-bottom:6px;transition:color .3s}
+.lei h3{margin:0 0 4px;font-size:21px}
+.lei .sub{font-size:14px;color:var(--t2);margin-bottom:16px}
+.lei .faz{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);font-size:14.5px}
+.lei .faz b{color:var(--verde)}
+
+.box{border-left:3px solid var(--acento);padding:16px 22px;margin:22px 0;background:rgba(255,77,28,.05);border-radius:0 12px 12px 0;transition:border-color .3s}
+body.ia .box{background:rgba(61,155,255,.05)}
+.box .tag{font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--acento);margin-bottom:6px;transition:color .3s}
+.box p{margin:0;font-size:14.5px}
+.box.alerta{border-color:var(--ama);background:rgba(255,194,51,.05)}
+.box.alerta .tag{color:var(--ama)}
+.box.erro{border-color:var(--verm);background:rgba(255,59,59,.05)}
+.box.erro .tag{color:var(--verm)}
+
+.et{font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;padding:2px 8px;border-radius:9px;white-space:nowrap;font-weight:700}
+.et.med{background:rgba(47,214,114,.15);color:var(--verde)}
+.et.doc{background:rgba(61,155,255,.15);color:var(--azul)}
+.et.der{background:rgba(255,194,51,.15);color:var(--ama)}
+.et.hip{background:rgba(255,77,28,.15);color:var(--lar)}
+
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px;display:block;overflow-x:auto}
+th{background:var(--panel2);color:var(--t2);padding:10px 13px;text-align:left;font-family:'Space Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:#e2e6ed}
+tr:hover td{background:var(--panel)}
+
+pre{background:linear-gradient(135deg,#0f1318,#0a0c0f);border:1px solid var(--line2);border-radius:14px;padding:22px 24px;margin:20px 0;overflow-x:auto;position:relative}
+pre::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--acento);transition:background .3s}
+pre code{font-family:'Space Mono';font-size:12.5px;line-height:1.8;color:#dfe4ec;white-space:pre}
+code{font-family:'Space Mono';font-size:12.5px;background:var(--panel2);padding:2px 6px;border-radius:5px;color:var(--acento)}
+
+blockquote{border-left:3px solid var(--rox);padding:18px 0 18px 24px;margin:26px 0;background:rgba(123,47,255,.06);border-radius:0 12px 12px 0}
+blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
+
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin:22px 0}
+.n1{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:18px}
+.n1 .v{font-family:'Bebas Neue';font-size:36px;line-height:1;color:var(--acento);transition:color .3s}
+.n1 .l{font-size:12.5px;color:var(--t2);margin-top:5px;line-height:1.4}
+
+.faz-nao{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:22px 0}
+.fn{border:1px solid var(--line2);border-radius:13px;padding:20px}
+.fn .t{font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px}
+.fn.sim{border-color:rgba(47,214,114,.3)} .fn.sim .t{color:var(--verde)}
+.fn.nao{border-color:rgba(255,59,59,.3)} .fn.nao .t{color:var(--verm)}
+.fn li{font-size:14px;margin:8px 0}
+
+#topo-btn{position:fixed;right:24px;bottom:24px;z-index:70;width:44px;height:44px;border-radius:12px;border:1px solid var(--line2);background:var(--panel);color:var(--t2);cursor:pointer;display:none;align-items:center;justify-content:center}
+#topo-btn.vis{display:flex}
+#abrir{display:none;background:var(--acento);border:none;color:#fff;width:40px;height:40px;border-radius:10px;font-size:17px;cursor:pointer}
+
+@media(max-width:960px){
+  nav{position:fixed;left:0;top:60px;transform:translateX(-100%);transition:transform .3s;background:#0a0c0e;z-index:55;width:82%}
+  nav.on{transform:none}
+  main{padding:30px 20px 90px}
+  #abrir{display:block}
+  .faz-nao{grid-template-columns:1fr}
+  .hwrap{gap:12px;padding:0 14px}
+  .switch button{padding:8px 12px;font-size:10px}
+  .logo span{display:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <button id="abrir" aria-label="Menu">☰</button>
+    <div class="logo">LEILÃO <b>REVERSO</b><span>V2.0</span></div>
+    <div class="gap"></div>
+    <div class="switch" role="tablist">
+      <button id="bt-time" class="on" role="tab" aria-selected="true">PARA O TIME</button>
+      <button id="bt-ia" role="tab" aria-selected="false">PARA A IA</button>
+    </div>
+  </div>
+</header>
+
+<div class="corpo">
+
+<!-- ══════════ NAVEGAÇÃO ══════════ -->
+<nav id="nav">
+  <div id="nav-time">
+    <div class="grupo">Entender</div>
+    <a href="#t-mudou">1 · O que mudou de fato</a>
+    <a href="#t-motor">2 · Como o algoritmo decide</a>
+    <a href="#t-alavancas">3 · As quatro alavancas</a>
+    <div class="grupo">As 8 leis</div>
+    <a href="#t-leis">4 · O que os dados provaram</a>
+    <div class="grupo">Operar</div>
+    <a href="#t-ler">5 · Ler sem se enganar</a>
+    <a href="#t-margem">6 · Sua margem define seu ROAS</a>
+    <a href="#t-cadastro">7 · Título e categoria</a>
+    <a href="#t-protocolos">8 · Protocolos de decisão</a>
+    <div class="grupo">Fechar</div>
+    <a href="#t-tese">9 · A tese</a>
+  </div>
+  <div id="nav-ia" style="display:none">
+    <div class="grupo">Contrato</div>
+    <a href="#i-uso">0 · Instruções de uso</a>
+    <a href="#i-prov">1 · Sistema de proveniência</a>
+    <div class="grupo">Implementação</div>
+    <a href="#i-formulas">2 · Fórmulas e cálculos</a>
+    <a href="#i-const">3 · Constantes e limiares</a>
+    <a href="#i-arvore">4 · Árvore de decisão</a>
+    <div class="grupo">Restrições</div>
+    <a href="#i-anti">5 · Anti-regras</a>
+    <a href="#i-ling">6 · Calibração de linguagem</a>
+    <div class="grupo">Saída</div>
+    <a href="#i-saida">7 · Estrutura do diagnóstico</a>
+    <a href="#i-tabelas">8 · Tabelas de referência</a>
+    <a href="#i-correcoes">9 · Log de correções</a>
+  </div>
+</nav>
+
+<main>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════ VERSÃO TIME ═══════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="modo on" id="modo-time">
+
+<div class="capa">
+  <div class="olho">Manual técnico · Versão para o time</div>
+  <h1>O Princípio do<br>Leilão Reverso</h1>
+  <p>Como o Shopee Ads funciona no modelo oCPM, o que os dados da nossa operação provaram, e como decidir com eles.</p>
+</div>
+
+<div class="nums">
+  <div class="n1"><div class="v">15.764</div><div class="l">registros de produto-mês analisados</div></div>
+  <div class="n1"><div class="v">167</div><div class="l">contas na base</div></div>
+  <div class="n1"><div class="v">9</div><div class="l">meses de série histórica</div></div>
+  <div class="n1"><div class="v">8</div><div class="l">leis medidas</div></div>
+</div>
+
+<h2 id="t-mudou">1 · O que mudou de fato</h2>
+<p>Em maio de 2026 a Shopee trocou o modelo de cobrança de CPC (custo por clique) para oCPM (custo otimizado por mil impressões). O mercado tratou como catástrofe. Os números não confirmam.</p>
+
+<table>
+<thead><tr><th></th><th>Nov/2025 · CPC</th><th>Jul/2026 · oCPM</th><th>Variação</th></tr></thead>
+<tbody>
+<tr><td>ROAS</td><td>8,54×</td><td>8,81×</td><td>+3%</td></tr>
+<tr><td>CPM</td><td>R$4,26</td><td>R$5,13</td><td><strong>+20%</strong></td></tr>
+<tr><td>CTR</td><td>2,82%</td><td>3,17%</td><td><strong>+12%</strong></td></tr>
+<tr><td>Conversão</td><td>2,51%</td><td>2,93%</td><td>+17%</td></tr>
+<tr><td>Ticket</td><td>R$51</td><td>R$49</td><td>−4%</td></tr>
+</tbody>
+</table>
+
+<p><strong>A leitura correta:</strong> o CPM subiu 20% e foi inteiramente absorvido pela melhora de CTR e conversão. O algoritmo passou a entregar impressões para gente mais bem casada com o produto — e cobra mais caro por essa qualidade. Para o vendedor, deu empate.</p>
+
+<div class="box alerta">
+<div class="tag">Correção de versões anteriores</div>
+<p>A ideia de que houve um "vale" em maio, com o ROAS caindo para 7,8×, era erro de cálculo — vinha de tirar a média simples dos ROAS de cada conta em vez de ponderar por gasto. No cálculo correto, maio fechou em 8,81×, dentro da faixa normal. <strong>Não houve terremoto.</strong></p>
+</div>
+
+<p><strong>E é justamente aí que está a lição:</strong> o mercado entrou em pânico com uma transição que, nos números, foi suave. Quem reagiu ao pânico — cortando orçamento, pausando produto, revertendo método de lance — se machucou sozinho. A turbulência era percebida, não real.</p>
+
+<h2 id="t-motor">2 · Como o algoritmo decide</h2>
+<p>Pare de pensar no algoritmo como leiloeiro que entrega ao maior lance. Ele é um <strong>investidor</strong>: tem um recurso escasso — impressões — e quer alocá-lo onde o retorno é maior.</p>
+<p>Daí o nome. No leilão comum, você dá o lance. No <strong>Leilão Reverso, a Shopee dá o lance em você</strong>.</p>
+
+<h3>Os cinco passos, a cada impressão</h3>
+<ol>
+<li><strong>Você declara intenção, não preço.</strong> Informa meta de ROAS e orçamento. Nunca digita um lance.</li>
+<li><strong>O sistema traduz em valor por venda.</strong> Ticket R$80 com meta 8× significa que você aceita pagar até R$10 por venda.</li>
+<li><strong>Dois modelos preveem, para aquele comprador específico:</strong> a chance de ele clicar, e a chance de comprar depois de clicar.</li>
+<li><strong>Converte em lance por impressão:</strong> chance de clique × chance de compra × valor por venda × 1000.</li>
+<li><strong>Maior lance vence.</strong> Você paga por impressão entregue, mesmo sem clique.</li>
+</ol>
+
+<div class="box">
+<div class="tag">A consequência mais mal compreendida</div>
+<p><strong>CPM alto não é castigo — é elogio.</strong> Se a Shopee cobra mais caro para exibir seu produto, é porque o modelo prevê que ele converte bem, e por isso aquela impressão vale mais. CPM subindo com ROAS estável significa que o algoritmo elevou a aposta em você. A ação correta é escalar, não pausar.</p>
+</div>
+
+<h3>Por que produto novo sofre</h3>
+<p>O sistema precisa <strong>calibrar</strong> a previsão — se ele diz "3% de conversão", o produto precisa converter perto de 3% na vida real, senão a cobrança fica errada para todo mundo. Produto sem histórico tem previsão ruim, e previsão ruim custa dinheiro à plataforma. Por isso ela entrega pouco no começo.</p>
+<p><strong>Regra:</strong> não tocar no produto nos primeiros 7 dias. Cada alteração relevante reinicia a calibração e joga fora o trabalho estatístico já feito.</p>
+
+<h3>A janela de 7 dias que engana todo mundo</h3>
+<p>A Shopee credita conversões em até <strong>7 dias após o clique</strong>. Uma venda de hoje pode pertencer a um anúncio de seis dias atrás.</p>
+<p><strong>Consequência:</strong> o ROAS dos últimos 7 dias está <em>sempre</em> subestimado — as vendas ainda não terminaram de chegar. Boa parte das decisões de "pausar produto ruim" foi tomada sobre números que se completariam dois dias depois.</p>
+
+<div class="box">
+<div class="tag">Regra obrigatória</div>
+<p>Toda avaliação de desempenho <strong>exclui os últimos 7 dias</strong>. Mês corrente nunca se compara com mês fechado. Janela mínima recomendada: 28 dias, tirando os 7 últimos.</p>
+</div>
+
+<h2 id="t-alavancas">3 · As quatro alavancas</h2>
+<pre><code>ROAS = Ticket × Conversão × CTR × 1000 ÷ CPM
+
+Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
+
+<p>Esta equação mostra a <strong>anatomia</strong> do ROAS: existem exatamente quatro alavancas, e elas se <strong>multiplicam</strong> entre si. Melhorar duas ao mesmo tempo tem efeito composto, não somado.</p>
+
+<div class="box alerta">
+<div class="tag">Honestidade que protege a autoridade do método</div>
+<p>Esta fórmula é uma <strong>identidade matemática</strong>, não uma descoberta sobre a Shopee. Abrindo as definições, os termos se cancelam e sobra a própria definição de CPM. Ela é verdadeira em qualquer plataforma de anúncios. Versões anteriores a apresentavam como "validada com erro de 0,0005%" — aquele número era arredondamento, não validação. <strong>O diferencial da Efeito Vendas não é a fórmula: são as 8 leis a seguir.</strong></p>
+</div>
+
+<h3>A ordem certa de mexer</h3>
+<table>
+<thead><tr><th>Ordem</th><th>Alavanca</th><th>Por quê</th></tr></thead>
+<tbody>
+<tr><td>1ª</td><td><strong>Conversão</strong></td><td>Atua em dois pontos do sistema: no lance e na qualidade do anúncio</td></tr>
+<tr><td>2ª</td><td><strong>CTR</strong></td><td>É o que transforma o lance em preço de impressão</td></tr>
+<tr><td>3ª</td><td><strong>Ticket</strong></td><td>Sobe o lance, mas derruba a conversão — efeito líquido fraco</td></tr>
+<tr><td>4ª</td><td><strong>ROAS alvo</strong></td><td>É freio, não acelerador</td></tr>
+</tbody>
+</table>
+
+<h3>O ROAS alvo é um dial de público</h3>
+<p>A Shopee documenta: <strong>ROAS alvo alto</strong> faz o sistema mirar público de nicho e alta intenção — melhora eficiência, limita alcance. <strong>ROAS alvo baixo</strong> expande para público amplo — mais volume, menos precisão.</p>
+<p>É o mesmo dial que existia no modelo antigo como "correspondência exata versus ampla". Por isso pedir ROAS 15× de um produto que converte 1,5% faz ele sumir: você mandou o sistema procurar um comprador que quase não existe.</p>
+
+<h2 id="t-leis">4 · O que os dados provaram</h2>
+<p>Esta é a parte proprietária. Oito leis medidas sobre a nossa operação, que não existem em nenhum material público.</p>
+
+<div class="lei">
+<div class="num">LEI 1 · <span class="et med">MEDIDO</span> n = 8 pares de meses</div>
+<h3>Legibilidade</h3>
+<div class="sub">A confiabilidade da leitura depende do volume de conversões</div>
+<table>
+<thead><tr><th>Conversões/mês</th><th>Confiabilidade</th><th>Tradução</th></tr></thead>
+<tbody>
+<tr><td>menos de 10</td><td><strong>0,38</strong></td><td>62% do que você vê é ruído</td></tr>
+<tr><td>10 a 30</td><td><strong>0,53</strong></td><td>metade é ruído</td></tr>
+<tr><td>30 a 100</td><td><strong>0,71</strong></td><td>leitura utilizável</td></tr>
+<tr><td>mais de 100</td><td><strong>0,85</strong></td><td>leitura confiável</td></tr>
+</tbody>
+</table>
+<div class="faz"><b>O que fazer:</b> abaixo de <strong>30 conversões</strong> o produto está em zona de ruído. Nenhuma decisão de desempenho é válida — nem pausar, nem escalar, nem reformular. Só alimentar ou esperar. E 39% da nossa carteira está nessa zona.</div>
+</div>
+
+<div class="lei">
+<div class="num">LEI 2 · <span class="et med">MEDIDO</span> n = 3.517 observações</div>
+<h3>Escalar é barato</h3>
+<div class="sub">Elasticidade de 1,03 — dobrar o gasto dobra o GMV</div>
+<div class="nums">
+<div class="n1"><div class="v">1,03</div><div class="l">elasticidade do GMV ao gasto</div></div>
+<div class="n1"><div class="v">+2%</div><div class="l">efeito no ROAS ao dobrar o gasto</div></div>
+<div class="n1"><div class="v">+209%</div><div class="l">GMV de quem mais que dobrou o gasto</div></div>
+</div>
+<div class="faz"><b>O que fazer:</b> escalar é a ação padrão para produto legível com margem saudável, não a exceção. Os limites são estoque, margem e operação — <strong>não o ROAS</strong>.</div>
+</div>
+
+<div class="box alerta">
+<div class="tag">Ressalva honesta da Lei 2</div>
+<p>Esta medição é observacional, não experimental. Os produtos que receberam mais orçamento foram escolhidos pelos gestores justamente por já irem bem — existe seleção embutida. O que os dados provam é que <strong>escalar como nós escalamos não destruiu ROAS</strong>. Não provam que escalar aleatoriamente seria gratuito.</p>
+</div>
+
+<div class="lei">
+<div class="num">LEI 3 · <span class="et med">MEDIDO</span> n = 883 cortes</div>
+<h3>Cortar é destruição pura</h3>
+<div class="sub">Reduzir orçamento encolhe receita sem ganhar eficiência</div>
+<table>
+<thead><tr><th>Movimento</th><th>Variação de GMV</th><th>Efeito no ROAS</th></tr></thead>
+<tbody>
+<tr><td>cortou mais de 20%</td><td><strong>−39%</strong></td><td><strong>−2%</strong></td></tr>
+<tr><td>cortou 5 a 20%</td><td>−14%</td><td>−1%</td></tr>
+</tbody>
+</table>
+<div class="faz"><b>O que fazer:</b> nunca cortar orçamento "para melhorar a eficiência". Não melhora. Só encolhe.</div>
+</div>
+
+<div class="lei">
+<div class="num">LEI 4 · <span class="et med">MEDIDO</span> n = 1.237 produtos</div>
+<h3>Reversão à média</h3>
+<div class="sub">Quase metade dos produtos ruins se recupera sozinha</div>
+<p style="font-size:19px;color:#fff;margin:8px 0"><strong>45%</strong> dos produtos com ROAS abaixo de 2× estavam acima de 4× no mês seguinte, sem ninguém mexer.</p>
+<div class="faz"><b>O que fazer:</b> pausar produto por ROAS baixo é uma aposta com quase 50% de chance de estar matando um produto viável. Use o protocolo da seção 8.</div>
+</div>
+
+<div class="lei">
+<div class="num">LEI 5 · <span class="et med">MEDIDO</span> n = 1.325 produtos</div>
+<h3>O ticket não multiplica o ROAS</h3>
+<div class="sub">Correção importante em relação a versões anteriores</div>
+<p>Ticket +10% → ROAS <strong>+2,2%</strong>, com R² de apenas <strong>0,09</strong>. O ticket explica 9% da variação do ROAS.</p>
+<h4>Por que o efeito é fraco</h4>
+<table>
+<thead><tr><th>Ticket +10% causa</th><th>Efeito</th></tr></thead>
+<tbody>
+<tr><td>na conversão</td><td><strong>−5,7%</strong></td></tr>
+<tr><td>no CPM</td><td><strong>+2,4%</strong></td></tr>
+<tr><td>no CTR</td><td>+0,9%</td></tr>
+</tbody>
+</table>
+<p>O ticket sobe o lance, mas a conversão cai e o CPM sobe. Os efeitos quase se cancelam.</p>
+<h4>E o kit?</h4>
+<p>Comparando 518 kits com 1.067 unidades, controlando por faixa de ticket: o efeito do formato kit sobre o ROAS é de <strong>+1% a +3%</strong> — dentro do ruído.</p>
+<div class="faz"><b>O que fazer:</b> kit continua valendo por <strong>margem, logística e ticket médio da loja</strong>. Não prometa ganho de ROAS via kit — os dados não entregam.</div>
+</div>
+
+<div class="box erro">
+<div class="tag">Alinhamento necessário</div>
+<p>A afirmação "kits têm ROAS 37% maior", presente em material anterior, era <strong>confundimento</strong>: kits têm ticket maior, e a comparação não controlava por isso. Se isso já foi ensinado em aula, vale corrigir o discurso antes que o time receba duas versões contraditórias.</p>
+</div>
+
+<div class="lei">
+<div class="num">LEI 6 · <span class="et med">MEDIDO</span> n = 1.325 produtos</div>
+<h3>Saturação de audiência</h3>
+<div class="sub">Escalar dilui o público — mas pouco</div>
+<p>Dobrar as impressões: CTR <strong>+4,5%</strong>, conversão <strong>−7,2%</strong>.</p>
+<div class="faz"><b>O que fazer:</b> ao escalar, esperar queda de até 5% no ROAS como normal. Não é sinal de problema — é o custo previsto de ampliar alcance.</div>
+</div>
+
+<div class="lei">
+<div class="num">LEI 7 · <span class="et med">MEDIDO</span> n = 892 produtos</div>
+<h3>O campeão nasce grande</h3>
+<div class="sub">Volume no primeiro mês prevê sucesso. Eficiência não.</div>
+<table>
+<thead><tr><th>Métrica do mês 1</th><th>Poder de prever o futuro</th></tr></thead>
+<tbody>
+<tr><td><strong>GMV</strong></td><td><strong>0,65</strong></td></tr>
+<tr><td><strong>Conversões</strong></td><td><strong>0,57</strong></td></tr>
+<tr><td>ROAS</td><td>0,50</td></tr>
+<tr><td>CTR</td><td>0,27</td></tr>
+<tr><td>Taxa de conversão</td><td>0,19</td></tr>
+<tr><td>Ticket</td><td>0,16</td></tr>
+</tbody>
+</table>
+<p>No primeiro mês, os campeões fizeram <strong>130 conversões</strong> e R$7.159. Os demais: 10 conversões e R$453.</p>
+<div class="faz"><b>O que fazer:</b> campeão não é construído por otimização — é <strong>detectado por volume inicial</strong>. O trabalho de maior retorno é identificar tração cedo e alimentar.</div>
+</div>
+
+<div class="lei">
+<div class="num">LEI 8 · <span class="et med">MEDIDO</span> n = 892 produtos</div>
+<h3>A probabilidade se define cedo</h3>
+<div class="sub">O ROAS do primeiro mês determina a chance de sucesso</div>
+<table>
+<thead><tr><th>ROAS no mês 1</th><th>Chance de virar campeão</th><th>GMV futuro mediano</th></tr></thead>
+<tbody>
+<tr><td>menos de 4×</td><td><strong>1%</strong></td><td>R$661</td></tr>
+<tr><td>4 a 8×</td><td>7%</td><td>R$2.768</td></tr>
+<tr><td>8 a 15×</td><td>19%</td><td>R$8.223</td></tr>
+<tr><td>mais de 15×</td><td><strong>40%</strong></td><td>R$21.241</td></tr>
+</tbody>
+</table>
+<div class="faz"><b>O que fazer:</b> produto que abre abaixo de 4× tem 1% de chance. O problema dele não é a campanha — <strong>é a oferta</strong>. Reformular preço, foto e proposta, não mexer no anúncio.</div>
+</div>
+
+<h2 id="t-ler">5 · Ler sem se enganar</h2>
+
+<h3>O ROAS Ajustado</h3>
+<p>A Lei 1 diz que o ROAS de produto pequeno é quase todo ruído. O ROAS Ajustado corrige isso, puxando o número observado na direção de uma referência confiável — na proporção exata do ruído.</p>
+<pre><code>ROAS Ajustado = C × ROAS observado + (1 − C) × ROAS da conta
+
+     menos de 10 conversões  →  C = 0,38
+     10 a 30                 →  C = 0,53
+     30 a 100                →  C = 0,71
+     mais de 100             →  C = 0,85</code></pre>
+<p><strong>Exemplo:</strong> produto com 8 conversões mostrando ROAS 18×, numa conta que roda 7×.<br>
+ROAS Ajustado = 0,38 × 18 + 0,62 × 7 = <strong>11,2×</strong>. É esse o número que entra na decisão.</p>
+<div class="box">
+<div class="tag">Validado contra a realidade</div>
+<p>Testado em 1.237 produtos: <strong>9,4% menos erro</strong> de previsão que o ROAS cru, e <strong>12% menos erros</strong> de classificação de curva.</p>
+</div>
+
+<h3>As sete armadilhas</h3>
+<table>
+<thead><tr><th>#</th><th>A leitura errada</th><th>A leitura certa</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>"O CPM subiu, está caro, vou pausar"</td><td>CPM alto com ROAS estável = confiança do algoritmo. Escalar</td></tr>
+<tr><td>2</td><td>"ROAS 15×, é o melhor da conta"</td><td>Ver o GMV. ROAS alto sobre faturamento minúsculo é inventário residual</td></tr>
+<tr><td>3</td><td>"ROAS alto = sucesso"</td><td>15× sobre R$3 mil não constrói operação. 9× sobre R$100 mil constrói</td></tr>
+<tr><td>4</td><td>Comparar mês corrente com mês fechado</td><td>Produz queda aparente de 70-80% que não existe</td></tr>
+<tr><td>5</td><td>Julgar os últimos 7 dias</td><td>A atribuição não terminou. O ROAS está subestimado</td></tr>
+<tr><td>6</td><td>Julgar produto com poucas conversões</td><td>Lei 1. Abaixo de 30 não há leitura</td></tr>
+<tr><td>7</td><td>"Vou pedir ROAS alvo maior para lucrar mais"</td><td>É denominador do lance. Estrangula e some do leilão</td></tr>
+</tbody>
+</table>
+
+<h2 id="t-margem">6 · Sua margem define seu ROAS</h2>
+<p>Nenhuma meta de ROAS faz sentido sem margem. Um ROAS de 5× é excelente para margem de 30% e prejuízo para margem de 15%.</p>
+<pre><code>ROAS mínimo = 100 ÷ margem líquida %</code></pre>
+<table>
+<thead><tr><th>Margem líquida</th><th>ROAS de empate</th></tr></thead>
+<tbody>
+<tr><td>10%</td><td>10,0×</td></tr>
+<tr><td>15%</td><td>6,7×</td></tr>
+<tr><td>20%</td><td>5,0×</td></tr>
+<tr><td>25%</td><td>4,0×</td></tr>
+<tr><td>30%</td><td>3,3×</td></tr>
+<tr><td>40%</td><td>2,5×</td></tr>
+</tbody>
+</table>
+
+<h3>Comissões Shopee</h3>
+<table>
+<thead><tr><th>Faixa de preço</th><th>Comissão</th></tr></thead>
+<tbody>
+<tr><td>até R$79,99</td><td>20% + R$4</td></tr>
+<tr><td>R$80,00 a R$99,99</td><td>14% + R$16</td></tr>
+<tr><td>R$100,00 a R$199,99</td><td>14% + R$20</td></tr>
+<tr><td>R$200,00 ou mais</td><td>14% + R$26</td></tr>
+</tbody>
+</table>
+<div class="box alerta">
+<div class="tag">O degrau que custa caro</div>
+<p>Produto a R$79,99 paga <strong>R$20,00</strong> de comissão. A R$80,00 paga <strong>R$27,20</strong>. Sete reais e vinte por um centavo de preço.</p>
+</div>
+
+<h2 id="t-cadastro">7 · Título e categoria</h2>
+
+<h3>O título virou peça de mídia</h3>
+<p>No GMV Max <strong>não existe mais escolha de palavra-chave</strong>. A Shopee documenta que a correspondência é automática e se baseia em três coisas: o título e conteúdo do anúncio, a intenção de busca do comprador, e o histórico do anúncio.</p>
+<p><strong>Implicação:</strong> antes, título fraco era compensado escolhendo boas palavras-chave. Agora não existe essa compensação — <strong>título ruim limita os leilões em que o produto sequer entra</strong>, e nenhuma otimização de lance conserta isso.</p>
+<p>É um gargalo invisível: não aparece em métrica nenhuma, porque o produto simplesmente não disputa o que perdeu.</p>
+
+<h3>A categoria é irreversível</h3>
+<p>A categoria faz três coisas: define em quais leilões o produto entra, alimenta a relevância, e é o alvo direto da segmentação de descoberta.</p>
+<div class="box erro">
+<div class="tag">Decisão sem volta</div>
+<p>A categoria é <strong>o único campo que não pode ser editado</strong> depois da publicação. E cadastrar em categoria não correspondente é infração de spam de categorias, com risco de banimento e exclusão permanente do item. É decisão de arquitetura, não de operação — merece etapa formal no cadastro.</p>
+</div>
+
+<h2 id="t-protocolos">8 · Protocolos de decisão</h2>
+
+<h3>Lançamento</h3>
+<pre><code>Dias 0-7    Lance Automático. NÃO TOCAR.
+            Ignorar os números deste período.
+
+Dias 8-30   Observar acúmulo de conversões.
+            Nenhuma decisão antes de 30 conversões.
+
+30 conversões ou 30 dias → TRIAGEM (Lei 8):
+     ROAS < 4×      problema é a OFERTA. Reformular.
+     ROAS 4-8×      manter, otimizar conversão.
+     ROAS 8-15×     escalar +20%/semana.
+     ROAS > 15×     escalar agressivo.
+
+200 cliques e 20 conversões → migrar para Meta de ROAS.
+                              NUNCA reverter depois.</code></pre>
+
+<h3>Escala</h3>
+<p><strong>Pré-requisitos, todos obrigatórios:</strong> produto legível (30+ conversões), ROAS ajustado acima do mínimo da margem, estoque suficiente, fora da fase de aprendizado.</p>
+<p><strong>Execução:</strong> +20% de orçamento por semana, 7 dias entre incrementos, sem outras alterações.</p>
+<p><strong>Quando parar:</strong> estoque, margem ou capacidade operacional. <strong>Não parar por queda de ROAS de até 5%</strong> — é o efeito esperado pela Lei 6.</p>
+
+<h3>Pausar — o protocolo que evita o erro mais caro</h3>
+<div class="faz-nao">
+<div class="fn nao">
+<div class="t">✗ NÃO justifica pausar</div>
+<ul>
+<li>ROAS baixo isoladamente (Lei 4: 45% se recuperam)</li>
+<li>CPM alto (armadilha 1)</li>
+<li>Desempenho ruim nos últimos 7 dias</li>
+<li>Produto abaixo de 30 conversões (Lei 1)</li>
+<li>Querer "melhorar o ROAS da conta" (Lei 3)</li>
+</ul>
+</div>
+<div class="fn sim">
+<div class="t">✓ Justifica pausar</div>
+<ul>
+<li>Margem comprovadamente negativa</li>
+<li>Ruptura de estoque</li>
+<li>Problema de qualidade ou risco reputacional</li>
+<li>Produto legível, abaixo do ROAS mínimo da margem, por 3 meses seguidos</li>
+</ul>
+</div>
+</div>
+<div class="box erro">
+<div class="tag">Regra absoluta</div>
+<p><strong>Pausar, nunca apagar.</strong> Apagar destrói o histórico de calibração permanentemente e o produto volta do zero.</p>
+</div>
+
+<h2 id="t-tese">9 · A tese</h2>
+<blockquote>
+<p>O ROAS não é o objetivo. É o pedágio.</p>
+<p>O recurso escasso no oCPM é <strong>volume de conversão por anúncio</strong> — porque ele é, ao mesmo tempo, o que torna o produto legível para você e o que o algoritmo usa para calibrar.</p>
+<p>A operação média gerencia ao contrário: dispersa orçamento entre muitos produtos (mantendo todos ilegíveis), corta os que parecem ruins (destruindo receita sem ganhar eficiência), e persegue ROAS alto — que é consequência, não causa.</p>
+</blockquote>
+
+<h3>O que corrigimos no mercado</h3>
+<table>
+<thead><tr><th>O mercado ensina</th><th>Os dados mostram</th></tr></thead>
+<tbody>
+<tr><td>Escalar derruba o ROAS</td><td>Elasticidade 1,03 — não derruba <em>(Lei 2)</em></td></tr>
+<tr><td>Pause o que está ruim</td><td>45% se recuperam sozinhos <em>(Lei 4)</em>; cortar tira 39% do GMV <em>(Lei 3)</em></td></tr>
+<tr><td>Kit aumenta o ROAS</td><td>Efeito de 1 a 3%, dentro do ruído <em>(Lei 5)</em></td></tr>
+<tr><td>Ticket multiplica o ROAS</td><td>+2,2% com R² de 0,09 <em>(Lei 5)</em></td></tr>
+<tr><td>CPM alto é problema</td><td>É sinal de confiança do algoritmo</td></tr>
+<tr><td>Otimize cada anúncio</td><td>Abaixo de 30 conversões não há o que otimizar <em>(Lei 1)</em></td></tr>
+</tbody>
+</table>
+
+<h3>O que pode nos provar errados</h3>
+<p>Isto é uma tese, não uma opinião — e por isso pode ser testada em 60 dias com grupo de controle:</p>
+<ol>
+<li>Contas que pararem de pausar por ROAS baixo terão GMV maior sem perda proporcional de ROAS</li>
+<li>Contas que concentrarem orçamento em produtos legíveis terão menor volatilidade</li>
+<li>Produtos triados no mês 1 pela Lei 8 terão taxa de campeão superior aos 10% da base atual</li>
+</ol>
+
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- ══════════════════ VERSÃO IA ═════════════════════════════ -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="modo" id="modo-ia">
+
+<div class="capa">
+  <div class="olho">Especificação técnica · Versão para a IA</div>
+  <h1>Motor de Análise<br>Shopee Ads</h1>
+  <p>Contrato de implementação para o sistema de análise de contas da Efeito Vendas. Fórmulas, limiares, lógica de decisão e restrições.</p>
+</div>
+
+<h2 id="i-uso">0 · Instruções de uso</h2>
+<p>Se você é um modelo construindo o motor de análise, siga esta ordem de precedência:</p>
+<pre><code>1. Verificar janela de avaliação      (seção 4, etapa 1)
+2. Verificar legibilidade              (seção 3, Lei 1)
+3. Verificar fase de aprendizado       (seção 3)
+4. Calcular ROAS ajustado              (seção 2)
+5. Verificar viabilidade econômica     (seção 3)
+6. Classificar                         (seção 3)
+7. Gerar recomendação                  (seção 4)
+8. Calibrar linguagem pela proveniência (seção 6)
+9. Validar contra anti-regras          (seção 5)</code></pre>
+<div class="box erro">
+<div class="tag">Restrição dura</div>
+<p>Nenhum diagnóstico de desempenho pode ser emitido se a etapa 1 ou 2 falhar. Nesses casos, retornar o motivo do bloqueio e as ações permitidas — nunca uma recomendação de pausar, escalar ou reformular.</p>
+</div>
+
+<h2 id="i-prov">1 · Sistema de proveniência</h2>
+<p>Toda afirmação carrega etiqueta. Ela determina a força permitida da linguagem na saída.</p>
+<table>
+<thead><tr><th>Etiqueta</th><th>Origem</th><th>Tratamento</th></tr></thead>
+<tbody>
+<tr><td><span class="et med">MEDIDO</span></td><td>Calculado sobre a operação, com n declarado</td><td>Afirmar com confiança, citar o n</td></tr>
+<tr><td><span class="et doc">DOCUMENTADO</span></td><td>Publicado pela Shopee ou literatura técnica</td><td>Afirmar como fato externo</td></tr>
+<tr><td><span class="et der">DERIVADO</span></td><td>Consequência algébrica de definições</td><td>Sempre verdadeiro; não prova nada sobre o algoritmo</td></tr>
+<tr><td><span class="et hip">HIPÓTESE</span></td><td>Inferência não testada diretamente</td><td>Apresentar como hipótese, nunca como fato</td></tr>
+</tbody>
+</table>
+<p><strong>Invariante:</strong> nada é <span class="et med">MEDIDO</span> sem número de observações. Sem n, não é medição.</p>
+
+<h2 id="i-formulas">2 · Fórmulas e cálculos</h2>
+
+<h3>Campos de entrada obrigatórios</h3>
+<pre><code>Por anúncio, por mês:
+  conta_id, produto_id, nome_anuncio, mes_referencia
+  status_anuncio, metodo_lance
+  impressoes, cliques, conversoes, gmv, despesas
+
+Por conta (contexto):
+  gmv_total, despesas_total     → ROAS de referência
+  margem_liquida_percentual     → se ausente, solicitar</code></pre>
+
+<h3>Cálculos derivados</h3>
+<pre><code>ctr       = cliques / impressoes
+conversao = conversoes / cliques
+ticket    = gmv / conversoes
+roas      = gmv / despesas
+cpm       = despesas / impressoes * 1000
+lance     = ticket * conversao / roas
+
+# confiabilidade — Lei 1
+if   conversoes &lt; 10:   C = 0.38
+elif conversoes &lt; 30:   C = 0.53
+elif conversoes &lt; 100:  C = 0.71
+else:                   C = 0.85
+
+roas_referencia = gmv_conta_total / despesas_conta_total
+roas_ajustado   = C * roas + (1 - C) * roas_referencia
+
+legivel     = conversoes &gt;= 30
+roas_minimo = 100 / margem_liquida_percentual</code></pre>
+
+<h3>Projeção de escala</h3>
+<pre><code># Lei 2 — elasticidade 1,03
+gmv_projetado = gmv_atual * (gasto_novo / gasto_atual) ** 1.03</code></pre>
+
+<h3>Caminhos de resgate de viabilidade</h3>
+<pre><code>ticket_necessario     = 0.15 * roas_alvo / conversao
+conversao_necessaria  = 0.15 * roas_alvo / ticket
+roas_alvo_maximo      = ticket * conversao / 0.15</code></pre>
+
+<h2 id="i-const">3 · Constantes e limiares</h2>
+<table>
+<thead><tr><th>Constante</th><th>Valor</th><th>Origem</th></tr></thead>
+<tbody>
+<tr><td>LIMIAR_LEGIBILIDADE</td><td>30 conversões/mês</td><td><span class="et med">MEDIDO</span> Lei 1</td></tr>
+<tr><td>CONFIABILIDADE</td><td>0,38 / 0,53 / 0,71 / 0,85</td><td><span class="et med">MEDIDO</span> Lei 1</td></tr>
+<tr><td>ELASTICIDADE_ESCALA</td><td>1,03</td><td><span class="et med">MEDIDO</span> Lei 2, n=3.517</td></tr>
+<tr><td>JANELA_ATRIBUICAO</td><td>7 dias</td><td><span class="et doc">DOCUMENTADO</span></td></tr>
+<tr><td>FASE_APRENDIZADO</td><td>7 a 14 dias</td><td><span class="et doc">DOCUMENTADO</span></td></tr>
+<tr><td>LANCE_MINIMO_VIAVEL</td><td>R$0,15</td><td><span class="et hip">HIPÓTESE</span></td></tr>
+<tr><td>CORTE_ROAS_QUADRANTE</td><td>8×</td><td>Convenção do método</td></tr>
+<tr><td>CORTE_GMV_QUADRANTE</td><td>R$5.000/mês</td><td>Convenção do método</td></tr>
+<tr><td>MIGRAR_METODO</td><td>200 cliques e 20 conversões</td><td><span class="et doc">DOCUMENTADO</span></td></tr>
+<tr><td>INCREMENTO_ESCALA</td><td>+20% por semana</td><td>Convenção conservadora</td></tr>
+<tr><td>TOLERANCIA_QUEDA_ESCALA</td><td>5% de ROAS</td><td><span class="et med">MEDIDO</span> Lei 6</td></tr>
+</tbody>
+</table>
+
+<h3>Classificação</h3>
+<pre><code># Curvas — usar SEMPRE roas_ajustado
+A       : roas_ajustado &gt; 8  E ctr &gt; 0.02
+B       : 4 &lt;= roas_ajustado &lt;= 8
+C       : 2 &lt;= roas_ajustado &lt; 4
+PAUSAR  : roas_ajustado &lt; 2 E ctr &lt; 0.01
+
+# Quadrantes
+OURO    : roas_ajustado &gt;= 8  E gmv &gt;= 5000
+ESCALA  : roas_ajustado &lt;  8  E gmv &gt;= 5000
+NICHO   : roas_ajustado &gt;= 8  E gmv &lt;  5000
+FRACO   : roas_ajustado &lt;  8  E gmv &lt;  5000</code></pre>
+
+<h3>Triagem no mês 1 — Lei 8</h3>
+<pre><code>roas_mes1 &lt; 4    → probabilidade de campeao: 1%
+                   acao: REFORMULAR OFERTA (nao a campanha)
+roas_mes1 4-8    → 7%   · manter, otimizar conversao
+roas_mes1 8-15   → 19%  · escalar moderado
+roas_mes1 &gt; 15   → 40%  · escalar agressivo</code></pre>
+
+<h2 id="i-arvore">4 · Árvore de decisão</h2>
+<pre><code>ETAPA 1 — JANELA
+  se periodo inclui os ultimos 7 dias:
+      EMITIR AVISO "atribuicao incompleta"
+      NAO emitir diagnostico de desempenho
+      ENCERRAR
+  se periodo é mes corrente e comparacao é com mes fechado:
+      BLOQUEAR comparacao
+
+ETAPA 2 — LEGIBILIDADE
+  se conversoes &lt; 30:
+      classificar ILEGIVEL
+      acoes permitidas = ["alimentar", "aguardar"]
+      NAO recomendar pausar / escalar / reformular
+      ENCERRAR
+
+ETAPA 3 — APRENDIZADO
+  se idade_anuncio &lt; 7 dias:
+      classificar EM_APRENDIZADO
+      acoes permitidas = ["aguardar"]
+      ENCERRAR
+
+ETAPA 4 — VIABILIDADE ECONOMICA
+  se margem disponivel:
+      se roas_ajustado &lt; roas_minimo:
+          sinalizar PREJUIZO
+  senao:
+      solicitar margem antes de recomendar meta de ROAS
+
+ETAPA 5 — CLASSIFICAR
+  curva     = f(roas_ajustado, ctr)
+  quadrante = f(roas_ajustado, gmv)
+
+ETAPA 6 — METODO DE LANCE
+  se metodo == "Lance Automatico"
+     e cliques &gt;= 200 e conversoes &gt;= 20:
+      recomendar MIGRAR para Meta de ROAS
+      anexar alerta "nunca reverter depois"
+
+ETAPA 7 — RECOMENDACAO
+  OURO   → escalar +20%/semana se estoque permite
+  ESCALA → atacar conversao; listar 5 alavancas; auditar titulo
+  NICHO  → ampliar orcamento +20%/semana
+  FRACO  → se roas &lt; 4x desde o lancamento:
+               reformular OFERTA
+           senao:
+               otimizar conversao
+
+ETAPA 8 — CANDIDATO A ESCALA
+  se roas_ajustado &gt; roas_minimo * 1.5 e legivel:
+      marcar CANDIDATO_ESCALA
+      projetar gmv com elasticidade 1.03</code></pre>
+
+<h2 id="i-anti">5 · Anti-regras</h2>
+<p>Conclusões que o motor <strong>nunca</strong> deve emitir, com a lei que as invalida.</p>
+<table>
+<thead><tr><th>#</th><th>Nunca</th><th>Motivo</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>Recomendar reduzir CPM como objetivo</td><td>CPM é resultado, não variável de controle</td></tr>
+<tr><td>2</td><td>Recomendar pausar por ROAS baixo isolado</td><td>Lei 4: 45% se recuperam</td></tr>
+<tr><td>3</td><td>Recomendar cortar orçamento para ganhar eficiência</td><td>Lei 3: não melhora, destrói receita</td></tr>
+<tr><td>4</td><td>Afirmar que escalar derruba o ROAS</td><td>Lei 2: elasticidade 1,03</td></tr>
+<tr><td>5</td><td>Prometer ganho de ROAS via kit</td><td>Lei 5: efeito 1-3%, dentro do ruído</td></tr>
+<tr><td>6</td><td>Classificar produto com menos de 30 conversões</td><td>Lei 1: sem leitura confiável</td></tr>
+<tr><td>7</td><td>Avaliar janela que inclui os últimos 7 dias</td><td>Atribuição incompleta</td></tr>
+<tr><td>8</td><td>Comparar mês corrente com mês fechado</td><td>Períodos não equivalentes</td></tr>
+<tr><td>9</td><td>Tratar ROAS alto com volume baixo como sucesso</td><td>Verificar GMV absoluto</td></tr>
+<tr><td>10</td><td>Recomendar reverter Meta de ROAS → Automático</td><td>Lei da Âncora</td></tr>
+<tr><td>11</td><td>Apresentar a fórmula do ROAS como descoberta</td><td>É identidade algébrica</td></tr>
+<tr><td>12</td><td>Afirmar magnitude do efeito duplo da conversão</td><td>Não medido; só o mecanismo é documentado</td></tr>
+</tbody>
+</table>
+
+<h2 id="i-ling">6 · Calibração de linguagem</h2>
+<table>
+<thead><tr><th>Etiqueta</th><th>Linguagem permitida</th><th>Linguagem proibida</th></tr></thead>
+<tbody>
+<tr><td><span class="et med">MEDIDO</span></td><td>"Nos dados da operação, X" · "medido em n=Y"</td><td>"sempre", "em qualquer conta"</td></tr>
+<tr><td><span class="et doc">DOCUMENTADO</span></td><td>"A Shopee documenta que X"</td><td>"nós descobrimos que X"</td></tr>
+<tr><td><span class="et der">DERIVADO</span></td><td>"Por definição, X" · "matematicamente, X"</td><td>"validado", "comprovado nos dados"</td></tr>
+<tr><td><span class="et hip">HIPÓTESE</span></td><td>"Provavelmente X" · "ainda não medido"</td><td>qualquer afirmação categórica</td></tr>
+</tbody>
+</table>
+
+<h2 id="i-saida">7 · Estrutura do diagnóstico</h2>
+<pre><code>DIAGNÓSTICO DE CONTA
+├── 1. Sumário
+│      ROAS agregado · GMV · gasto · período avaliado
+│      AVISO explícito se alguma janela é incompleta
+│
+├── 2. Legibilidade da carteira
+│      n produtos legíveis / ilegíveis
+│      % do GMV concentrado nos legíveis
+│
+├── 3. Viabilidade econômica
+│      ROAS mínimo da margem vs ROAS real
+│      Produtos operando em prejuízo
+│
+├── 4. Classificação
+│      Distribuição por quadrante (SÓ produtos legíveis)
+│      Distribuição por curva
+│
+├── 5. Oportunidades priorizadas em R$
+│      ESCALA  → ganho potencial de conversão
+│      NICHO   → ganho de escala (elasticidade 1,03)
+│      Migração de método de lance
+│
+├── 6. Alertas
+│      Prejuízo real · maduros em Automático · títulos fracos
+│
+└── 7. Plano de ação
+       Ordenado por impacto em reais
+       Cada item: o quê · por quê (qual lei) · meta esperada</code></pre>
+
+<h2 id="i-tabelas">8 · Tabelas de referência</h2>
+
+<h3>Benchmarks por produto <span class="et med">MEDIDO</span> n=1.585</h3>
+<table>
+<thead><tr><th>Métrica</th><th>p25</th><th>Mediana</th><th>p75</th></tr></thead>
+<tbody>
+<tr><td>ROAS</td><td>5,0×</td><td>7,2×</td><td>9,5×</td></tr>
+<tr><td>Conversão</td><td>1,27%</td><td>2,50%</td><td>4,65%</td></tr>
+<tr><td>CTR</td><td>—</td><td>2,71%</td><td>—</td></tr>
+<tr><td>Ticket</td><td>—</td><td>R$47</td><td>—</td></tr>
+<tr><td>CPM</td><td>—</td><td>R$4,60</td><td>—</td></tr>
+<tr><td>Lance</td><td>—</td><td>R$0,176</td><td>—</td></tr>
+</tbody>
+</table>
+
+<h3>Ticket × desempenho <span class="et med">MEDIDO</span> medianas, jun/2026</h3>
+<table>
+<thead><tr><th>Faixa</th><th>n</th><th>ROAS</th><th>Conversão</th><th>CPM</th></tr></thead>
+<tbody>
+<tr><td>R$0-20</td><td>88</td><td>5,7×</td><td>4,92%</td><td>R$4,30</td></tr>
+<tr><td>R$20-30</td><td>280</td><td>6,4×</td><td>4,14%</td><td>R$4,33</td></tr>
+<tr><td>R$30-40</td><td>248</td><td>7,0×</td><td>3,41%</td><td>R$4,39</td></tr>
+<tr><td>R$40-50</td><td>255</td><td>6,8×</td><td>2,42%</td><td>R$4,56</td></tr>
+<tr><td>R$50-70</td><td>307</td><td>7,7×</td><td>2,11%</td><td>R$4,58</td></tr>
+<tr><td>R$70-100</td><td>185</td><td>7,2×</td><td>1,55%</td><td>R$5,16</td></tr>
+<tr><td>R$100-150</td><td>99</td><td>6,7×</td><td>1,11%</td><td>R$6,52</td></tr>
+<tr><td>R$150-250</td><td>83</td><td>8,2×</td><td>1,04%</td><td>R$6,60</td></tr>
+<tr><td>R$250+</td><td>40</td><td>12,0×</td><td>1,02%</td><td>R$9,57</td></tr>
+</tbody>
+</table>
+<div class="box alerta">
+<div class="tag">Uso correto desta tabela</div>
+<p>Usar <strong>mediana, nunca média</strong> — a média é inflada por outliers. O ROAS não sobe de forma limpa com o ticket (Lei 5). O padrão consistente é a <strong>conversão caindo</strong> e o <strong>CPM subindo</strong> conforme o ticket sobe. Usar para calibrar expectativa de conversão por faixa de preço, não para projetar ROAS.</p>
+</div>
+
+<h3>Mix de fontes <span class="et med">MEDIDO</span> n=603</h3>
+<table>
+<thead><tr><th>Fonte</th><th>Ponderado</th><th>Mediana por conta</th></tr></thead>
+<tbody>
+<tr><td>Ads</td><td>53,7%</td><td>62%</td></tr>
+<tr><td>Orgânico</td><td>22,3%</td><td>17%</td></tr>
+<tr><td>Afiliado</td><td>10,4%</td><td>5,3%</td></tr>
+<tr><td>Live</td><td>1,1%</td><td>—</td></tr>
+<tr><td>Não classificado</td><td>12,2%</td><td>—</td></tr>
+</tbody>
+</table>
+<p><strong>Ressalva obrigatória:</strong> a segunda fonte de dados dá Ads 68%, Afiliado 13%, Orgânico 20%, somando 103,8% — indicando sobreposição de atribuição. Comunicar sempre como faixa: <strong>ads entre 54% e 68%</strong>, afiliado entre 10% e 13%.</p>
+
+<h3>Retrato da carteira <span class="et med">MEDIDO</span></h3>
+<table>
+<tbody>
+<tr><td>Produtos que geram 50% do GMV</td><td><strong>6,2%</strong></td></tr>
+<tr><td>Produtos que faturam menos de R$500/mês</td><td>39%</td></tr>
+<tr><td>Produtos que vivem um único mês</td><td>27%</td></tr>
+<tr><td>Turnover mensal da base</td><td>25 a 28%</td></tr>
+<tr><td>Produtos que sobrevivem 9 meses</td><td>6,2%</td></tr>
+</tbody>
+</table>
+
+<h2 id="i-correcoes">9 · Log de correções</h2>
+<p>Afirmações incorretas de versões anteriores. Existe para impedir que retornem ao material ou ao motor.</p>
+<table>
+<thead><tr><th>Afirmação antiga</th><th>Status</th><th>Correção</th></tr></thead>
+<tbody>
+<tr><td>"Fórmula validada com erro de 0,0005%"</td><td><strong>Falso</strong></td><td>Identidade algébrica; o erro era arredondamento</td></tr>
+<tr><td>"Kits têm ROAS 37% maior"</td><td><strong>Falso</strong></td><td>Confundimento por ticket. Real: +1 a +3%</td></tr>
+<tr><td>"Ticket multiplica o ROAS"</td><td><strong>Exagerado</strong></td><td>+2,2% com R²=0,09</td></tr>
+<tr><td>"Faixa R$100-150 tem ROAS 29,3×"</td><td><strong>Falso</strong></td><td>Média inflada por outlier. Mediana: 6,7×</td></tr>
+<tr><td>"Maio foi turbulência, ROAS caiu a 7,8×"</td><td><strong>Falso</strong></td><td>Artefato de média simples. Ponderado: 8,81×</td></tr>
+<tr><td>"Conversão quase quadruplica o resultado"</td><td><strong>Não medido</strong></td><td>Removido. Só o mecanismo é documentado</td></tr>
+<tr><td>"Mix: 83% ads / 11% orgânico / 6% afiliado"</td><td><strong>Falso</strong></td><td>Campos vazios contados como zero. Real: 54-68% ads</td></tr>
+<tr><td>Checklist mandava "pausar produto FRACO"</td><td><strong>Contradiz dados</strong></td><td>Leis 3 e 4. Substituído pelo protocolo de pausa</td></tr>
+<tr><td>Gráfico "ROAS por decil de conversão"</td><td><strong>Circular</strong></td><td>Conversão está dentro da definição de ROAS</td></tr>
+</tbody>
+</table>
+
+</div>
+
+</main>
+</div>
+
+<button id="topo-btn" aria-label="Voltar ao topo">
+  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<script>
+(function(){
+  const btTime=document.getElementById('bt-time'), btIa=document.getElementById('bt-ia');
+  const mTime=document.getElementById('modo-time'), mIa=document.getElementById('modo-ia');
+  const nTime=document.getElementById('nav-time'), nIa=document.getElementById('nav-ia');
+  const nav=document.getElementById('nav');
+
+  function troca(ia){
+    document.body.classList.toggle('ia', ia);
+    btTime.classList.toggle('on', !ia);
+    btIa.classList.toggle('on', ia);
+    btIa.classList.toggle('ia', ia);
+    btTime.setAttribute('aria-selected', String(!ia));
+    btIa.setAttribute('aria-selected', String(ia));
+    mTime.classList.toggle('on', !ia);
+    mIa.classList.toggle('on', ia);
+    nTime.style.display = ia ? 'none' : '';
+    nIa.style.display   = ia ? '' : 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+  btTime.onclick=()=>troca(false);
+  btIa.onclick=()=>troca(true);
+
+  // menu mobile
+  const abrir=document.getElementById('abrir');
+  abrir.onclick=()=>nav.classList.toggle('on');
+  nav.addEventListener('click',e=>{ if(e.target.tagName==='A') nav.classList.remove('on'); });
+
+  // voltar ao topo
+  const topo=document.getElementById('topo-btn');
+  addEventListener('scroll',()=>topo.classList.toggle('vis', scrollY>600));
+  topo.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+  // atalho: T e I
+  addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT') return;
+    if(e.key.toLowerCase()==='t') troca(false);
+    if(e.key.toLowerCase()==='i') troca(true);
+  });
+})();
+</script>
+</body>
+</html>
