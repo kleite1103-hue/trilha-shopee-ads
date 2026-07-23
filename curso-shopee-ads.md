@@ -242,6 +242,39 @@ Escassez diferente produz preço de equilíbrio diferente. Busca é movida por i
 | NICHO | alto | baixo | Ampliar orçamento |
 | FRACO | baixo | baixo | Reformular ou pausar |
 
+## 2.12 Mix de fontes de faturamento
+
+**Sobre o GMV bruto, ponderado** (603 registros conta-mês com os campos preenchidos):
+
+| Fonte | % do GMV bruto |
+|---|---|
+| Ads | 53,7% |
+| Orgânico | 22,3% |
+| Afiliado | 10,4% |
+| Live | 1,1% |
+| Vídeo | 0,4% |
+| Não classificado | 12,2% |
+
+**Na conta típica (mediana por conta):** Ads 62% · Orgânico 17% · Afiliado 5,3%
+
+A diferença entre ponderado e mediana importa: as contas grandes são mais dependentes de ads, então a média ponderada puxa o número para cima. A conta típica depende menos de ads do que o agregado sugere.
+
+**Distribuição da dependência de afiliado:**
+
+| Faixa | % das contas |
+|---|---|
+| quase zero | 6% |
+| 1 a 5% | 41% |
+| 5 a 15% | 42% |
+| 15 a 30% | 8% |
+| mais de 30% | 2% |
+
+**Ressalva metodológica importante.** A segunda fonte de dados (métricas diárias, junho) dá números diferentes: Ads 68% · Afiliado 13% · Orgânico 20% · Live 2,3%. E soma 103,8%, o que indica sobreposição — uma mesma venda pode ser atribuída a mais de uma fonte.
+
+Além disso, os campos têm cobertura desigual: `gmv_ads` está preenchido em 78% dos registros, `gmv_afiliados` em 64%, `gmv_organico` em 66%. Tratar campo vazio como zero subestima sistematicamente as fontes menos preenchidas — foi esse erro que produziu, numa primeira análise, o número falso de "83% ads".
+
+**Como ensinar isso:** dizer que ads fica entre 54% e 68% e afiliado entre 10% e 13%, dependendo do critério de atribuição. Não apresentar número único — a honestidade sobre a faixa é parte do que diferencia este material.
+
 ---
 
 # PARTE 3 — AS 40 AULAS
@@ -256,7 +289,7 @@ Cada aula: 15 a 25 minutos, uma ideia central, termina em ação.
 
 ### 01 · Por que anunciar
 **Ensina:** o que muda quando você paga por tráfego. A diferença entre esperar ser encontrado e comprar atenção. Por que quase todo crescimento em marketplace passa por mídia paga.
-**Conteúdo:** mix da carteira real (83% ads, 11% orgânico, 6% afiliado) como retrato do mercado. O risco da dependência e por que ela existe.
+**Conteúdo:** o mix real da carteira (seção 2.12) como retrato do mercado. Ads é a maior fonte, mas não é a única — e a dependência varia muito entre contas. O risco da concentração e por que ela existe.
 **Exercício:** identificar quanto do próprio faturamento vem de cada fonte.
 
 ### 02 · O funil
