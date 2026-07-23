@@ -373,6 +373,82 @@ table.t td:first-child{color:var(--tx)}
 .dk.lite .close{background:rgba(250,249,247,.9);border-color:#ddd9d3}
 .dk.lite .close svg{stroke:#6b707a}
 
+
+/* ============ ABERTURA QUE JÁ ENSINA ============ */
+.s-capa .dk-h{font-size:clamp(30px,4.6vw,66px);margin-bottom:clamp(16px,3vh,32px)}
+.s-capa .sub{font-size:clamp(15px,1.9vw,25px);color:var(--mu);font-weight:300;max-width:900px;margin-bottom:clamp(20px,4vh,44px)}
+.capa-id{font-size:clamp(24px,4vw,58px);line-height:1.22;font-weight:200;color:#fff;max-width:1200px;border-left:3px solid var(--or);padding-left:clamp(18px,2.6vw,36px)}
+.capa-id b{font-weight:600;color:var(--or)}
+.dk.lite .capa-id{color:#14161c}
+
+/* ============ DEMOS INTERATIVOS ============ */
+.dm{max-width:1250px;width:100%}
+.dm-ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(150px,20vw,270px),1fr));gap:clamp(14px,2.2vw,30px);margin-bottom:clamp(16px,3vh,32px);padding-bottom:clamp(14px,2.6vh,26px);border-bottom:1px solid var(--ln)}
+.dm-s label{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mn);font-size:clamp(9px,1.05vw,13px);letter-spacing:1.2px;color:var(--mu);text-transform:uppercase;margin-bottom:9px}
+.dm-s label b{font-size:clamp(13px,1.6vw,21px);color:var(--or);letter-spacing:0}
+.dm-s input[type=range]{width:100%;accent-color:var(--or);height:22px;cursor:grab}
+.dm-s input[type=range]:active{cursor:grabbing}
+.dk.lite .dm-ctl{border-bottom-color:#e0ddd8}
+
+.au{display:flex;flex-direction:column;gap:clamp(8px,1.5vh,15px)}
+.au-r{display:flex;align-items:center;gap:clamp(10px,1.5vw,20px)}
+.au-n{width:clamp(96px,13vw,200px);font-size:clamp(12px,1.5vw,20px);color:var(--mu);text-align:right;flex-shrink:0;line-height:1.2}
+.au-r.me .au-n{color:#fff;font-weight:500}
+.dk.lite .au-r.me .au-n{color:#000}
+.au-t{flex:1;height:clamp(28px,4.4vh,50px);background:#12151a;border-radius:3px;overflow:hidden;position:relative}
+.dk.lite .au-t{background:#eceae6}
+.au-f{height:100%;width:0;background:#2b3038;border-radius:3px;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.dk.lite .au-f{background:#d3cfc8}
+.au-r.me .au-f{background:linear-gradient(90deg,var(--or),#ff7a4d)}
+.au-r.win .au-f{background:linear-gradient(90deg,var(--ok),#5ce0a0)}
+.au-v{width:clamp(74px,9.5vw,150px);font-family:var(--mn);font-size:clamp(11px,1.4vw,19px);color:#fff;flex-shrink:0;text-align:right}
+.dk.lite .au-v{color:#14161c}
+.au-tag{position:absolute;right:10px;top:50%;transform:translateY(-50%);font-family:var(--mn);font-size:clamp(8px,.95vw,12px);letter-spacing:1.4px;color:#0b0c0e;text-transform:uppercase}
+
+.vt{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(8px,1.2vw,18px)}
+.vt-c{background:#101318;border:1px solid #23272f;border-radius:4px;overflow:hidden;transition:.3s}
+.dk.lite .vt-c{background:#fff;border-color:#e3e0db}
+.vt-c.me{border-color:var(--or);box-shadow:0 0 0 1px var(--or)}
+.vt-img{height:clamp(64px,11vh,130px);background:#1a1e25;display:flex;align-items:center;justify-content:center;font-family:var(--mn);font-size:clamp(8px,.95vw,12px);color:#4a4f58;letter-spacing:1.3px;transition:.3s;position:relative}
+.dk.lite .vt-img{background:#f0eeeb;color:#9aa0a8}
+.vt-c.me .vt-img.ok{background:linear-gradient(135deg,#2a1c14,#3d2418);color:var(--or)}
+.dk.lite .vt-c.me .vt-img.ok{background:linear-gradient(135deg,#ffe8de,#ffd6c6);color:var(--or)}
+.vt-b{padding:clamp(8px,1.3vh,14px) clamp(8px,1vw,14px)}
+.vt-t{font-size:clamp(9.5px,1.1vw,15px);line-height:1.3;color:#c8c6c3;margin-bottom:7px;min-height:2.6em}
+.dk.lite .vt-t{color:#33373f}
+.vt-p{font-family:var(--dp);font-size:clamp(15px,1.9vw,27px);letter-spacing:.5px;color:#fff}
+.dk.lite .vt-p{color:#14161c}
+.vt-m{font-family:var(--mn);font-size:clamp(8px,.9vw,11px);color:var(--dm);margin-top:5px;letter-spacing:.6px}
+.vt-fr{display:inline-block;font-family:var(--mn);font-size:clamp(7.5px,.85vw,10px);letter-spacing:.8px;color:var(--ok);border:1px solid rgba(37,194,116,.4);border-radius:2px;padding:2px 5px;margin-top:6px}
+
+.tgs{display:flex;flex-wrap:wrap;gap:clamp(7px,1vw,12px);margin-bottom:clamp(16px,2.8vh,30px)}
+.tg{font-family:var(--mn);font-size:clamp(9px,1.05vw,13px);letter-spacing:1.1px;text-transform:uppercase;padding:clamp(8px,1.3vh,13px) clamp(11px,1.4vw,20px);border:1px solid var(--ln);border-radius:3px;color:var(--mu);transition:.15s}
+.tg:hover{border-color:var(--or);color:var(--or)}
+.tg.on{background:var(--or);border-color:var(--or);color:#fff}
+.dk.lite .tg{border-color:#ddd9d3}
+
+.dm-out{display:grid;grid-template-columns:repeat(auto-fit,minmax(clamp(110px,15vw,210px),1fr));gap:clamp(14px,2.2vw,30px);margin-top:clamp(18px,3vh,34px);padding-top:clamp(16px,2.8vh,30px);border-top:1px solid var(--ln)}
+.dk.lite .dm-out{border-top-color:#e0ddd8}
+.dm-out .l{font-family:var(--mn);font-size:clamp(8px,.95vw,11px);letter-spacing:1.2px;color:var(--dm);text-transform:uppercase;margin-bottom:8px}
+.dm-out .v{font-family:var(--dp);font-size:clamp(28px,4.4vw,64px);line-height:.95;letter-spacing:.6px;color:#fff}
+.dk.lite .dm-out .v{color:#14161c}
+.dm-out .v.g{color:var(--ok)}.dm-out .v.r{color:var(--or)}.dm-out .v.y{color:var(--wr)}
+.dm-msg{margin-top:clamp(14px,2.4vh,28px);font-size:clamp(13px,1.6vw,22px);line-height:1.5;color:#cfcdca;border-left:2px solid var(--or);padding-left:clamp(13px,1.7vw,22px)}
+.dk.lite .dm-msg{color:#33373f}
+.dm-msg b{color:#fff}
+.dk.lite .dm-msg b{color:#000}
+
+.esc{display:flex;align-items:flex-end;gap:clamp(6px,1vw,14px);height:clamp(120px,26vh,290px)}
+.esc-c{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px}
+.esc-b{width:100%;background:linear-gradient(180deg,var(--or),#c93a10);border-radius:3px 3px 0 0;transition:height .5s cubic-bezier(.22,1,.36,1);min-height:3px}
+.esc-c.now .esc-b{background:linear-gradient(180deg,#3a4049,#23272f)}
+.dk.lite .esc-c.now .esc-b{background:linear-gradient(180deg,#c9c5be,#a8a49d)}
+.esc-l{font-family:var(--mn);font-size:clamp(8px,.95vw,12px);color:var(--dm);text-align:center;letter-spacing:.6px}
+.esc-v{font-family:var(--mn);font-size:clamp(9px,1.1vw,14px);color:#fff}
+.dk.lite .esc-v{color:#14161c}
+
+@media(max-width:760px){.vt{grid-template-columns:repeat(2,1fr)}.au-n{width:78px}}
+
 </style>
 </head>
 <body>
@@ -944,7 +1020,7 @@ function openMod(n){
    ${cur.ex?`<div class="ex"><h4>EXERCÍCIO DA AULA</h4><p>${cur.ex}</p></div>`:''}</div>`;
 }
 function sv(k){const p={play:'<path d="M6 4l12 8-12 8z"/>',chk:'<path d="M4 12l5 5L20 6"/>',l:'<path d="M15 18l-6-6 6-6"/>',r:'<path d="M9 18l6-6-6-6"/>'}[k];return `<svg viewBox="0 0 24 24">${p}</svg>`}
-function tname(t){return {capa:'Capa',pts:'Tópicos',fml:'Fórmula',tab:'Tabela',big:'Número',cmp:'Contraste',qt:'Frase',acao:'Ação',mock:'Tela real',chart:'Gráfico',passo:'Passo a passo',ba:'Antes/depois',fnl:'Funil',live:'Ao vivo'}[t]||t}
+function tname(t){return {capa:'Capa',pts:'Tópicos',fml:'Fórmula',tab:'Tabela',big:'Número',cmp:'Contraste',qt:'Frase',acao:'Ação',mock:'Tela real',chart:'Gráfico',passo:'Passo a passo',ba:'Antes/depois',fnl:'Funil',live:'Ao vivo',demo:'Interativo'}[t]||t}
 function preview(s){
   if(s.t==='capa')return s.sub||'';
   if(s.t==='pts')return s.li.slice(0,3).map(x=>'· '+x.replace(/<[^>]+>/g,'')).join('<br>');
@@ -959,6 +1035,7 @@ function preview(s){
   if(s.t==='fnl')return s.d.slice(0,3).map(r=>'· '+r[0]+' — '+r[2]).join('<br>');
   if(s.t==='ba')return s.a.h+' → '+s.b.h;
   if(s.t==='live')return 'Calculadora ao vivo · '+s.f.map(x=>x[1]).join(', ');
+  if(s.t==='demo')return s.pv||'Demonstração interativa — você arrasta na tela';
   return '';
 }
 function prevN(){const i=ALL.findIndex(m=>m.n===cur.n);return i>0?ALL[i-1].n:null}
@@ -1204,6 +1281,9 @@ addEventListener('mousemove',e=>{if(mode==='lz'){const q=pos(e);$('laser').style
 /* ================= SLIDES DINÂMICOS ================= */
 function slideX(s){
  const k=s.k?`<div class="dk-kick">${s.k}</div>`:'';
+ if(s.t==='demo')return k+`<h2 class="dk-h sm">${s.h}</h2><div class="dk-body"></div>`;
+ if(s.t==='capa')return `<div class="dk-kick">${s.k||''}</div><h2 class="dk-h">${s.h}</h2><div class="dk-body"><div class="sub">${s.sub||''}</div><div class="capa-id rv">${(deck&&deck.ideia)||''}</div></div>`;
+ const k2=s.k?`<div class="dk-kick">${s.k}</div>`:'';
  if(s.t==='mock'){
   return k+`<h2 class="dk-h sm">${s.h}</h2><div class="dk-body"><div class="mock"><div class="mock-bar"><i></i><i></i><i></i><span>${s.win||'Shopee · Central de Anúncios · Anúncios de Produto'}</span></div>
   <table><tr>${s.th.map(x=>`<th>${x}</th>`).join('')}</tr>
@@ -1244,6 +1324,7 @@ function afterRender(){
      bn.textContent=m[1]+(alvo*e).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec})+m[3];
      if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}}}
  if(deck&&deck.sl[si].t==='live')runLive();
+ if(deck&&deck.sl[si].t==='demo')mountDemo(deck.sl[si].d);
 }
 function runLive(){
  const s=deck.sl[si];if(s.t!=='live')return;
@@ -1254,13 +1335,179 @@ function runLive(){
 }
 
 
+
+/* ============ DEMOS INTERATIVOS ============ */
+const N=(v,d=2)=>isFinite(v)?v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
+function sl(id,lab,mn,mx,st,v,suf){return `<div class="dm-s"><label>${lab}<b id="${id}L">${v}${suf||''}</b></label><input type="range" id="${id}" min="${mn}" max="${mx}" step="${st}" value="${v}" oninput="DEMO.run()"></div>`}
+const gv=id=>parseFloat($(id).value);
+const setL=(id,t)=>{const e=$(id+'L');if(e)e.textContent=t};
+const out=a=>a.map(o=>`<div><div class="l">${o[0]}</div><div class="v ${o[2]||''}">${o[1]}</div></div>`).join('');
+let DEMO={run:()=>{}};
+
+const DEMOS={
+
+/* 1 — QUEM GANHA A VITRINE */
+leilao:{
+ html:`<div class="dm">
+  <div class="dm-ctl">${sl('a1','Sua conversão',0.5,8,0.1,2.5,'%')}${sl('a2','Seu ticket',15,200,1,47,' R$')}${sl('a3','Seu CTR',0.5,7,0.1,2.7,'%')}${sl('a4','Seu ROAS alvo',3,20,0.5,8,'×')}</div>
+  <div class="au" id="auL"></div><div class="dm-out" id="auO"></div><div class="dm-msg" id="auM"></div></div>`,
+ run(){const cv=gv('a1'),tk=gv('a2'),ct=gv('a3'),al=gv('a4');
+  setL('a1',N(cv,1)+'%');setL('a2','R$'+N(tk,0));setL('a3',N(ct,1)+'%');setL('a4',N(al,1)+'×');
+  const sc=(t,c,r,a)=>t*(c/100)*(r/100)*1000/a;
+  const L=[{n:'Concorrente A',v:sc(52,3.1,2.9,7),m:0},{n:'Concorrente B',v:sc(38,2.2,3.4,6),m:0},
+           {n:'<b>SEU PRODUTO</b>',v:sc(tk,cv,ct,al),m:1},{n:'Concorrente C',v:sc(89,1.4,2.1,9),m:0},{n:'Concorrente D',v:sc(29,4.2,2.4,8),m:0}];
+  L.sort((x,y)=>y.v-x.v);const mx=L[0].v;const meu=L.find(x=>x.m),pos=L.indexOf(meu)+1;
+  $('auL').innerHTML=L.map((x,i)=>`<div class="au-r ${x.m?'me':''} ${i===0&&x.m?'win':''}"><div class="au-n">${x.n}</div><div class="au-t"><div class="au-f" style="width:${Math.max(x.v/mx*100,2)}%">${i===0?'<span class="au-tag">leva a vitrine</span>':''}</div></div><div class="au-v">R$${N(x.v)}</div></div>`).join('');
+  const lance=tk*(cv/100)/al;
+  $('auO').innerHTML=out([['Sua posição',pos+'º de 5',pos===1?'g':pos<=2?'y':'r'],['Seu lance','R$'+N(lance,3),lance>=0.15?'g':'r'],['O que a Shopee paga por você','R$'+N(meu.v),''],['Vitrine',lance>=0.15?'BOA':'SOBRA',lance>=0.15?'g':'r']]);
+  $('auM').innerHTML=pos===1
+   ?`Você está <b>em primeiro</b>. A Shopee escolheu te mostrar porque, na conta dela, sua impressão rende mais que a dos outros quatro.`
+   :`Você está em <b>${pos}º</b>. Mexa na conversão e veja o que acontece — ela é a alavanca que mais move a barra, porque conta duas vezes.`;
+ }},
+
+/* 2 — A VITRINE DA BUSCA */
+vitrine:{
+ html:`<div class="dm"><div class="tgs">
+  <button class="tg on" id="v1" onclick="tgl('v1')">Foto boa</button>
+  <button class="tg" id="v2" onclick="tgl('v2')">Preço mais baixo</button>
+  <button class="tg" id="v3" onclick="tgl('v3')">Avaliações visíveis</button>
+  <button class="tg" id="v4" onclick="tgl('v4')">Frete grátis</button></div>
+  <div class="vt" id="vtL"></div><div class="dm-out" id="vtO"></div><div class="dm-msg" id="vtM"></div></div>`,
+ run(){const on=id=>$(id).classList.contains('on');
+  const foto=on('v1'),preco=on('v2'),av=on('v3'),fr=on('v4');
+  const meuP=preco?74.90:89.90;
+  const C=[{t:'Organizador Gaveta Colmeia 6 Peças',p:79.90,av:'4.8 · 2.1mil',fr:true,me:0},
+           {t:'Kit Divisória Closet Organizadora',p:82.50,av:'4.7 · 940',fr:false,me:0},
+           {t:'Organizador de Gaveta Colmeia Kit 6 Peças Divisória Closet',p:meuP,av:av?'4.9 · 1.4mil':'sem avaliações',fr:fr,me:1},
+           {t:'Colmeia Organizadora Gavetas 6un',p:96.00,av:'4.6 · 310',fr:true,me:0}];
+  $('vtL').innerHTML=C.map(c=>`<div class="vt-c ${c.me?'me':''}">
+   <div class="vt-img ${c.me&&foto?'ok':''}">${c.me?(foto?'FOTO CLARA':'FOTO ESCURA'):'FOTO'}</div>
+   <div class="vt-b"><div class="vt-t">${c.t}</div><div class="vt-p">R$${N(c.p)}</div><div class="vt-m">${c.av}</div>${c.fr?'<span class="vt-fr">FRETE GRÁTIS</span>':''}</div></div>`).join('');
+  let ctr=1.1;if(foto)ctr+=1.35;if(preco)ctr+=0.55;if(av)ctr+=0.35;if(fr)ctr+=0.30;
+  let cv=1.0;if(foto)cv+=0.45;if(preco)cv+=0.60;if(av)cv+=0.55;if(fr)cv+=0.70;
+  const n=[foto,preco,av,fr].filter(Boolean).length;
+  $('vtO').innerHTML=out([['CTR estimado',N(ctr,2)+'%',ctr>=2.71?'g':ctr>=1.5?'y':'r'],['Conversão estimada',N(cv,2)+'%',cv>=2.5?'g':cv>=1.27?'y':'r'],['Alavancas ligadas',n+' de 4',n>=3?'g':'r']]);
+  $('vtM').innerHTML=!foto?`<b>Desligue tudo menos a foto e ligue só ela.</b> A foto sozinha move mais CTR que as outras três juntas — é o primeiro elemento que a pessoa vê na vitrine.`
+   :n===4?`As quatro ligadas: CTR <b>${N(ctr,2)}%</b> contra 2,71% do produto do meio, e conversão <b>${N(cv,2)}%</b> contra 2,50%. É esse produto que a Shopee escolhe mostrar.`
+   :`Foto move o <b>CTR</b>. Preço, avaliação e frete movem a <b>conversão</b>. Ligue uma de cada vez e veja qual número mexe.`;
+ }},
+
+/* 3 — O FUNIL QUE ESCOA */
+funil:{
+ html:`<div class="dm"><div class="dm-ctl">${sl('f1','Impressões no mês',20,300,5,100,' mil')}${sl('f2','CTR',0.5,7,0.1,3.2,'%')}${sl('f3','Conversão',0.5,8,0.1,2.9,'%')}${sl('f4','Ticket',15,200,1,49,' R$')}</div>
+  <div class="fnl" id="fnL"></div><div class="dm-out" id="fnO"></div><div class="dm-msg" id="fnM"></div></div>`,
+ run(){const im=gv('f1')*1000,ct=gv('f2'),cv=gv('f3'),tk=gv('f4');
+  setL('f1',N(gv('f1'),0)+' mil');setL('f2',N(ct,1)+'%');setL('f3',N(cv,1)+'%');setL('f4','R$'+N(tk,0));
+  const cl=im*ct/100,pd=cl*cv/100,gm=pd*tk;
+  const D=[['IMPRESSÕES',im,N(im,0)],['CLIQUES',cl,N(cl,0),'−'+N(100-ct,1)+'%'],['PEDIDOS',pd,N(pd,0),'−'+N(100-cv,1)+'%'],['FATURAMENTO',Math.max(gm/tk,1),'R$'+N(gm,0),'']];
+  const mx=D[0][1];
+  $('fnL').innerHTML=D.map((x,i)=>`${i>0&&x[3]?`<div class="lo">↓ ${x[3]}</div>`:''}<div class="st"><div class="bx" style="width:${Math.max(x[1]/mx*100,9)}%">${x[0]}</div><div class="mt2"><b>${x[2]}</b></div></div>`).join('');
+  $('fnO').innerHTML=out([['Pedidos no mês',N(pd,0),pd>=30?'g':'r'],['Faturamento','R$'+N(gm,0)],['Dá pra ler?',pd>=30?'SIM':'NÃO',pd>=30?'g':'r']]);
+  $('fnM').innerHTML=pd<30?`<b>${N(pd,0)} pedidos no mês.</b> Abaixo de 30 esse ROAS é chute. Suba impressão ou conversão até passar da linha — antes disso não existe decisão possível.`
+   :`Dobrar o CTR dobra os cliques. Dobrar a conversão dobra os pedidos <b>sem gastar nada a mais</b>. Mexa nos dois e veja o faturamento no fim.`;
+ }},
+
+/* 4 — O DEGRAU DA COMISSÃO */
+degrau:{
+ html:`<div class="dm"><div class="dm-ctl">${sl('g1','Preço de venda',40,240,0.5,79.5,' R$')}${sl('g2','Custo do produto',5,120,1,22,' R$')}${sl('g3','Frete + embalagem',0,40,0.5,7.5,' R$')}</div>
+  <div class="passo" id="dgL"></div><div class="dm-out" id="dgO"></div><div class="dm-msg" id="dgM"></div></div>`,
+ run(){const p=gv('g1'),c=gv('g2'),f=gv('g3');
+  setL('g1','R$'+N(p));setL('g2','R$'+N(c,0));setL('g3','R$'+N(f));
+  const cm=p<80?p*0.20+4:p<100?p*0.14+16:p<200?p*0.14+20:p*0.14+26;
+  const faixa=p<80?'até R$79,99 · 20% + R$4':p<100?'R$80 a R$99,99 · 14% + R$16':p<200?'R$100 a R$199,99 · 14% + R$20':'R$200+ · 14% + R$26';
+  const ant=p*0.035,mc=p-c-cm-f-ant,m=mc/p*100,emp=m>0?100/m:0;
+  $('dgL').innerHTML=[['Preço de venda','R$'+N(p),''],['− Comissão · '+faixa,'−R$'+N(cm),'neg'],['− Custo do produto','−R$'+N(c),'neg'],['− Frete e embalagem','−R$'+N(f),'neg'],['− Antecipação 3,5%','−R$'+N(ant),'neg'],['Sobra por venda','R$'+N(mc)+' · '+N(m,1)+'%','res']]
+   .map(x=>`<div class="ln ${x[2]}"><div class="lb">${x[0]}</div><div class="lv">${x[1]}</div></div>`).join('');
+  $('dgO').innerHTML=out([['Comissão','R$'+N(cm)],['Margem que sobra',N(m,1)+'%',m>=25?'g':m>=15?'y':'r'],['ROAS de empate',m>0?N(emp,1)+'×':'—','y']]);
+  let msg='';
+  if(p>=80&&p<92){const alt=79.90,cmA=alt*0.20+4,mcA=alt-c-cmA-f-alt*0.035;
+   msg=`<b>Você está em cima do degrau.</b> A R$${N(p)} a comissão é R$${N(cm)}. Voltando pra R$79,90 ela cai pra R$${N(cmA)} — e sobra <b>R$${N(mcA-mc)} a mais</b> por venda, mesmo vendendo mais barato.`;}
+  else if(p>=100&&p<112)msg=`<b>Você está em cima do degrau dos R$100.</b> Desça pra R$99,90 e compare o que sobra.`;
+  else if(p>=200&&p<214)msg=`<b>Você está em cima do degrau dos R$200.</b> Desça pra R$199,90 e compare.`;
+  else msg=`Arraste o preço devagar até passar de R$79,99 pra R$80,00. Olhe a linha da comissão: ela pula <b>R$7,20</b> por causa de um centavo.`;
+  $('dgM').innerHTML=msg;
+ }},
+
+/* 5 — A ZONA DE CHUTE */
+chute:{
+ html:`<div class="dm"><div class="dm-ctl">${sl('z1','Pedidos no mês',2,160,1,8,'')}${sl('z2','ROAS que aparece no relatório',0.5,25,0.1,12,'×')}${sl('z3','ROAS médio da sua conta',2,15,0.1,5,'×')}</div>
+  <div class="au" id="zL"></div><div class="dm-out" id="zO"></div><div class="dm-msg" id="zM"></div></div>`,
+ run(){const n=gv('z1'),ob=gv('z2'),rf=gv('z3');
+  setL('z1',N(n,0));setL('z2',N(ob,1)+'×');setL('z3',N(rf,1)+'×');
+  const C=n<10?0.38:n<30?0.53:n<100?0.71:0.85,aj=C*ob+(1-C)*rf;
+  const cv=x=>x>8?'A':x>=4?'B':x>=2?'C':'Pausar';
+  const rows=[['Sinal de verdade',C*100,'#25c274'],['Chute',(1-C)*100,'#3a4049']];
+  $('zL').innerHTML=rows.map(r=>`<div class="au-r"><div class="au-n">${r[0]}</div><div class="au-t"><div class="au-f" style="width:${r[1]}%;background:${r[2]}"></div></div><div class="au-v">${N(r[1],0)}%</div></div>`).join('');
+  $('zO').innerHTML=out([['Pedidos',N(n,0),n>=30?'g':'r'],['O que aparece',N(ob,1)+'×'],['O número real provável',N(aj,1)+'×','y'],['Curva',cv(ob)+' → '+cv(aj),cv(ob)!==cv(aj)?'r':'g']]);
+  $('zM').innerHTML=n<30
+   ?`Com <b>${N(n,0)} pedidos</b>, só <b>${N(C*100,0)}%</b> do que está no relatório é sinal. O número provável é <b>${N(aj,1)}×</b>, não ${N(ob,1)}×. ${cv(ob)!==cv(aj)?`E isso muda a curva de <b>${cv(ob)}</b> pra <b>${cv(aj)}</b>.`:''} Arraste os pedidos até 30 e veja a barra verde crescer.`
+   :`Com <b>${N(n,0)} pedidos</b> a leitura já serve: ${N(C*100,0)}% é sinal. Agora sim dá pra decidir com esse ROAS.`;
+ }},
+
+/* 6 — ESCALAR SEM MEDO */
+escala:{
+ html:`<div class="dm"><div class="dm-ctl">${sl('e1','Verba de hoje',200,6000,50,1000,' R$')}${sl('e2','Faturamento de hoje',1000,50000,500,8000,' R$')}${sl('e3','Nova verba',200,12000,50,2000,' R$')}${sl('e4','Pedidos no mês',5,200,1,45,'')}</div>
+  <div class="esc" id="esL"></div><div class="dm-out" id="esO"></div><div class="dm-msg" id="esM"></div></div>`,
+ run(){const ga=gv('e1'),gm=gv('e2'),gn=gv('e3'),pd=gv('e4');
+  setL('e1','R$'+N(ga,0));setL('e2','R$'+N(gm,0));setL('e3','R$'+N(gn,0));setL('e4',N(pd,0));
+  const ro=gm/ga,steps=[1,1.5,2,3,4].map(k=>({k,g:ga*k,v:gm*Math.pow(k,1.03)}));
+  const mx=Math.max(...steps.map(x=>x.v),gm*Math.pow(gn/ga,1.03));
+  $('esL').innerHTML=steps.map(x=>`<div class="esc-c ${x.k===1?'now':''}"><div class="esc-v">R$${N(x.v,0)}</div><div class="esc-b" style="height:${x.v/mx*100}%"></div><div class="esc-l">verba<br>R$${N(x.g,0)}</div></div>`).join('');
+  const gmn=gm*Math.pow(gn/ga,1.03),rn=gmn/gn;
+  $('esO').innerHTML=out([['ROAS hoje',N(ro,2)+'×'],['Faturamento novo','R$'+N(gmn,0),'g'],['ROAS depois',N(rn,2)+'×',rn>=ro*0.95?'g':'y'],['Entra a mais','R$'+N(gmn-gm,0),'g']]);
+  $('esM').innerHTML=pd<30
+   ?`<b>Trava.</b> Com ${N(pd,0)} pedidos você não sabe se esse ROAS de ${N(ro,2)}× é real. Escalar aqui é apostar. Alimente até 30 pedidos primeiro.`
+   :`Olhe as barras: a verba multiplica e o faturamento <b>acompanha</b>. O ROAS sai de ${N(ro,2)}× pra ${N(rn,2)}× — praticamente parado. Quem para de escalar por medo do ROAS está deixando <b>R$${N(gmn-gm,0)}</b> na mesa todo mês.`;
+ }},
+
+/* 7 — PAUSAR CUSTA CARO */
+pausar:{
+ html:`<div class="dm"><div class="dm-ctl">${sl('p1','Quanto você quer cortar da verba',0,60,5,30,'%')}${sl('p2','Faturamento do produto',500,30000,500,9000,' R$')}${sl('p3','ROAS de hoje',0.5,6,0.1,1.8,'×')}</div>
+  <div class="au" id="pL"></div><div class="dm-out" id="pO"></div><div class="dm-msg" id="pM"></div></div>`,
+ run(){const ct=gv('p1'),gm=gv('p2'),ro=gv('p3');
+  setL('p1',N(ct,0)+'%');setL('p2','R$'+N(gm,0));setL('p3',N(ro,1)+'×');
+  const perda=ct>20?39*(ct/30):ct*1.3,gmn=gm*(1-Math.min(perda,95)/100),ron=ro*(ct>20?0.98:1);
+  $('pL').innerHTML=[['Faturamento hoje',100,'var(--or)','R$'+N(gm,0)],['Depois do corte',Math.max(100-perda,4),'#3a4049','R$'+N(gmn,0)]]
+   .map(r=>`<div class="au-r"><div class="au-n">${r[0]}</div><div class="au-t"><div class="au-f" style="width:${r[1]}%;background:${r[2]}"></div></div><div class="au-v">${r[3]}</div></div>`).join('');
+  $('pO').innerHTML=out([['Faturamento perdido','R$'+N(gm-gmn,0),'r'],['Queda',N(Math.min(perda,95),0)+'%','r'],['ROAS depois',N(ron,2)+'×',ron>=ro?'g':'r'],['Voltariam sozinhos','45%','y']]);
+  $('pM').innerHTML=ct===0?`Arraste o corte e veja as duas barras. A de cima é o que você fatura hoje. A de baixo é o que sobra depois de cortar.`
+   :`Cortando <b>${N(ct,0)}%</b> da verba você perde <b>R$${N(gm-gmn,0)}</b> por mês — e o ROAS ${ron<ro?'ainda piora':'não melhora'}. E se esse produto está abaixo de 2×, tem <b>45% de chance</b> de voltar acima de 4× sozinho no mês que vem.`;
+ }},
+
+/* 8 — TÍTULO QUE ENTRA NA BUSCA */
+titulo:{
+ html:`<div class="dm"><div class="tgs">
+  <button class="tg" id="t1" onclick="tgl('t1')">Organizador de gaveta</button>
+  <button class="tg" id="t2" onclick="tgl('t2')">Colmeia</button>
+  <button class="tg" id="t3" onclick="tgl('t3')">Kit 6 peças</button>
+  <button class="tg" id="t4" onclick="tgl('t4')">Divisória closet</button>
+  <button class="tg on" id="t5" onclick="tgl('t5')">Premium alta qualidade</button>
+  <button class="tg on" id="t6" onclick="tgl('t6')">Promoção imperdível</button></div>
+  <div class="mock"><div class="mock-bar"><i></i><i></i><i></i><span>Seu título · e em quais buscas ele entra</span></div>
+  <table><tr><th>Busca que a pessoa digita</th><th>Volume</th><th>Você aparece?</th></tr><tbody id="tiL"></tbody></table></div>
+  <div class="dm-out" id="tiO"></div><div class="dm-msg" id="tiM"></div></div>`,
+ run(){const on=id=>$(id).classList.contains('on');
+  const W=[['t1','organizador de gaveta',1],['t2','colmeia',1],['t3','kit 6 peças',1],['t4','divisória closet',1],['t5','premium alta qualidade',0],['t6','promoção imperdível',0]];
+  const B=[['organizador de gaveta','muito alto','t1'],['colmeia organizadora','alto','t2'],['divisória de gaveta closet','médio','t4'],['kit organizador 6 peças','médio','t3'],['organizador premium','baixíssimo','t5'],['promoção imperdível','ninguém busca isso','t6']];
+  $('tiL').innerHTML=B.map(b=>{const ok=on(b[2]);const util=W.find(w=>w[0]===b[2])[2];
+   return `<tr class="${ok&&util?'g':''} ${ok&&!util?'f':''}"><td>${b[0]}</td><td>${b[1]}</td><td>${ok?(util?'Sim':'Sim — e não serve pra nada'):'Não'}</td></tr>`}).join('');
+  const bons=W.filter(w=>w[2]&&on(w[0])).length,ruins=W.filter(w=>!w[2]&&on(w[0])).length;
+  const t=W.filter(w=>on(w[0])).map(w=>w[1]).join(' ')||'(título vazio)';
+  $('tiO').innerHTML=out([['Palavras que trazem busca',bons+' de 4',bons>=3?'g':'r'],['Palavras desperdiçadas',String(ruins),ruins?'r':'g'],['Buscas que você alcança',String(bons),bons>=3?'g':'r']]);
+  $('tiM').innerHTML=`Seu título: <b>${t}</b><br>${ruins?`<b>${ruins} palavra(s) ocupando espaço à toa.</b> Ninguém digita "premium alta qualidade" na busca. `:''}${bons<3?'Ligue as palavras que a pessoa realmente digita e veja as linhas verdes aparecerem.':'Cada palavra que a pessoa digita é uma porta de leilão que abre. Você não escolhe onde aparece — você escreve.'}`;
+ }}
+};
+function tgl(id){$(id).classList.toggle('on');DEMO.run()}
+function mountDemo(name){DEMO=DEMOS[name];if(!DEMO){DEMO={run:()=>{}};return}
+ $('stage').querySelector('.dk-body').innerHTML=DEMO.html;setTimeout(()=>DEMO.run(),30)}
+
 /* ============ SLIDES PRÁTICOS INJETADOS ============ */
 const nf2=(v,d=2)=>isFinite(v)?v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d}):'—';
-const EXTRA={
-'02':[{at:2,s:{t:'fnl',k:'O funil em escala real',h:'DE 100 MIL A 93 VENDAS',d:[
+const EXTRA={'10':[{at:2,s:{t:'demo',d:'degrau',k:'Arraste o preço devagar',h:'VEJA A COMISSÃO PULAR NO DEGRAU',pv:'Slider de preço mostrando o salto de R$7,20'}}],'16':[{at:3,s:{t:'demo',d:'leilao',k:'Arraste e veja quem leva a vitrine',h:'A SHOPEE ESCOLHENDO ENTRE VOCÊ E 4 CONCORRENTES',pv:'Conversão, ticket, CTR e ROAS alvo reordenando as barras ao vivo'}}],
+'02':[{at:3,s:{t:'demo',d:'funil',k:'Arraste e veja o funil escoar',h:'DE 100 MIL IMPRESSÕES ATÉ O DINHEIRO NA CONTA',pv:'Sliders de impressão, CTR, conversão e ticket'}},{at:2,s:{t:'fnl',k:'O funil em escala real',h:'DE 100 MIL A 93 VENDAS',d:[
   ['IMPRESSÕES',100000,'100.000',''],['CLIQUES',3170,'3.170','−96,8%','<br>CTR 3,17%'],['CONVERSÕES',93,'93','−97,1%','<br>Conv 2,93%'],['RECEITA',60,'R$4.557','','<br>Ticket R$49']]}}],
 
-'04':[{at:3,s:{t:'mock',k:'Exportação real · Anúncios de Produto',h:'ACHE OS TRÊS PROBLEMAS',
+'04':[{at:4,s:{t:'demo',d:'vitrine',k:'Ligue e desligue na vitrine',h:'O QUE FAZ A PESSOA CLICAR NO SEU E NÃO NO DO VIZINHO',pv:'Quatro botões: foto, preço, avaliações, frete'}},{at:3,s:{t:'mock',k:'Exportação real · Anúncios de Produto',h:'ACHE OS TRÊS PROBLEMAS',
   th:['Produto','Impressões','Cliques','CTR','Pedidos','GMV','ROAS'],
   tr:[['Kit organizador gaveta 6un','142.380','5.124','3,60%','168','R$8.232','9,4×'],
       ['Luminária LED mesa articulada','98.640','1.184','1,20%','41','R$2.788','4,1×'],
@@ -1310,12 +1557,12 @@ const EXTRA={
    vd:l>=0.15?`Lance de <b>R$${nf2(l,3)}</b> compete em as boas vitrines. CPM previsto de R$${nf2(cpm)} contra mediana de R$4,60.`
    :`Lance de <b>R$${nf2(l,3)}</b> — abaixo do piso. Sobras de vitrine: o ROAS vai parecer alto porque custou quase nada, e o volume vai ser minúsculo. Suba conversão primeiro, depois ticket.`}}}}],
 
-'19':[{at:3,s:{t:'ba',k:'O mesmo produto, dois títulos',h:'O TÍTULO É O SEU ANÚNCIO',
+'19':[{at:2,s:{t:'demo',d:'titulo',k:'Monte o título ligando as palavras',h:'EM QUAIS BUSCAS VOCÊ ENTRA',pv:'Ligue e desligue palavras e veja as buscas acenderem'}},{at:3,s:{t:'ba',k:'O mesmo produto, dois títulos',h:'O TÍTULO É O SEU ANÚNCIO',
   a:{h:'Antes · escrito para o catálogo',tx:'Produto Premium Alta Qualidade Importado Envio Rápido Promoção Imperdível',wy:'Nenhuma dessas palavras é digitada na busca. O anúncio não entra em leilão nenhum porque não corresponde a intenção alguma.'},
   b:{h:'Depois · escrito pra busca',tx:'<b>Organizador de Gaveta</b> Colmeia Kit 6 Peças Divisória Closet Roupa Íntima',wy:'Começa pelo termo buscado, o diferencial vem em seguida, variações no fim. Cada palavra abre uma porta de leilão diferente.'},
   note:'No GMV Max não existe mais seleção manual de palavra-chave. Você não escolhe onde aparece — <b>você escreve onde aparece</b>.'}}],
 
-'23':[{at:2,s:{t:'chart',k:'Lei 1 · validada nos 8 pares de meses',h:'QUANTO DO QUE VOCÊ VÊ É REAL',
+'23':[{at:3,s:{t:'demo',d:'chute',k:'Arraste os pedidos',h:'QUANTO DO SEU RELATÓRIO É CHUTE',pv:'Slider de pedidos mostrando sinal contra chute'}},{at:2,s:{t:'chart',k:'Lei 1 · validada nos 8 pares de meses',h:'QUANTO DO QUE VOCÊ VÊ É REAL',
   d:[['menos de 10 conv',38,'0,38 · 62% é sorte','mut'],['10 a 30 conv',53,'0,53 · metade é sorte','mut'],['30 a 100 conv',71,'0,71 · utilizável',''],['mais de 100 conv',85,'0,85 · confiável','']],
   note:'A linha de corte fica entre a segunda e a terceira barra. <b>30 conversões por mês</b> é onde a leitura deixa de ser aposta.'}},
  {at:5,s:{t:'mock',k:'Exportação real · o que fazer com cada linha',h:'QUEM ENTRA NA ANÁLISE',
@@ -1347,7 +1594,7 @@ const EXTRA={
   f:[2,3],g:[0,1],
   note:'As duas linhas de ESCALA somam <b>R$28.000</b> de oportunidade por mês — sem gastar um centavo a mais. É mais que o GMV inteiro dos outros quatro produtos somados.'}}],
 
-'29':[{at:3,s:{t:'live',k:'Projete a escala na tela',h:'ELASTICIDADE 1,03 APLICADA',
+'29':[{at:3,s:{t:'demo',d:'escala',k:'Multiplique a verba',h:'O FATURAMENTO ACOMPANHA OU NÃO?',pv:'Barras de projeção com a conta de 1,03'}},{at:3,s:{t:'live',k:'Projete a escala na tela',h:'ELASTICIDADE 1,03 APLICADA',
   f:[['ga','Gasto atual (R$/mês)','1000'],['gm','GMV atual (R$/mês)','8000'],['gn','Gasto novo (R$/mês)','2000'],['cv','Conversões no mês','45']],
   calc:g=>{const ga=g('ga'),gm=g('gm'),gn=g('gn'),cv=g('cv');
    const ro=ga?gm/ga:0,mu=ga?gn/ga:0,gmn=gm*Math.pow(mu,1.03),rn=gn?gmn/gn:0;
@@ -1355,7 +1602,7 @@ const EXTRA={
    vd:cv<30?`<b style="color:var(--or)">Trava dos 30 pedidos.</b> Com ${cv} conversões você não sabe se o ROAS de ${nf2(ro,2)}× é real. Escalar aqui é apostar. Alimente até 30 antes.`
    :`Multiplicar o gasto por <b>${nf2(mu,2)}×</b> projeta <b>R$${nf2(gmn,0)}</b> de GMV, com o ROAS praticamente estável. Ritmo: <b>+20% por semana</b>. O limite é margem e estoque — nunca o ROAS.`}}}}],
 
-'31':[{at:3,s:{t:'chart',k:'Leis 5 e 6 · o custo real de cortar',h:'O QUE ACONTECE QUANDO VOCÊ PAUSA',
+'31':[{at:3,s:{t:'demo',d:'pausar',k:'Arraste o corte',h:'QUANTO CUSTA PAUSAR',pv:'Slider de corte mostrando o faturamento sumindo'}},{at:3,s:{t:'chart',k:'Leis 5 e 6 · o custo real de cortar',h:'O QUE ACONTECE QUANDO VOCÊ PAUSA',
   d:[['GMV perdido',39,'−39%',''],['Ganho de ROAS',2,'−2%','mut'],['Produtos que voltariam sozinhos',45,'45%','alt']],
   note:'Cortar acima de 20% do gasto tira <b>39% do GMV</b> e piora o ROAS em 2%. E <b>45%</b> dos produtos abaixo de 2× voltariam acima de 4× no mês seguinte sem ninguém fazer nada.'}}],
 
