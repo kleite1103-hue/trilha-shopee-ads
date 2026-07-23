@@ -66,6 +66,48 @@ ul,ol{margin:12px 0 12px 20px}
 li{margin:7px 0;font-size:15.5px;color:#e2e6ed}
 hr{border:none;border-top:1px solid var(--line);margin:48px 0}
 
+
+/* ═══ NÍVEIS ═══ */
+.niveis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:26px 0 18px}
+.niv{display:flex;flex-direction:column;gap:3px;padding:18px 20px;border:1px solid var(--line2);border-radius:14px;text-decoration:none;transition:.18s;position:relative;overflow:hidden}
+.niv::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.niv.n-1::before{background:#5b6472} .niv.n-2::before{background:var(--ama)}
+.niv.n-3::before{background:var(--lar)} .niv.n-4::before{background:var(--verde)}
+.niv:hover{border-color:var(--acento);transform:translateY(-2px)}
+.niv .nn{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;color:var(--t3)}
+.niv .nt{font-family:'Bebas Neue';font-size:24px;letter-spacing:1px;color:#fff;line-height:1}
+.niv .nd{font-size:12px;color:var(--t2);margin-top:2px}
+.guia{font-size:14px;color:var(--t2);padding:14px 18px;background:var(--panel);border-radius:12px;border:1px solid var(--line)}
+
+h1.nivel-titulo{font-family:'Bebas Neue';font-size:clamp(38px,5.4vw,60px);letter-spacing:1.5px;line-height:1;margin:70px 0 6px;padding-top:34px;border-top:1px solid var(--line2);scroll-margin-top:76px}
+h1.nivel-titulo span{display:block;font-family:'Space Mono';font-size:11px;letter-spacing:3px;color:var(--acento);margin-bottom:10px;transition:color .3s}
+.nivel-sub{font-size:16px;color:var(--t2);margin-bottom:8px;max-width:640px}
+
+/* ═══ JORNADA ═══ */
+.jornada{margin:24px 0}
+.jt{display:flex;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:18px 20px}
+.jt .jn{flex-shrink:0;width:30px;height:30px;border-radius:9px;background:var(--acento);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:17px;transition:background .3s}
+.jt .jc b{display:block;font-size:16px;color:#fff;margin-bottom:2px}
+.jt .jc span{font-size:13.5px;color:var(--t2)}
+.jseta{font-family:'Space Mono';font-size:11px;color:var(--t3);padding:8px 0 8px 46px;letter-spacing:1px}
+
+/* ═══ FUNIL REAL ═══ */
+.funil-real{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:24px 0}
+.funil-real .fr{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:16px 18px;min-width:130px;flex:1}
+.funil-real .fv{font-family:'Bebas Neue';font-size:30px;line-height:1;color:var(--acento);transition:color .3s}
+.funil-real .fl{font-size:12.5px;color:var(--t1);margin-top:5px;line-height:1.35}
+.funil-real .fl span{color:var(--t3);font-size:11.5px}
+.funil-real .fseta{font-family:'Space Mono';font-size:10.5px;color:var(--t3);white-space:nowrap;letter-spacing:.5px}
+
+/* ═══ MÉTRICA ═══ */
+.metrica{border-left:2px solid var(--line2);padding:2px 0 2px 22px;margin:26px 0}
+.metrica .mtop{margin-bottom:8px}
+.metrica .msigla{font-family:'Bebas Neue';font-size:24px;letter-spacing:1px;color:#fff;margin-right:12px}
+.metrica .mperg{font-size:14.5px;color:var(--acento);font-style:italic;transition:color .3s}
+.metrica p{margin:8px 0;font-size:15px}
+.metrica .mref{margin-top:10px;font-family:'Space Mono';font-size:12px;color:var(--t2);background:var(--panel);padding:9px 13px;border-radius:9px;display:inline-block}
+.metrica .mref b{color:var(--acento);transition:color .3s}
+
 /* ═══ COMPONENTES ═══ */
 .lei{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:26px 28px;margin:22px 0;position:relative;overflow:hidden}
 .lei::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--acento);transition:background .3s}
@@ -151,19 +193,28 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <!-- ══════════ NAVEGAÇÃO ══════════ -->
 <nav id="nav">
   <div id="nav-time">
-    <div class="grupo">Entender</div>
-    <a href="#t-mudou">1 · O que mudou de fato</a>
-    <a href="#t-motor">2 · Como o algoritmo decide</a>
-    <a href="#t-alavancas">3 · As quatro alavancas</a>
-    <div class="grupo">As 8 leis</div>
-    <a href="#t-leis">4 · O que os dados provaram</a>
-    <div class="grupo">Operar</div>
-    <a href="#t-ler">5 · Ler sem se enganar</a>
-    <a href="#t-margem">6 · Sua margem define seu ROAS</a>
-    <a href="#t-cadastro">7 · Título e categoria</a>
-    <a href="#t-protocolos">8 · Protocolos de decisão</a>
-    <div class="grupo">Fechar</div>
-    <a href="#t-tese">9 · A tese</a>
+    <div class="grupo">Nível 1 · A Linguagem</div>
+    <a href="#n1">1.1 · O que acontece numa compra</a>
+    <a href="#t-numeros">1.2 · O funil em números</a>
+    <a href="#t-metricas">1.3 · As métricas, uma por uma</a>
+    <a href="#t-conexao">1.4 · Como tudo se conecta</a>
+    <a href="#t-relatorio">1.5 · Lendo seu 1º relatório</a>
+    <div class="grupo">Nível 2 · A Máquina</div>
+    <a href="#n2">2.1 · O que mudou de fato</a>
+    <a href="#t-motor">2.2 · Como o algoritmo decide</a>
+    <a href="#t-alavancas">2.3 · As quatro alavancas</a>
+    <a href="#t-margem">2.4 · Margem define seu ROAS</a>
+    <a href="#t-cadastro">2.5 · Título e categoria</a>
+    <div class="grupo">Nível 3 · As Leis</div>
+    <a href="#n3">3.1 · O que os dados provaram</a>
+    <div class="grupo">Nível 4 · Operar</div>
+    <a href="#n4">4.1 · Ler sem se enganar</a>
+    <a href="#t-classificar">4.2 · Classificar a carteira</a>
+    <a href="#t-lancamento">4.3 · Lançamento</a>
+    <a href="#t-escala">4.4 · Escala</a>
+    <a href="#t-pausar">4.5 · Pausa</a>
+    <a href="#t-rotina">4.6 · Rotina semanal</a>
+    <a href="#t-tese">4.7 · A tese</a>
   </div>
   <div id="nav-ia" style="display:none">
     <div class="grupo">Contrato</div>
@@ -193,18 +244,151 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <div class="capa">
   <div class="olho">Manual técnico · Versão para o time</div>
   <h1>O Princípio do<br>Leilão Reverso</h1>
-  <p>Como o Shopee Ads funciona no modelo oCPM, o que os dados da nossa operação provaram, e como decidir com eles.</p>
+  <p>Do zero ao avançado: o que é cada métrica, como o algoritmo da Shopee decide, o que os dados da nossa operação provaram, e como decidir com eles.</p>
 </div>
 
-<div class="nums">
-  <div class="n1"><div class="v">15.764</div><div class="l">registros de produto-mês analisados</div></div>
-  <div class="n1"><div class="v">167</div><div class="l">contas na base</div></div>
-  <div class="n1"><div class="v">9</div><div class="l">meses de série histórica</div></div>
-  <div class="n1"><div class="v">8</div><div class="l">leis medidas</div></div>
+<div class="niveis">
+  <a href="#n1" class="niv n-1"><span class="nn">NÍVEL 1</span><span class="nt">A Linguagem</span><span class="nd">Nunca mexi com anúncio</span></a>
+  <a href="#n2" class="niv n-2"><span class="nn">NÍVEL 2</span><span class="nt">A Máquina</span><span class="nd">Já sei ler um relatório</span></a>
+  <a href="#n3" class="niv n-3"><span class="nn">NÍVEL 3</span><span class="nt">As Leis</span><span class="nd">Entendo o leilão</span></a>
+  <a href="#n4" class="niv n-4"><span class="nn">NÍVEL 4</span><span class="nt">Operar</span><span class="nd">Quero decidir certo</span></a>
 </div>
 
-<h2 id="t-mudou">1 · O que mudou de fato</h2>
-<p>Em maio de 2026 a Shopee trocou o modelo de cobrança de CPC (custo por clique) para oCPM (custo otimizado por mil impressões). O mercado tratou como catástrofe. Os números não confirmam.</p>
+<p class="guia">Se você está começando, leia na ordem. Se já opera contas há tempo, pode entrar direto no Nível 3 — é onde está o que ninguém mais sabe.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1 id="n1" class="nivel-titulo"><span>NÍVEL 1</span> A Linguagem</h1>
+<p class="nivel-sub">Do zero absoluto. Ao final deste nível você lê um relatório de anúncios sem se perder.</p>
+
+<h2 id="t-jornada">1.1 · O que acontece quando alguém compra</h2>
+<p>Antes de qualquer métrica, entenda o caminho que uma venda percorre. Uma pessoa abre o aplicativo da Shopee e faz uma busca — digamos, "tapete de sala". A Shopee mostra uma lista de produtos. Entre eles, o seu.</p>
+<p>A partir daí, existem <strong>quatro momentos</strong>, e em cada um você pode perder essa pessoa:</p>
+
+<div class="jornada">
+  <div class="jt"><div class="jn">1</div><div class="jc"><b>Ela viu seu produto</b><span>Seu anúncio apareceu na tela dela, no meio de dezenas de outros</span></div></div>
+  <div class="jseta">↓ aqui você perde a maioria</div>
+  <div class="jt"><div class="jn">2</div><div class="jc"><b>Ela clicou no seu</b><span>Alguma coisa — a foto, o preço, o título — chamou a atenção</span></div></div>
+  <div class="jseta">↓ aqui você perde de novo</div>
+  <div class="jt"><div class="jn">3</div><div class="jc"><b>Ela comprou</b><span>A página convenceu: preço, avaliações, frete, descrição</span></div></div>
+  <div class="jseta">↓</div>
+  <div class="jt"><div class="jn">4</div><div class="jc"><b>Entrou dinheiro</b><span>O valor da compra — e o custo que você pagou para chegar até aqui</span></div></div>
+</div>
+
+<p>Isso se chama <strong>funil</strong>, porque entra muita gente em cima e sai pouca embaixo. E cada métrica que você vai aprender mede uma dessas etapas ou a passagem entre duas.</p>
+
+<div class="box">
+<div class="tag">Por que isso importa</div>
+<p>Quando um produto vai mal, o problema está <strong>em uma etapa específica</strong> do funil. Métrica solta não te diz nada. Métrica como etapa do funil te diz exatamente onde está o vazamento.</p>
+</div>
+
+<h2 id="t-numeros">1.2 · O funil em números reais</h2>
+<p>Um produto real da nossa carteira, em um mês:</p>
+
+<div class="funil-real">
+  <div class="fr"><div class="fv">105.752</div><div class="fl">impressões<br><span>pessoas que viram</span></div></div>
+  <div class="fseta">→ 3% clicaram</div>
+  <div class="fr"><div class="fv">3.166</div><div class="fl">cliques<br><span>entraram na página</span></div></div>
+  <div class="fseta">→ 0,5% compraram</div>
+  <div class="fr"><div class="fv">17</div><div class="fl">vendas<br><span>fecharam a compra</span></div></div>
+  <div class="fseta">→ R$308 cada</div>
+  <div class="fr"><div class="fv">R$5.233</div><div class="fl">faturamento<br><span>custou R$345</span></div></div>
+</div>
+
+<p>Repare na proporção: <strong>cem mil pessoas viram, dezessete compraram</strong>. Isso é normal. Não é um produto ruim — é assim que funciona. O trabalho não é fazer todo mundo comprar; é melhorar cada passagem um pouco.</p>
+
+<h2 id="t-metricas">1.3 · As métricas, uma por uma</h2>
+<p>Cada métrica responde a <strong>uma pergunta</strong>. Aprenda a pergunta e você nunca mais esquece a métrica.</p>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">Impressões</span><span class="mperg">"Quantas vezes meu produto apareceu na tela de alguém?"</span></div>
+  <p>É a matéria-prima. Sem impressão não existe clique, sem clique não existe venda. No modelo atual, <strong>é por isso que você paga</strong>.</p>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">CTR</span><span class="mperg">"De cada 100 pessoas que viram, quantas clicaram?"</span></div>
+  <p><code>CTR = cliques ÷ impressões × 100</code></p>
+  <p>Mede a <strong>primeira passagem</strong> do funil. Um CTR de 3% significa que 3 em cada 100 que viram, entraram. Depende quase tudo da <strong>foto principal</strong> e do <strong>preço visível</strong> — porque é só isso que a pessoa vê antes de clicar.</p>
+  <div class="mref">Na nossa carteira: mediana <b>2,71%</b> · abaixo de <b>1,5%</b> é sinal de problema</div>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">Taxa de conversão</span><span class="mperg">"De cada 100 que clicaram, quantas compraram?"</span></div>
+  <p><code>Conversão = vendas ÷ cliques × 100</code></p>
+  <p>Mede a <strong>segunda passagem</strong>. Aqui a pessoa já está na sua página — ela viu preço, fotos, descrição, avaliações, frete. Se ela sai sem comprar, o problema está em algum desses.</p>
+  <div class="mref">Na nossa carteira: mediana <b>2,50%</b> · os melhores 25% ficam acima de <b>4,65%</b></div>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">Ticket médio</span><span class="mperg">"Quanto vale, em média, cada venda?"</span></div>
+  <p><code>Ticket = faturamento ÷ número de vendas</code></p>
+  <p>Se você vendeu R$5.000 em 100 pedidos, seu ticket é R$50. Importa porque <strong>o custo de anunciar é quase o mesmo</strong> para um produto de R$30 e um de R$100 — mas o segundo traz três vezes mais dinheiro por venda.</p>
+  <div class="mref">Na nossa carteira: mediana <b>R$47</b></div>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">GMV</span><span class="mperg">"Quanto eu vendi no total?"</span></div>
+  <p>É o faturamento bruto do período. GMV vem de <em>Gross Merchandise Value</em>. Quando alguém fala "o GMV da conta", está falando de quanto aquela loja vendeu.</p>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">ROAS</span><span class="mperg">"Para cada R$1 que gastei em anúncio, quanto voltou?"</span></div>
+  <p><code>ROAS = faturamento ÷ gasto com anúncio</code></p>
+  <p>ROAS 8× significa que cada R$1 investido virou R$8 de venda. É a métrica mais usada e a mais mal usada — porque <strong>ROAS bom depende da sua margem</strong>, e você vai ver isso no Nível 2.</p>
+  <div class="mref">Na nossa carteira: mediana <b>7,2×</b> · os melhores 25% acima de <b>9,5×</b></div>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">ACOS</span><span class="mperg">"Quantos % do meu faturamento foram para o anúncio?"</span></div>
+  <p><code>ACOS = gasto ÷ faturamento × 100</code></p>
+  <p>É o ROAS de cabeça para baixo. ROAS 8× é o mesmo que ACOS 12,5%. Use o que for mais confortável — a informação é idêntica.</p>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">CPM</span><span class="mperg">"Quanto custa mostrar meu anúncio mil vezes?"</span></div>
+  <p><code>CPM = gasto ÷ impressões × 1000</code></p>
+  <p>É a forma como a Shopee cobra hoje. <strong>Você não escolhe o CPM</strong> — o algoritmo calcula quanto vale te mostrar, e cobra isso. Guarde essa frase: ela é a base de todo o Nível 2.</p>
+  <div class="mref">Na nossa carteira: mediana <b>R$4,60</b></div>
+</div>
+
+<div class="metrica">
+  <div class="mtop"><span class="msigla">CPC</span><span class="mperg">"Quanto custou cada clique?"</span></div>
+  <p><code>CPC = gasto ÷ cliques</code></p>
+  <p>Era o modelo antigo de cobrança. Hoje serve como métrica de acompanhamento, não como algo que você controla.</p>
+</div>
+
+<h2 id="t-conexao">1.4 · Como tudo se conecta</h2>
+<p>Aqui está a máquina inteira em uma linha:</p>
+<pre><code>Faturamento = Impressões × CTR × Conversão × Ticket</code></pre>
+<p>Leia assim: quantas pessoas viram, vezes quantas clicaram, vezes quantas compraram, vezes quanto cada uma gastou.</p>
+<p><strong>A consequência prática é enorme:</strong> as quatro coisas se <em>multiplicam</em>. Se você melhora o CTR em 20% e a conversão em 20%, o faturamento não sobe 40% — sobe 44%, porque um efeito monta em cima do outro.</p>
+
+<div class="box">
+<div class="tag">A pergunta que resolve qualquer diagnóstico</div>
+<p>Quando um produto vai mal, pergunte na ordem: <strong>ele está aparecendo?</strong> (impressões) <strong>Estão clicando?</strong> (CTR) <strong>Estão comprando?</strong> (conversão) <strong>Vale o quanto deveria?</strong> (ticket). O primeiro "não" é o seu problema.</p>
+</div>
+
+<h2 id="t-relatorio">1.5 · Lendo seu primeiro relatório</h2>
+<p>Na Shopee, os dados de anúncio saem em três relatórios principais: <strong>Anúncios de Produto</strong> (o mais usado), <strong>Anúncios de Loja</strong> e o detalhe do <strong>GMV Max</strong>.</p>
+<p>No relatório de produto, cada linha é um anúncio, e as colunas que importam são: impressões, cliques, conversões, GMV, despesas, ROAS, além do <strong>status</strong> e do <strong>método de lance</strong>.</p>
+
+<h3>Os três erros de exportação mais comuns</h3>
+<ul>
+<li><strong>Exportar o mês corrente</strong> e comparar com um mês fechado. Isso produz uma queda aparente enorme que não existe.</li>
+<li><strong>Incluir os últimos 7 dias.</strong> Você vai entender no Nível 2 por que esse período sempre mostra números piores do que a realidade.</li>
+<li><strong>Esquecer o filtro de status</strong> e misturar anúncios pausados com ativos.</li>
+</ul>
+
+<div class="box">
+<div class="tag">Seu primeiro exercício</div>
+<p>Exporte o relatório de Anúncios de Produto do último mês fechado. Ordene pelos 10 que mais gastaram. Para cada um, calcule CTR, conversão, ticket e ROAS. Compare com as medianas deste capítulo. <strong>Isso sozinho já te dá um diagnóstico.</strong></p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1 id="n2" class="nivel-titulo"><span>NÍVEL 2</span> A Máquina</h1>
+<p class="nivel-sub">Como a Shopee decide quem aparece e quanto cobra. Ao final deste nível você entende o leilão por dentro.</p>
+
+<h2 id="t-mudou">2.1 · O que mudou de fato</h2>
+<p>Em maio de 2026 a Shopee trocou o modelo de cobrança de CPC (você pagava por clique) para oCPM (você paga por mil impressões, com otimização). O mercado tratou como catástrofe. Os números não confirmam.</p>
 
 <table>
 <thead><tr><th></th><th>Nov/2025 · CPC</th><th>Jul/2026 · oCPM</th><th>Variação</th></tr></thead>
@@ -220,27 +404,29 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <p><strong>A leitura correta:</strong> o CPM subiu 20% e foi inteiramente absorvido pela melhora de CTR e conversão. O algoritmo passou a entregar impressões para gente mais bem casada com o produto — e cobra mais caro por essa qualidade. Para o vendedor, deu empate.</p>
 
 <div class="box alerta">
-<div class="tag">Correção de versões anteriores</div>
+<div class="tag">Correção de versões anteriores deste manual</div>
 <p>A ideia de que houve um "vale" em maio, com o ROAS caindo para 7,8×, era erro de cálculo — vinha de tirar a média simples dos ROAS de cada conta em vez de ponderar por gasto. No cálculo correto, maio fechou em 8,81×, dentro da faixa normal. <strong>Não houve terremoto.</strong></p>
 </div>
 
-<p><strong>E é justamente aí que está a lição:</strong> o mercado entrou em pânico com uma transição que, nos números, foi suave. Quem reagiu ao pânico — cortando orçamento, pausando produto, revertendo método de lance — se machucou sozinho. A turbulência era percebida, não real.</p>
+<p><strong>E é justamente aí que está a lição:</strong> o mercado entrou em pânico com uma transição que, nos números, foi suave. Quem reagiu ao pânico — cortando orçamento, pausando produto, revertendo método de lance — se machucou sozinho.</p>
 
-<h2 id="t-motor">2 · Como o algoritmo decide</h2>
-<p>Pare de pensar no algoritmo como leiloeiro que entrega ao maior lance. Ele é um <strong>investidor</strong>: tem um recurso escasso — impressões — e quer alocá-lo onde o retorno é maior.</p>
+<h2 id="t-motor">2.2 · Como o algoritmo decide</h2>
+<p>Pare de pensar no algoritmo como um leiloeiro que entrega ao maior lance. Ele é um <strong>investidor</strong>: tem um recurso escasso — impressões — e quer alocá-lo onde o retorno é maior.</p>
 <p>Daí o nome. No leilão comum, você dá o lance. No <strong>Leilão Reverso, a Shopee dá o lance em você</strong>.</p>
 
 <h3>Os cinco passos, a cada impressão</h3>
 <ol>
-<li><strong>Você declara intenção, não preço.</strong> Informa meta de ROAS e orçamento. Nunca digita um lance.</li>
+<li><strong>Você declara intenção, não preço.</strong> Informa meta de ROAS e orçamento. Nunca digita um valor de lance.</li>
 <li><strong>O sistema traduz em valor por venda.</strong> Ticket R$80 com meta 8× significa que você aceita pagar até R$10 por venda.</li>
 <li><strong>Dois modelos preveem, para aquele comprador específico:</strong> a chance de ele clicar, e a chance de comprar depois de clicar.</li>
 <li><strong>Converte em lance por impressão:</strong> chance de clique × chance de compra × valor por venda × 1000.</li>
 <li><strong>Maior lance vence.</strong> Você paga por impressão entregue, mesmo sem clique.</li>
 </ol>
 
+<p><strong>A implicação que muda tudo:</strong> seu lance é recalculado a cada impressão. O mesmo produto, no mesmo dia, recebe lance alto para um comprador que o modelo julga quente e lance baixo para um comprador frio. Por isso "otimizar lance" deixou de existir como atividade.</p>
+
 <div class="box">
-<div class="tag">A consequência mais mal compreendida</div>
+<div class="tag">A consequência mais mal compreendida do mercado</div>
 <p><strong>CPM alto não é castigo — é elogio.</strong> Se a Shopee cobra mais caro para exibir seu produto, é porque o modelo prevê que ele converte bem, e por isso aquela impressão vale mais. CPM subindo com ROAS estável significa que o algoritmo elevou a aposta em você. A ação correta é escalar, não pausar.</p>
 </div>
 
@@ -257,16 +443,16 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <p>Toda avaliação de desempenho <strong>exclui os últimos 7 dias</strong>. Mês corrente nunca se compara com mês fechado. Janela mínima recomendada: 28 dias, tirando os 7 últimos.</p>
 </div>
 
-<h2 id="t-alavancas">3 · As quatro alavancas</h2>
+<h2 id="t-alavancas">2.3 · As quatro alavancas</h2>
 <pre><code>ROAS = Ticket × Conversão × CTR × 1000 ÷ CPM
 
 Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 
-<p>Esta equação mostra a <strong>anatomia</strong> do ROAS: existem exatamente quatro alavancas, e elas se <strong>multiplicam</strong> entre si. Melhorar duas ao mesmo tempo tem efeito composto, não somado.</p>
+<p>Esta é a mesma equação do Nível 1, reorganizada. Ela mostra a <strong>anatomia</strong> do ROAS: existem exatamente quatro alavancas, e elas se <strong>multiplicam</strong> entre si.</p>
 
 <div class="box alerta">
 <div class="tag">Honestidade que protege a autoridade do método</div>
-<p>Esta fórmula é uma <strong>identidade matemática</strong>, não uma descoberta sobre a Shopee. Abrindo as definições, os termos se cancelam e sobra a própria definição de CPM. Ela é verdadeira em qualquer plataforma de anúncios. Versões anteriores a apresentavam como "validada com erro de 0,0005%" — aquele número era arredondamento, não validação. <strong>O diferencial da Efeito Vendas não é a fórmula: são as 8 leis a seguir.</strong></p>
+<p>Esta fórmula é uma <strong>identidade matemática</strong>, não uma descoberta sobre a Shopee. Abrindo as definições, os termos se cancelam e sobra a própria definição de CPM. Ela é verdadeira em qualquer plataforma de anúncios. Versões anteriores a apresentavam como "validada com erro de 0,0005%" — aquele número era arredondamento, não validação. <strong>O diferencial da Efeito Vendas não é a fórmula: são as 8 leis do Nível 3.</strong></p>
 </div>
 
 <h3>A ordem certa de mexer</h3>
@@ -282,10 +468,63 @@ Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 
 <h3>O ROAS alvo é um dial de público</h3>
 <p>A Shopee documenta: <strong>ROAS alvo alto</strong> faz o sistema mirar público de nicho e alta intenção — melhora eficiência, limita alcance. <strong>ROAS alvo baixo</strong> expande para público amplo — mais volume, menos precisão.</p>
-<p>É o mesmo dial que existia no modelo antigo como "correspondência exata versus ampla". Por isso pedir ROAS 15× de um produto que converte 1,5% faz ele sumir: você mandou o sistema procurar um comprador que quase não existe.</p>
+<p>Por isso pedir ROAS 15× de um produto que converte 1,5% faz ele sumir: você mandou o sistema procurar um comprador que quase não existe.</p>
 
-<h2 id="t-leis">4 · O que os dados provaram</h2>
-<p>Esta é a parte proprietária. Oito leis medidas sobre a nossa operação, que não existem em nenhum material público.</p>
+<h2 id="t-margem">2.4 · Sua margem define seu ROAS</h2>
+<p>Aqui está o conceito mais importante do nível — e o menos usado na prática. <strong>Nenhuma meta de ROAS faz sentido sem conhecer a margem.</strong> Um ROAS de 5× é excelente para margem de 30% e prejuízo para margem de 15%.</p>
+<pre><code>ROAS mínimo = 100 ÷ margem líquida %</code></pre>
+<table>
+<thead><tr><th>Margem líquida</th><th>ROAS de empate</th><th>Significa</th></tr></thead>
+<tbody>
+<tr><td>10%</td><td>10,0×</td><td>abaixo de 10× você perde dinheiro</td></tr>
+<tr><td>15%</td><td>6,7×</td><td></td></tr>
+<tr><td>20%</td><td>5,0×</td><td></td></tr>
+<tr><td>25%</td><td>4,0×</td><td></td></tr>
+<tr><td>30%</td><td>3,3×</td><td></td></tr>
+<tr><td>40%</td><td>2,5×</td><td>margem alta perdoa ROAS baixo</td></tr>
+</tbody>
+</table>
+
+<h3>Comissões Shopee</h3>
+<table>
+<thead><tr><th>Faixa de preço</th><th>Comissão</th></tr></thead>
+<tbody>
+<tr><td>até R$79,99</td><td>20% + R$4</td></tr>
+<tr><td>R$80,00 a R$99,99</td><td>14% + R$16</td></tr>
+<tr><td>R$100,00 a R$199,99</td><td>14% + R$20</td></tr>
+<tr><td>R$200,00 ou mais</td><td>14% + R$26</td></tr>
+</tbody>
+</table>
+<div class="box alerta">
+<div class="tag">O degrau que custa caro</div>
+<p>Produto a R$79,99 paga <strong>R$20,00</strong> de comissão. A R$80,00 paga <strong>R$27,20</strong>. Sete reais e vinte por um centavo de preço.</p>
+</div>
+
+<h2 id="t-cadastro">2.5 · Título e categoria</h2>
+
+<h3>O título virou peça de mídia</h3>
+<p>No GMV Max <strong>não existe mais escolha de palavra-chave</strong>. A Shopee documenta que a correspondência é automática e se baseia em três coisas: o título e conteúdo do anúncio, a intenção de busca do comprador, e o histórico do anúncio.</p>
+<p><strong>Implicação:</strong> antes, título fraco era compensado escolhendo boas palavras-chave. Agora não existe essa compensação — <strong>título ruim limita os leilões em que o produto sequer entra</strong>, e nenhuma otimização de lance conserta isso.</p>
+<p>É um gargalo invisível: não aparece em métrica nenhuma, porque o produto simplesmente não disputa o que perdeu.</p>
+
+<h3>A categoria é irreversível</h3>
+<p>A categoria faz três coisas: define em quais leilões o produto entra, alimenta a relevância, e é o alvo direto da segmentação de descoberta.</p>
+<div class="box erro">
+<div class="tag">Decisão sem volta</div>
+<p>A categoria é <strong>o único campo que não pode ser editado</strong> depois da publicação. E cadastrar em categoria não correspondente é infração de spam de categorias, com risco de banimento e exclusão permanente do item. É decisão de arquitetura, não de operação.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1 id="n3" class="nivel-titulo"><span>NÍVEL 3</span> As Leis</h1>
+<p class="nivel-sub">Oito leis medidas sobre a nossa operação. Não existem em nenhum material público — é o que a Efeito Vendas sabe e o mercado não.</p>
+
+<div class="nums">
+  <div class="n1"><div class="v">15.764</div><div class="l">registros de produto-mês analisados</div></div>
+  <div class="n1"><div class="v">167</div><div class="l">contas na base</div></div>
+  <div class="n1"><div class="v">9</div><div class="l">meses de série histórica</div></div>
+</div>
+
+<h2 id="t-leis">3.1 · O que os dados provaram</h2>
 
 <div class="lei">
 <div class="num">LEI 1 · <span class="et med">MEDIDO</span> n = 8 pares de meses</div>
@@ -300,6 +539,7 @@ Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 <tr><td>mais de 100</td><td><strong>0,85</strong></td><td>leitura confiável</td></tr>
 </tbody>
 </table>
+<p><em>Como ler:</em> "confiabilidade 0,38" significa que, se o produto mostrou ROAS 20× este mês, só 38% desse desvio é real — o resto é sorte e vai sumir no mês que vem.</p>
 <div class="faz"><b>O que fazer:</b> abaixo de <strong>30 conversões</strong> o produto está em zona de ruído. Nenhuma decisão de desempenho é válida — nem pausar, nem escalar, nem reformular. Só alimentar ou esperar. E 39% da nossa carteira está nessa zona.</div>
 </div>
 
@@ -339,7 +579,7 @@ Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 <h3>Reversão à média</h3>
 <div class="sub">Quase metade dos produtos ruins se recupera sozinha</div>
 <p style="font-size:19px;color:#fff;margin:8px 0"><strong>45%</strong> dos produtos com ROAS abaixo de 2× estavam acima de 4× no mês seguinte, sem ninguém mexer.</p>
-<div class="faz"><b>O que fazer:</b> pausar produto por ROAS baixo é uma aposta com quase 50% de chance de estar matando um produto viável. Use o protocolo da seção 8.</div>
+<div class="faz"><b>O que fazer:</b> pausar produto por ROAS baixo é uma aposta com quase 50% de chance de estar matando um produto viável. Use o protocolo do Nível 4.</div>
 </div>
 
 <div class="lei">
@@ -410,7 +650,11 @@ Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 <div class="faz"><b>O que fazer:</b> produto que abre abaixo de 4× tem 1% de chance. O problema dele não é a campanha — <strong>é a oferta</strong>. Reformular preço, foto e proposta, não mexer no anúncio.</div>
 </div>
 
-<h2 id="t-ler">5 · Ler sem se enganar</h2>
+<!-- ═══════════════════════════════════════════════════ -->
+<h1 id="n4" class="nivel-titulo"><span>NÍVEL 4</span> Operar</h1>
+<p class="nivel-sub">Transformar tudo em decisão. Ao final deste nível você opera por protocolo, não por instinto.</p>
+
+<h2 id="t-ler">4.1 · Ler sem se enganar</h2>
 
 <h3>O ROAS Ajustado</h3>
 <p>A Lei 1 diz que o ROAS de produto pequeno é quase todo ruído. O ROAS Ajustado corrige isso, puxando o número observado na direção de uma referência confiável — na proporção exata do ruído.</p>
@@ -441,53 +685,33 @@ ROAS Ajustado = 0,38 × 18 + 0,62 × 7 = <strong>11,2×</strong>. É esse o núm
 </tbody>
 </table>
 
-<h2 id="t-margem">6 · Sua margem define seu ROAS</h2>
-<p>Nenhuma meta de ROAS faz sentido sem margem. Um ROAS de 5× é excelente para margem de 30% e prejuízo para margem de 15%.</p>
-<pre><code>ROAS mínimo = 100 ÷ margem líquida %</code></pre>
+<h2 id="t-classificar">4.2 · Classificar a carteira</h2>
+<p><strong>Regra que vem antes de tudo:</strong> aplicar a Lei 1. Produto abaixo de 30 conversões recebe o rótulo <strong>ILEGÍVEL</strong> e fica fora das listas de ação, independentemente do ROAS.</p>
+
+<h3>Curvas</h3>
 <table>
-<thead><tr><th>Margem líquida</th><th>ROAS de empate</th></tr></thead>
+<thead><tr><th>Curva</th><th>Critério</th><th>Ação</th></tr></thead>
 <tbody>
-<tr><td>10%</td><td>10,0×</td></tr>
-<tr><td>15%</td><td>6,7×</td></tr>
-<tr><td>20%</td><td>5,0×</td></tr>
-<tr><td>25%</td><td>4,0×</td></tr>
-<tr><td>30%</td><td>3,3×</td></tr>
-<tr><td>40%</td><td>2,5×</td></tr>
+<tr><td>A</td><td>ROAS ajustado &gt; 8× e CTR &gt; 2%</td><td>Replicar e escalar</td></tr>
+<tr><td>B</td><td>ROAS ajustado entre 4× e 8×</td><td>Otimizar conversão</td></tr>
+<tr><td>C</td><td>ROAS ajustado entre 2× e 4×</td><td>Reformular oferta</td></tr>
+<tr><td>Pausar</td><td>ROAS ajustado &lt; 2× e CTR &lt; 1%</td><td>Ver protocolo 4.5 antes de pausar</td></tr>
 </tbody>
 </table>
 
-<h3>Comissões Shopee</h3>
+<h3>Quadrantes</h3>
 <table>
-<thead><tr><th>Faixa de preço</th><th>Comissão</th></tr></thead>
+<thead><tr><th>Quadrante</th><th>ROAS</th><th>Volume</th><th>Ação</th></tr></thead>
 <tbody>
-<tr><td>até R$79,99</td><td>20% + R$4</td></tr>
-<tr><td>R$80,00 a R$99,99</td><td>14% + R$16</td></tr>
-<tr><td>R$100,00 a R$199,99</td><td>14% + R$20</td></tr>
-<tr><td>R$200,00 ou mais</td><td>14% + R$26</td></tr>
+<tr><td><strong>OURO</strong></td><td>≥ 8×</td><td>≥ R$5k</td><td>Manter, escalar, replicar o padrão</td></tr>
+<tr><td><strong>ESCALA</strong></td><td>&lt; 8×</td><td>≥ R$5k</td><td>Atacar conversão — maior oportunidade</td></tr>
+<tr><td><strong>NICHO</strong></td><td>≥ 8×</td><td>&lt; R$5k</td><td>Ampliar orçamento</td></tr>
+<tr><td><strong>FRACO</strong></td><td>&lt; 8×</td><td>&lt; R$5k</td><td>Verificar legibilidade antes de agir</td></tr>
 </tbody>
 </table>
-<div class="box alerta">
-<div class="tag">O degrau que custa caro</div>
-<p>Produto a R$79,99 paga <strong>R$20,00</strong> de comissão. A R$80,00 paga <strong>R$27,20</strong>. Sete reais e vinte por um centavo de preço.</p>
-</div>
+<p><strong>Por que ESCALA é a prioridade:</strong> o volume já existe, que é a parte difícil. Falta eficiência, que é a parte controlável.</p>
 
-<h2 id="t-cadastro">7 · Título e categoria</h2>
-
-<h3>O título virou peça de mídia</h3>
-<p>No GMV Max <strong>não existe mais escolha de palavra-chave</strong>. A Shopee documenta que a correspondência é automática e se baseia em três coisas: o título e conteúdo do anúncio, a intenção de busca do comprador, e o histórico do anúncio.</p>
-<p><strong>Implicação:</strong> antes, título fraco era compensado escolhendo boas palavras-chave. Agora não existe essa compensação — <strong>título ruim limita os leilões em que o produto sequer entra</strong>, e nenhuma otimização de lance conserta isso.</p>
-<p>É um gargalo invisível: não aparece em métrica nenhuma, porque o produto simplesmente não disputa o que perdeu.</p>
-
-<h3>A categoria é irreversível</h3>
-<p>A categoria faz três coisas: define em quais leilões o produto entra, alimenta a relevância, e é o alvo direto da segmentação de descoberta.</p>
-<div class="box erro">
-<div class="tag">Decisão sem volta</div>
-<p>A categoria é <strong>o único campo que não pode ser editado</strong> depois da publicação. E cadastrar em categoria não correspondente é infração de spam de categorias, com risco de banimento e exclusão permanente do item. É decisão de arquitetura, não de operação — merece etapa formal no cadastro.</p>
-</div>
-
-<h2 id="t-protocolos">8 · Protocolos de decisão</h2>
-
-<h3>Lançamento</h3>
+<h2 id="t-lancamento">4.3 · Protocolo de lançamento</h2>
 <pre><code>Dias 0-7    Lance Automático. NÃO TOCAR.
             Ignorar os números deste período.
 
@@ -495,20 +719,32 @@ Dias 8-30   Observar acúmulo de conversões.
             Nenhuma decisão antes de 30 conversões.
 
 30 conversões ou 30 dias → TRIAGEM (Lei 8):
-     ROAS < 4×      problema é a OFERTA. Reformular.
+     ROAS &lt; 4×      problema é a OFERTA. Reformular.
      ROAS 4-8×      manter, otimizar conversão.
      ROAS 8-15×     escalar +20%/semana.
-     ROAS > 15×     escalar agressivo.
+     ROAS &gt; 15×     escalar agressivo.
 
 200 cliques e 20 conversões → migrar para Meta de ROAS.
                               NUNCA reverter depois.</code></pre>
 
-<h3>Escala</h3>
-<p><strong>Pré-requisitos, todos obrigatórios:</strong> produto legível (30+ conversões), ROAS ajustado acima do mínimo da margem, estoque suficiente, fora da fase de aprendizado.</p>
-<p><strong>Execução:</strong> +20% de orçamento por semana, 7 dias entre incrementos, sem outras alterações.</p>
+<div class="box alerta">
+<div class="tag">A Lei da Âncora</div>
+<p>Nunca reverter de Meta de ROAS para Lance Automático. Caso registrado na nossa operação: produto que rodava <strong>11,89× caiu para 4,41×</strong> após a reversão. A reversão descarta o histórico de calibração e devolve o produto à fase de aprendizado.</p>
+</div>
+
+<h2 id="t-escala">4.4 · Protocolo de escala</h2>
+<p><strong>Pré-requisitos, todos obrigatórios:</strong></p>
+<ul>
+<li>Produto legível — 30 ou mais conversões no mês</li>
+<li>ROAS ajustado acima do ROAS mínimo da sua margem</li>
+<li>Estoque suficiente para o volume projetado</li>
+<li>Fora da fase de aprendizado</li>
+</ul>
+<p><strong>Execução:</strong> +20% de orçamento por semana, com 7 dias entre incrementos e sem nenhuma outra alteração no período.</p>
 <p><strong>Quando parar:</strong> estoque, margem ou capacidade operacional. <strong>Não parar por queda de ROAS de até 5%</strong> — é o efeito esperado pela Lei 6.</p>
 
-<h3>Pausar — o protocolo que evita o erro mais caro</h3>
+<h2 id="t-pausar">4.5 · Protocolo de pausa</h2>
+<p>Este protocolo existe para impedir a decisão mais cara da operação.</p>
 <div class="faz-nao">
 <div class="fn nao">
 <div class="t">✗ NÃO justifica pausar</div>
@@ -535,7 +771,19 @@ Dias 8-30   Observar acúmulo de conversões.
 <p><strong>Pausar, nunca apagar.</strong> Apagar destrói o histórico de calibração permanentemente e o produto volta do zero.</p>
 </div>
 
-<h2 id="t-tese">9 · A tese</h2>
+<h2 id="t-rotina">4.6 · A rotina semanal</h2>
+<ol>
+<li><strong>Exportar</strong> o relatório do último período fechado, excluindo os 7 dias mais recentes</li>
+<li><strong>Marcar os ilegíveis</strong> — abaixo de 30 conversões saem da lista de decisão</li>
+<li><strong>Calcular o ROAS ajustado</strong> dos legíveis</li>
+<li><strong>Classificar</strong> em curvas e quadrantes</li>
+<li><strong>Conferir migração de método</strong> — quem passou de 200 cliques e 20 conversões ainda está em Automático?</li>
+<li><strong>Escalar os OURO e NICHO</strong> em +20%, respeitando os pré-requisitos</li>
+<li><strong>Atacar a conversão dos ESCALA</strong> — foto, preço, avaliações, cupom, frete</li>
+<li><strong>Não pausar nada</strong> sem passar pelo protocolo 4.5</li>
+</ol>
+
+<h2 id="t-tese">4.7 · A tese</h2>
 <blockquote>
 <p>O ROAS não é o objetivo. É o pedágio.</p>
 <p>O recurso escasso no oCPM é <strong>volume de conversão por anúncio</strong> — porque ele é, ao mesmo tempo, o que torna o produto legível para você e o que o algoritmo usa para calibrar.</p>
@@ -565,7 +813,6 @@ Dias 8-30   Observar acúmulo de conversões.
 
 </div>
 
-<!-- ══════════════════════════════════════════════════════════ -->
 <!-- ══════════════════ VERSÃO IA ═════════════════════════════ -->
 <!-- ══════════════════════════════════════════════════════════ -->
 <div class="modo" id="modo-ia">
