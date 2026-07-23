@@ -68,20 +68,22 @@ hr{border:none;border-top:1px solid var(--line);margin:48px 0}
 
 
 /* ═══ NÍVEIS ═══ */
-.niveis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin:26px 0 18px}
+.niveis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:26px 0 18px}
 .niv{display:flex;flex-direction:column;gap:3px;padding:18px 20px;border:1px solid var(--line2);border-radius:14px;text-decoration:none;transition:.18s;position:relative;overflow:hidden}
 .niv::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.niv.n-1::before{background:#5b6472} .niv.n-2::before{background:var(--ama)}
-.niv.n-3::before{background:var(--lar)} .niv.n-4::before{background:var(--verde)}
+.niv.nv0::before{background:#5b6472} .niv.nv1::before{background:#8b94a3}
+.niv.nv2::before{background:var(--ama)} .niv.nv3::before{background:var(--lar)}
+.niv.nv4::before{background:var(--verde)}
 .niv:hover{border-color:var(--acento);transform:translateY(-2px)}
 .niv .nn{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;color:var(--t3)}
-.niv .nt{font-family:'Bebas Neue';font-size:24px;letter-spacing:1px;color:#fff;line-height:1}
+.niv .nt{font-family:'Bebas Neue';font-size:23px;letter-spacing:1px;color:#fff;line-height:1}
 .niv .nd{font-size:12px;color:var(--t2);margin-top:2px}
 .guia{font-size:14px;color:var(--t2);padding:14px 18px;background:var(--panel);border-radius:12px;border:1px solid var(--line)}
+.guia b{color:var(--acento);transition:color .3s}
 
 h1.nivel-titulo{font-family:'Bebas Neue';font-size:clamp(38px,5.4vw,60px);letter-spacing:1.5px;line-height:1;margin:70px 0 6px;padding-top:34px;border-top:1px solid var(--line2);scroll-margin-top:76px}
 h1.nivel-titulo span{display:block;font-family:'Space Mono';font-size:11px;letter-spacing:3px;color:var(--acento);margin-bottom:10px;transition:color .3s}
-.nivel-sub{font-size:16px;color:var(--t2);margin-bottom:8px;max-width:640px}
+.nivel-sub{font-size:16px;color:var(--t2);margin-bottom:8px;max-width:660px}
 
 /* ═══ JORNADA ═══ */
 .jornada{margin:24px 0}
@@ -97,7 +99,7 @@ h1.nivel-titulo span{display:block;font-family:'Space Mono';font-size:11px;lette
 .funil-real .fv{font-family:'Bebas Neue';font-size:30px;line-height:1;color:var(--acento);transition:color .3s}
 .funil-real .fl{font-size:12.5px;color:var(--t1);margin-top:5px;line-height:1.35}
 .funil-real .fl span{color:var(--t3);font-size:11.5px}
-.funil-real .fseta{font-family:'Space Mono';font-size:10.5px;color:var(--t3);white-space:nowrap;letter-spacing:.5px}
+.funil-real .fseta{font-family:'Space Mono';font-size:10.5px;color:var(--t3);white-space:nowrap}
 
 /* ═══ MÉTRICA ═══ */
 .metrica{border-left:2px solid var(--line2);padding:2px 0 2px 22px;margin:26px 0}
@@ -107,6 +109,20 @@ h1.nivel-titulo span{display:block;font-family:'Space Mono';font-size:11px;lette
 .metrica p{margin:8px 0;font-size:15px}
 .metrica .mref{margin-top:10px;font-family:'Space Mono';font-size:12px;color:var(--t2);background:var(--panel);padding:9px 13px;border-radius:9px;display:inline-block}
 .metrica .mref b{color:var(--acento);transition:color .3s}
+
+/* ═══ CÍRCULO VICIOSO ═══ */
+.circulo{margin:22px 0;max-width:560px}
+.circulo .ci{background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:15px 20px;font-size:15px}
+.circulo .ci b{color:var(--acento);transition:color .3s}
+.circulo .cseta{font-family:'Space Mono';font-size:12px;color:var(--t3);padding:7px 0 7px 20px}
+
+/* ═══ CHECKLIST ═══ */
+.check{margin:22px 0}
+.ck{display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:1px solid var(--line)}
+.ck:last-child{border-bottom:none}
+.ck .cknum{flex-shrink:0;width:26px;height:26px;border-radius:8px;border:1px solid var(--acento);color:var(--acento);display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-size:12px;font-weight:700;transition:.3s}
+.ck .ckc b{display:block;font-size:16px;color:#fff;margin-bottom:4px}
+.ck .ckc span{font-size:14px;color:var(--t2);line-height:1.55}
 
 /* ═══ COMPONENTES ═══ */
 .lei{background:var(--panel);border:1px solid var(--line2);border-radius:16px;padding:26px 28px;margin:22px 0;position:relative;overflow:hidden}
@@ -193,8 +209,14 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <!-- ══════════ NAVEGAÇÃO ══════════ -->
 <nav id="nav">
   <div id="nav-time">
+    <div class="grupo">Nível 0 · Antes de Começar</div>
+    <a href="#n0">0.1 · O que é Shopee Ads</a>
+    <a href="#t-porque">0.2 · Por que anunciar</a>
+    <a href="#t-pronto">0.3 · Você está pronto?</a>
+    <a href="#t-precificacao">0.4 · Sua precificação aguenta?</a>
+    <a href="#t-pagamento">0.5 · Como você paga</a>
     <div class="grupo">Nível 1 · A Linguagem</div>
-    <a href="#n1">1.1 · O que acontece numa compra</a>
+    <a href="#n1">1.1 · A jornada de uma venda</a>
     <a href="#t-numeros">1.2 · O funil em números</a>
     <a href="#t-metricas">1.3 · As métricas, uma por uma</a>
     <a href="#t-conexao">1.4 · Como tudo se conecta</a>
@@ -203,8 +225,7 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
     <a href="#n2">2.1 · O que mudou de fato</a>
     <a href="#t-motor">2.2 · Como o algoritmo decide</a>
     <a href="#t-alavancas">2.3 · As quatro alavancas</a>
-    <a href="#t-margem">2.4 · Margem define seu ROAS</a>
-    <a href="#t-cadastro">2.5 · Título e categoria</a>
+    <a href="#t-cadastro">2.4 · Título e categoria</a>
     <div class="grupo">Nível 3 · As Leis</div>
     <a href="#n3">3.1 · O que os dados provaram</a>
     <div class="grupo">Nível 4 · Operar</div>
@@ -244,17 +265,186 @@ blockquote p{font-size:18px;color:#fff;font-weight:500;line-height:1.5}
 <div class="capa">
   <div class="olho">Manual técnico · Versão para o time</div>
   <h1>O Princípio do<br>Leilão Reverso</h1>
-  <p>Do zero ao avançado: o que é cada métrica, como o algoritmo da Shopee decide, o que os dados da nossa operação provaram, e como decidir com eles.</p>
+  <p>Do zero absoluto: o que é Shopee Ads, se a sua precificação aguenta anunciar, o que significa cada métrica, como o algoritmo decide, o que os dados da nossa operação provaram, e como decidir com eles.</p>
 </div>
 
 <div class="niveis">
-  <a href="#n1" class="niv n-1"><span class="nn">NÍVEL 1</span><span class="nt">A Linguagem</span><span class="nd">Nunca mexi com anúncio</span></a>
-  <a href="#n2" class="niv n-2"><span class="nn">NÍVEL 2</span><span class="nt">A Máquina</span><span class="nd">Já sei ler um relatório</span></a>
-  <a href="#n3" class="niv n-3"><span class="nn">NÍVEL 3</span><span class="nt">As Leis</span><span class="nd">Entendo o leilão</span></a>
-  <a href="#n4" class="niv n-4"><span class="nn">NÍVEL 4</span><span class="nt">Operar</span><span class="nd">Quero decidir certo</span></a>
+  <a href="#n0" class="niv nv0"><span class="nn">NÍVEL 0</span><span class="nt">Antes de Começar</span><span class="nd">Nunca anunciei</span></a>
+  <a href="#n1" class="niv nv1"><span class="nn">NÍVEL 1</span><span class="nt">A Linguagem</span><span class="nd">Anuncio, mas não sei ler</span></a>
+  <a href="#n2" class="niv nv2"><span class="nn">NÍVEL 2</span><span class="nt">A Máquina</span><span class="nd">Sei ler um relatório</span></a>
+  <a href="#n3" class="niv nv3"><span class="nn">NÍVEL 3</span><span class="nt">As Leis</span><span class="nd">Entendo o leilão</span></a>
+  <a href="#n4" class="niv nv4"><span class="nn">NÍVEL 4</span><span class="nt">Operar</span><span class="nd">Quero decidir certo</span></a>
 </div>
 
-<p class="guia">Se você está começando, leia na ordem. Se já opera contas há tempo, pode entrar direto no Nível 3 — é onde está o que ninguém mais sabe.</p>
+<p class="guia">Cada nível assume só o que veio antes. Se você <b>nunca anunciou</b>, comece no Nível 0 — ele responde se você <b>pode</b> anunciar antes de ensinar <b>como</b>. Se já opera contas há tempo, entre direto no Nível 3, onde está o que ninguém mais sabe.</p>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<h1 id="n0" class="nivel-titulo"><span>NÍVEL 0</span> Antes de Começar</h1>
+<p class="nivel-sub">Para quem nunca anunciou. Ao final deste nível você sabe o que é Shopee Ads, por que anunciar, e — o mais importante — se você <em>pode</em> anunciar.</p>
+
+<h2 id="t-oque">0.1 · O que é Shopee Ads</h2>
+<p>Quando alguém busca "tapete de sala" na Shopee, aparece uma lista de produtos. O que quase ninguém percebe é que <strong>parte daquela lista está ali porque pagou</strong>.</p>
+<p>Se você olhar com atenção, alguns produtos têm uma marcação pequena escrita <strong>"Patrocinado"</strong> ou <strong>"Ad"</strong>. São anúncios. O vendedor pagou para ocupar aquele espaço.</p>
+<p>Shopee Ads é a ferramenta que faz isso. Você diz quanto quer investir, e a Shopee coloca seu produto na frente de mais gente.</p>
+
+<h3>Onde os anúncios aparecem</h3>
+<div class="jornada">
+  <div class="jt"><div class="jn">1</div><div class="jc"><b>Na busca</b><span>Quando a pessoa procura algo específico. Os dois primeiros resultados costumam ser anúncios, e depois aparece um anúncio a cada três produtos</span></div></div>
+  <div class="jt" style="margin-top:10px"><div class="jn">2</div><div class="jc"><b>Na descoberta</b><span>Nas áreas de "Você Também Pode Gostar" e "Descubra", onde a Shopee sugere produtos parecidos com o que a pessoa já viu</span></div></div>
+</div>
+<p>São dois lugares com lógicas diferentes: na busca, alguém está <strong>procurando</strong> o que você vende. Na descoberta, a Shopee mostra seu produto para quem <strong>tem perfil parecido</strong> com quem compra.</p>
+
+<h2 id="t-porque">0.2 · Por que anunciar</h2>
+<p>A pergunta honesta é: se meu produto é bom, ele não vende sozinho?</p>
+<p>Raramente. E o motivo é um círculo vicioso que trava todo vendedor novo:</p>
+
+<div class="circulo">
+  <div class="ci">Para vender, seu produto precisa <b>aparecer</b></div>
+  <div class="cseta">↓</div>
+  <div class="ci">Para aparecer, a Shopee precisa <b>confiar</b> que ele vende</div>
+  <div class="cseta">↓</div>
+  <div class="ci">Para confiar, ela precisa ver que ele <b>já vendeu</b></div>
+  <div class="cseta">↺ e você volta ao começo</div>
+</div>
+
+<p><strong>O anúncio quebra esse círculo.</strong> Você paga para aparecer antes de ter histórico. As primeiras vendas geram os dados que a Shopee usa para decidir se mostra seu produto organicamente depois.</p>
+<p>Ou seja: você não está só comprando vendas. Está comprando <strong>o histórico que faz o algoritmo passar a confiar em você</strong>.</p>
+
+<div class="box">
+<div class="tag">O peso real do anúncio</div>
+<p>Na nossa carteira de 167 contas, entre <strong>54% e 68% de todo o faturamento</strong> vem de anúncios. O restante se divide entre orgânico (cerca de 20%), afiliados (10 a 13%) e lives. Para a maioria das lojas, anúncio não é um extra — é a principal fonte de venda.</p>
+</div>
+
+<h2 id="t-pronto">0.3 · Você está pronto para anunciar?</h2>
+<p>Esta é a seção mais importante deste nível, e a que mais gente pula.</p>
+<p><strong>Anúncio não conserta produto ruim.</strong> Ele acelera o que já está acontecendo — inclusive o prejuízo. Se você anuncia um produto que dá prejuízo, você não está investindo: está perdendo dinheiro mais rápido.</p>
+<p>Antes de gastar o primeiro real, confira os cinco pré-requisitos:</p>
+
+<div class="check">
+  <div class="ck">
+    <div class="cknum">1</div>
+    <div class="ckc">
+      <b>Você sabe quanto sobra em cada venda?</b>
+      <span>Preço menos custo do produto, comissão, frete e embalagem. Se você não sabe esse número, <strong>pare aqui</strong> e vá para a seção 0.4. Sem margem conhecida, anunciar é apostar.</span>
+    </div>
+  </div>
+  <div class="ck">
+    <div class="cknum">2</div>
+    <div class="ckc">
+      <b>A foto principal mostra o produto com clareza?</b>
+      <span>É o único elemento que compete visualmente na tela cheia de concorrentes. Foto ruim faz você pagar por impressão que ninguém clica.</span>
+    </div>
+  </div>
+  <div class="ck">
+    <div class="cknum">3</div>
+    <div class="ckc">
+      <b>O produto tem avaliações?</b>
+      <span>Produto sem nenhuma avaliação converte muito menos. Se estiver zerado, vale conseguir as primeiras vendas antes de investir pesado em mídia.</span>
+    </div>
+  </div>
+  <div class="ck">
+    <div class="cknum">4</div>
+    <div class="ckc">
+      <b>Você tem estoque para dez vezes mais venda?</b>
+      <span>Anúncio funcionando e estoque acabando é o pior cenário: você perde a venda, perde o dinheiro do anúncio e ainda quebra o aprendizado do algoritmo.</span>
+    </div>
+  </div>
+  <div class="ck">
+    <div class="cknum">5</div>
+    <div class="ckc">
+      <b>Seu preço está na faixa do mercado?</b>
+      <span>Busque seu produto na Shopee e veja os concorrentes. Se você está muito acima sem justificativa, o anúncio traz gente que compara e sai.</span>
+    </div>
+  </div>
+</div>
+
+<div class="box erro">
+<div class="tag">A regra que economiza dinheiro</div>
+<p>Se algum desses cinco itens estiver falhando, <strong>conserte antes de anunciar</strong>. O anúncio multiplica o que existe — se o que existe é um produto que não converte, ele multiplica o custo, não o lucro.</p>
+</div>
+
+<h2 id="t-precificacao">0.4 · Sua precificação aguenta anunciar?</h2>
+<p>Aqui está a conta que decide se você pode ou não investir em mídia. Ela tem três partes.</p>
+
+<h3>Parte 1 · O que sai do seu preço</h3>
+<p>Quando você vende por R$100 na Shopee, você não recebe R$100. Sai:</p>
+<pre><code>Preço de venda
+ − custo do produto        (quanto você pagou pelo item)
+ − comissão da Shopee      (tabela abaixo)
+ − frete e embalagem       (o que você banca)
+ − antecipação             (se você antecipa o recebimento)
+ ─────────────────────────
+ = quanto realmente sobra</code></pre>
+
+<h3>Parte 2 · A comissão da Shopee</h3>
+<table>
+<thead><tr><th>Faixa de preço</th><th>Comissão</th><th>Exemplo</th></tr></thead>
+<tbody>
+<tr><td>até R$79,99</td><td>20% + R$4</td><td>produto de R$50 → R$14</td></tr>
+<tr><td>R$80,00 a R$99,99</td><td>14% + R$16</td><td>produto de R$90 → R$28,60</td></tr>
+<tr><td>R$100,00 a R$199,99</td><td>14% + R$20</td><td>produto de R$150 → R$41</td></tr>
+<tr><td>R$200,00 ou mais</td><td>14% + R$26</td><td>produto de R$300 → R$68</td></tr>
+</tbody>
+</table>
+
+<div class="box alerta">
+<div class="tag">O degrau que custa caro</div>
+<p>Repare no salto: produto a <strong>R$79,99</strong> paga R$20,00 de comissão. A <strong>R$80,00</strong> paga R$27,20. <strong>Sete reais e vinte centavos a mais por um centavo de preço.</strong> Se seu produto está entre R$80 e R$85, quase sempre vale baixar para R$79,90.</p>
+</div>
+
+<h3>Parte 3 · O ROAS mínimo — seu número mágico</h3>
+<p>Agora que você sabe quanto sobra, dá para calcular <strong>o mínimo que o anúncio precisa retornar para você não perder dinheiro</strong>:</p>
+<pre><code>ROAS mínimo = 100 ÷ sua margem em %</code></pre>
+<p>ROAS é quanto volta para cada R$1 investido em anúncio — você vai ver isso em detalhe no Nível 1. Por enquanto, guarde a tabela:</p>
+<table>
+<thead><tr><th>Se sua margem é</th><th>Seu ROAS mínimo é</th><th>Significa</th></tr></thead>
+<tbody>
+<tr><td>10%</td><td><strong>10,0×</strong></td><td>cada R$1 de anúncio precisa virar R$10 de venda só para empatar</td></tr>
+<tr><td>15%</td><td><strong>6,7×</strong></td><td></td></tr>
+<tr><td>20%</td><td><strong>5,0×</strong></td><td></td></tr>
+<tr><td>25%</td><td><strong>4,0×</strong></td><td></td></tr>
+<tr><td>30%</td><td><strong>3,3×</strong></td><td></td></tr>
+<tr><td>40%</td><td><strong>2,5×</strong></td><td>margem alta perdoa retorno menor</td></tr>
+</tbody>
+</table>
+
+<div class="box">
+<div class="tag">Por que isso vem antes de tudo</div>
+<p>É comum ouvir "ROAS 5× é bom". <strong>Não existe ROAS bom em abstrato.</strong> Para margem de 30%, 5× dá lucro. Para margem de 15%, 5× dá prejuízo. Quem anuncia sem saber a própria margem está perseguindo um número que pode estar te levando para o vermelho.</p>
+<p style="margin-top:8px"><strong>Se você não sabe sua margem, você ainda não pode anunciar.</strong> Não é opinião — é aritmética.</p>
+</div>
+
+<h3>Um exemplo completo</h3>
+<pre><code>Produto vendido por          R$ 79,90
+ − custo do produto          R$ 32,00
+ − comissão (20% + R$4)      R$ 19,98
+ − frete que você banca      R$  6,00
+ ────────────────────────────────────
+ = margem                    R$ 21,92   (27,4% do preço)
+
+ROAS mínimo = 100 ÷ 27,4 = 3,6×
+
+Ou seja: cada R$1 gasto em anúncio precisa gerar
+pelo menos R$3,60 de venda. Abaixo disso, prejuízo.</code></pre>
+
+<h2 id="t-pagamento">0.5 · Como você paga</h2>
+<p>Duas coisas definem seu gasto: <strong>o orçamento diário</strong> e <strong>a forma de cobrança</strong>.</p>
+
+<h3>Orçamento diário</h3>
+<p>Você define quanto está disposto a gastar por dia — por exemplo, R$30. A Shopee distribui esse valor ao longo do dia e para quando acaba. No dia seguinte, recomeça.</p>
+<p>Para produto novo em teste, algo entre <strong>R$15 e R$30 por dia</strong> costuma ser suficiente para gerar dados sem arriscar demais.</p>
+
+<h3>A forma de cobrança</h3>
+<p>Hoje a Shopee cobra por <strong>mil impressões</strong> — ou seja, por cada mil vezes que seu anúncio aparece na tela de alguém. Isso se chama CPM.</p>
+<p>Importante: <strong>você paga mesmo que ninguém clique</strong>. Por isso a foto e o preço importam tanto — eles definem se aquela impressão que você já pagou vira visita ou não.</p>
+<p>E aqui está a parte que confunde todo mundo: <strong>você não escolhe quanto paga por mil impressões.</strong> Quem calcula é o algoritmo. Entender como ele calcula é o assunto do Nível 2 — e é onde está o coração deste manual.</p>
+
+<div class="box">
+<div class="tag">Antes de seguir para o Nível 1</div>
+<p>Se você conseguiu: (a) marcar os cinco pré-requisitos da seção 0.3, e (b) calcular seu ROAS mínimo na seção 0.4 — <strong>você está pronto para anunciar</strong>. Siga para o Nível 1, onde você aprende a ler o que o anúncio devolve.</p>
+<p style="margin-top:8px">Se ainda não conseguiu calcular a margem, resolva isso primeiro. É o único item deste manual que não dá para pular.</p>
+</div>
+
 
 <!-- ═══════════════════════════════════════════════════ -->
 <h1 id="n1" class="nivel-titulo"><span>NÍVEL 1</span> A Linguagem</h1>
@@ -470,37 +660,7 @@ Lance = Ticket × Conversão ÷ ROAS alvo</code></pre>
 <p>A Shopee documenta: <strong>ROAS alvo alto</strong> faz o sistema mirar público de nicho e alta intenção — melhora eficiência, limita alcance. <strong>ROAS alvo baixo</strong> expande para público amplo — mais volume, menos precisão.</p>
 <p>Por isso pedir ROAS 15× de um produto que converte 1,5% faz ele sumir: você mandou o sistema procurar um comprador que quase não existe.</p>
 
-<h2 id="t-margem">2.4 · Sua margem define seu ROAS</h2>
-<p>Aqui está o conceito mais importante do nível — e o menos usado na prática. <strong>Nenhuma meta de ROAS faz sentido sem conhecer a margem.</strong> Um ROAS de 5× é excelente para margem de 30% e prejuízo para margem de 15%.</p>
-<pre><code>ROAS mínimo = 100 ÷ margem líquida %</code></pre>
-<table>
-<thead><tr><th>Margem líquida</th><th>ROAS de empate</th><th>Significa</th></tr></thead>
-<tbody>
-<tr><td>10%</td><td>10,0×</td><td>abaixo de 10× você perde dinheiro</td></tr>
-<tr><td>15%</td><td>6,7×</td><td></td></tr>
-<tr><td>20%</td><td>5,0×</td><td></td></tr>
-<tr><td>25%</td><td>4,0×</td><td></td></tr>
-<tr><td>30%</td><td>3,3×</td><td></td></tr>
-<tr><td>40%</td><td>2,5×</td><td>margem alta perdoa ROAS baixo</td></tr>
-</tbody>
-</table>
-
-<h3>Comissões Shopee</h3>
-<table>
-<thead><tr><th>Faixa de preço</th><th>Comissão</th></tr></thead>
-<tbody>
-<tr><td>até R$79,99</td><td>20% + R$4</td></tr>
-<tr><td>R$80,00 a R$99,99</td><td>14% + R$16</td></tr>
-<tr><td>R$100,00 a R$199,99</td><td>14% + R$20</td></tr>
-<tr><td>R$200,00 ou mais</td><td>14% + R$26</td></tr>
-</tbody>
-</table>
-<div class="box alerta">
-<div class="tag">O degrau que custa caro</div>
-<p>Produto a R$79,99 paga <strong>R$20,00</strong> de comissão. A R$80,00 paga <strong>R$27,20</strong>. Sete reais e vinte por um centavo de preço.</p>
-</div>
-
-<h2 id="t-cadastro">2.5 · Título e categoria</h2>
+<h2 id="t-cadastro">2.4 · Título e categoria</h2>
 
 <h3>O título virou peça de mídia</h3>
 <p>No GMV Max <strong>não existe mais escolha de palavra-chave</strong>. A Shopee documenta que a correspondência é automática e se baseia em três coisas: o título e conteúdo do anúncio, a intenção de busca do comprador, e o histórico do anúncio.</p>
