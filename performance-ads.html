@@ -1,0 +1,471 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Performance do Time de Ads</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#07080a;--panel:#0e1116;--line:#1c222b;--line2:#2a323d;--lar:#ff4d1c;--verde:#2fd672;--ama:#ffc233;--verm:#ff3b3b;--t1:#f4f6f9;--t2:#9aa2b1;--t3:#5b6472}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;line-height:1.68;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;width:290px;height:100vh;overflow-y:auto;background:#0a0c0e;border-right:1px solid var(--line);padding:26px 0;z-index:50}
+nav .m{font-family:'Bebas Neue';font-size:20px;letter-spacing:1.5px;color:var(--lar);padding:0 22px 4px}
+nav .s{font-family:'Space Mono';font-size:9.5px;color:var(--t3);letter-spacing:1.5px;padding:0 22px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}
+nav a{display:block;padding:9px 22px;color:var(--t2);text-decoration:none;font-size:13px;border-left:2px solid transparent;transition:.15s;line-height:1.4}
+nav a:hover{color:var(--t1);background:var(--panel);border-left-color:var(--lar)}
+main{margin-left:290px;max-width:930px;padding:50px 52px 110px}
+h1{font-family:'Bebas Neue';font-size:clamp(30px,4.4vw,46px);letter-spacing:1.5px;line-height:1.05;margin:58px 0 10px;color:#fff;scroll-margin-top:20px;padding-top:26px;border-top:1px solid var(--line2)}
+h1:first-child{margin-top:0;border-top:none;padding-top:0}
+h2{font-family:'Bebas Neue';font-size:clamp(22px,3vw,31px);letter-spacing:1.2px;margin:38px 0 10px;color:var(--lar)}
+h3{font-weight:700;font-size:19px;margin:30px 0 8px;color:#fff;border-left:3px solid var(--lar);padding-left:12px}
+p{margin:12px 0;font-size:15.5px;color:#e2e6ed}
+strong{color:#fff;font-weight:600} em{color:var(--t2);font-style:normal}
+ul,ol{margin:12px 0 12px 22px} li{margin:8px 0;font-size:15.5px;color:#e2e6ed}
+hr{border:none;border-top:1px solid var(--line);margin:44px 0}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px;display:block;overflow-x:auto}
+th{background:#12151a;color:var(--t2);padding:10px 13px;text-align:left;font-family:'Space Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:#e2e6ed;white-space:nowrap}
+tr:hover td{background:var(--panel)}
+code{font-family:'Space Mono';font-size:12.5px;background:#12151a;padding:2px 6px;border-radius:5px;color:var(--lar)}
+@media(max-width:900px){nav{display:none}main{margin-left:0;padding:30px 18px 80px}}
+</style></head><body>
+<nav><div class="m">PERFORMANCE ADS</div><div class="s">POR RESULTADO · AGO 2026</div><a href="#performance-do-time-de-ads">PERFORMANCE DO TIME DE ADS</a><a href="#leia-isto-antes-dos-numeros">LEIA ISTO ANTES DOS NÚMEROS</a><a href="#parte-1-o-benchmark">PARTE 1 — O BENCHMARK</a><a href="#parte-2-o-resultado">PARTE 2 — O RESULTADO</a><a href="#parte-3-a-resposta-sobre-frequencia">PARTE 3 — A RESPOSTA SOBRE FREQUÊNCIA</a><a href="#parte-4-o-que-isso-faz-com-a-leitura-do-checklist">PARTE 4 — O QUE ISSO FAZ COM A LEITURA DO CHECKLIST</a><a href="#parte-5-leitura-de-gestao-por-pessoa">PARTE 5 — LEITURA DE GESTÃO, POR PESSOA</a><a href="#parte-6-o-que-fazer">PARTE 6 — O QUE FAZER</a></nav>
+<main><h1 id="performance-do-time-de-ads">PERFORMANCE DO TIME DE ADS</h1>
+<h3 id="analise-por-resultado-das-contas-nao-por-registro-de-checklist">Análise por resultado das contas, não por registro de checklist</h3>
+<p><strong>Efeito Vendas · agosto 2026</strong></p>
+<hr />
+<h1 id="leia-isto-antes-dos-numeros">LEIA ISTO ANTES DOS NÚMEROS</h1>
+<h2 id="o-que-esta-analise-e">O que esta análise é</h2>
+<p>Mede o <strong>desempenho real das contas</strong> de cada analista — crescimento de GMV e evolução de ROAS — comparado contra o desempenho médio da carteira no mesmo período. É a base correta para conversa de performance.</p>
+<h2 id="o-que-esta-analise-nao-e">O que esta análise não é</h2>
+<p><strong>Não é base suficiente para desligamento.</strong> Três limitações que precisam estar na mesa:</p>
+<p><strong>1. O sistema não guarda quando cada conta foi atribuída a cada analista.</strong> Se alguém recebeu uma conta em declínio há dois meses, o resultado ruim é herdado, não causado. Não consigo distinguir.</p>
+<p><strong>2. As carteiras são estruturalmente diferentes.</strong> Luiz tem contas com GMV mediano de R$68k; Leonardo, R$19k. São operações de natureza distinta — contas grandes têm dinâmica diferente de contas pequenas.</p>
+<p><strong>3. Resultado de conta depende de muita coisa fora do analista:</strong> o cliente investe ou não, tem estoque ou não, muda preço, entra em promoção, tem problema operacional. O analista influencia, não controla.</p>
+<p><strong>Como usar:</strong> os números apontam onde investigar, e o padrão consistente ao longo de vários meses é mais confiável que um mês isolado. Nenhum número aqui, sozinho, justifica decisão sobre uma pessoa.</p>
+<hr />
+<h1 id="parte-1-o-benchmark">PARTE 1 — O BENCHMARK</h1>
+<p>Antes de julgar qualquer analista, é preciso saber como a carteira toda se comportou.</p>
+<table>
+<thead>
+<tr>
+<th>Mês</th>
+<th>GMV Ads</th>
+<th>ROAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>abril</td>
+<td>R$4,54mi</td>
+<td>9,12×</td>
+</tr>
+<tr>
+<td>maio</td>
+<td>R$5,92mi</td>
+<td>8,93×</td>
+</tr>
+<tr>
+<td>junho</td>
+<td>R$7,41mi</td>
+<td>9,67×</td>
+</tr>
+<tr>
+<td>julho</td>
+<td>R$7,46mi</td>
+<td>8,91×</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mercado interno, abril → julho (mesmas 113 contas): GMV +44,8% · ROAS −2,7%</strong></p>
+<p>Ou seja: o período foi de <strong>forte expansão com leve perda de eficiência</strong>. Todo analista precisa ser medido contra isso, não contra zero.</p>
+<hr />
+<h1 id="parte-2-o-resultado">PARTE 2 — O RESULTADO</h1>
+<h2 id="21-abril-julho-periodo-longo-mais-confiavel">2.1 Abril → Julho (período longo, mais confiável)</h2>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Contas</th>
+<th>GMV abr</th>
+<th>GMV jul</th>
+<th>Δ GMV</th>
+<th>ROAS abr</th>
+<th>ROAS jul</th>
+<th>Δ ROAS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ewerton</strong></td>
+<td>26</td>
+<td>R$0,53mi</td>
+<td>R$0,93mi</td>
+<td><strong>+76,0%</strong></td>
+<td>8,60×</td>
+<td>7,78×</td>
+<td>−9,5%</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>6</td>
+<td>R$0,78mi</td>
+<td>R$1,22mi</td>
+<td>+56,1%</td>
+<td>13,39×</td>
+<td>11,81×</td>
+<td>−11,8%</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>33</td>
+<td>R$1,25mi</td>
+<td>R$1,89mi</td>
+<td>+51,4%</td>
+<td>7,91×</td>
+<td>7,77×</td>
+<td>−1,8%</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>3</td>
+<td>R$0,21mi</td>
+<td>R$0,30mi</td>
+<td>+45,5%</td>
+<td>13,82×</td>
+<td>9,79×</td>
+<td><strong>−29,1%</strong></td>
+</tr>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td>25</td>
+<td>R$1,01mi</td>
+<td>R$1,44mi</td>
+<td>+42,8%</td>
+<td>8,62×</td>
+<td>9,51×</td>
+<td><strong>+10,4%</strong></td>
+</tr>
+<tr>
+<td><strong>MERCADO</strong></td>
+<td>113</td>
+<td>—</td>
+<td>—</td>
+<td><strong>+44,8%</strong></td>
+<td>—</td>
+<td>—</td>
+<td><strong>−2,7%</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="22-consistencia-em-tres-janelas">2.2 Consistência em três janelas</h2>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>mai→jun</th>
+<th></th>
+<th>jun→jul</th>
+<th></th>
+<th>abr→jul</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td>Δ GMV</td>
+<td>Δ ROAS</td>
+<td>Δ GMV</td>
+<td>Δ ROAS</td>
+<td>Δ GMV</td>
+<td>Δ ROAS</td>
+</tr>
+<tr>
+<td><strong>Kaua</strong></td>
+<td>+13,9%</td>
+<td>+3,4%</td>
+<td>+8,5%</td>
+<td>−5,7%</td>
+<td>+51,4%</td>
+<td>−1,8%</td>
+</tr>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td>+19,1%</td>
+<td><strong>+12,9%</strong></td>
+<td>+3,8%</td>
+<td>−4,0%</td>
+<td>+42,8%</td>
+<td><strong>+10,4%</strong></td>
+</tr>
+<tr>
+<td><strong>Ewerton</strong></td>
+<td>+0,9%</td>
+<td>−6,0%</td>
+<td><strong>+26,8%</strong></td>
+<td><strong>+4,3%</strong></td>
+<td><strong>+76,0%</strong></td>
+<td>−9,5%</td>
+</tr>
+<tr>
+<td><strong>Luiz</strong></td>
+<td>+27,0%</td>
+<td>−5,3%</td>
+<td>+7,0%</td>
+<td><strong>−16,8%</strong></td>
+<td>+56,1%</td>
+<td>−11,8%</td>
+</tr>
+<tr>
+<td><strong>Raissa</strong></td>
+<td>+164,6%</td>
+<td>−2,1%</td>
+<td><strong>−56,3%</strong></td>
+<td><strong>−30,3%</strong></td>
+<td>+45,5%</td>
+<td>−29,1%</td>
+</tr>
+</tbody>
+</table>
+<h2 id="23-dispersao-quantas-contas-crescem-e-quantas-caem">2.3 Dispersão — quantas contas crescem e quantas caem</h2>
+<p><em>Abril → julho</em></p>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Contas</th>
+<th>Cresceram</th>
+<th>Caíram</th>
+<th>Queda &gt;30%</th>
+<th>Mediana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ewerton</strong></td>
+<td>26</td>
+<td><strong>24</strong></td>
+<td><strong>2</strong></td>
+<td><strong>1</strong></td>
+<td><strong>+109,2%</strong></td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+<td>+58,5%</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>+41,8%</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>33</td>
+<td>25</td>
+<td>8</td>
+<td>5</td>
+<td>+32,3%</td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>25</td>
+<td>16</td>
+<td><strong>9</strong></td>
+<td>4</td>
+<td>+38,9%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Ewerton tem o padrão mais consistente da equipe:</strong> 24 de 26 contas cresceram, com mediana de +109%. Leonardo tem a maior proporção de contas em queda (9 de 25 = 36%).</p>
+<h2 id="24-contas-em-queda-relevante-junjul">2.4 Contas em queda relevante (jun→jul)</h2>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Contas em queda</th>
+<th>% da carteira</th>
+<th>Perda de GMV</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Raissa</strong></td>
+<td>2 de 3</td>
+<td><strong>67%</strong></td>
+<td><strong>R$360k</strong></td>
+</tr>
+<tr>
+<td><strong>Luiz</strong></td>
+<td>3 de 10</td>
+<td><strong>30%</strong></td>
+<td><strong>R$299k</strong></td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>7 de 41</td>
+<td>17%</td>
+<td>R$99k</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>6 de 42</td>
+<td>14%</td>
+<td>R$96k</td>
+</tr>
+<tr>
+<td><strong>Ewerton</strong></td>
+<td>2 de 35</td>
+<td><strong>6%</strong></td>
+<td>R$81k</td>
+</tr>
+</tbody>
+</table>
+<p><strong>As maiores perdas absolutas estão nas contas grandes:</strong>
+- Magazine_Infinity8 <em>(Raissa)</em>: R$375k → R$153k · ROAS 18,9 → 12,4
+- Laffy Tricot <em>(Luiz)</em>: R$387k → R$141k · ROAS 16,5 → 11,1
+- MIXX OFERTA SHOP <em>(Raissa)</em>: R$183k → R$46k · ROAS 15,6 → 13,2
+- abbalive <em>(Luiz)</em>: R$63k → R$17k · ROAS 15,2 → 11,7</p>
+<p><strong>Padrão importante:</strong> as quatro maiores quedas são de contas que tinham ROAS muito alto (15× a 19×). Isso é compatível com reversão à média — contas com ROAS extremo tendem a voltar ao normal — mas também com problema de gestão. Precisa de investigação caso a caso.</p>
+<hr />
+<h1 id="parte-3-a-resposta-sobre-frequencia">PARTE 3 — A RESPOSTA SOBRE FREQUÊNCIA</h1>
+<p>Esta era a pergunta em aberto: intervir mais produz resultado melhor?</p>
+<p><strong>Base:</strong> 144 contas com dados em junho e julho, cruzando dias de intervenção em julho com variação de resultado.</p>
+<table>
+<thead>
+<tr>
+<th>Dias com intervenção</th>
+<th>Contas</th>
+<th>Δ GMV mediano</th>
+<th>Δ ROAS mediano</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1 a 5 dias</td>
+<td>60</td>
+<td><strong>+36,8%</strong></td>
+<td><strong>+1,0%</strong></td>
+</tr>
+<tr>
+<td>6 a 11 dias</td>
+<td>40</td>
+<td>+3,7%</td>
+<td>−2,4%</td>
+</tr>
+<tr>
+<td>12 a 19 dias</td>
+<td>5</td>
+<td>+48,9%</td>
+<td>+17,9%</td>
+</tr>
+<tr>
+<td><strong>20+ dias</strong></td>
+<td>37</td>
+<td><strong>+10,1%</strong></td>
+<td><strong>−9,3%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Correlação frequência × Δ ROAS: −0,121</strong>
+<strong>Correlação frequência × Δ GMV: −0,143</strong></p>
+<h2 id="o-que-isso-significa">O que isso significa</h2>
+<p><strong>Intervir mais não produz resultado melhor. A relação é levemente negativa.</strong></p>
+<p>Contas tocadas 1 a 5 dias no mês cresceram <strong>+36,8%</strong> em GMV. Contas tocadas 20+ dias cresceram <strong>+10,1%</strong> e perderam <strong>9,3% de ROAS</strong>.</p>
+<p><strong>Como ler com honestidade:</strong> correlação não é causa. Existe uma explicação alternativa forte — o analista pode estar mexendo mais justamente nas contas que estão indo mal. Nesse caso, a frequência seria consequência do problema, não causa.</p>
+<p><strong>Mas o que se pode afirmar com segurança:</strong> não há nenhuma evidência de que a alta frequência ajuda. E existe razão técnica documentada para suspeitar que atrapalha — o modelo oCPM tem fase de aprendizado de 7 a 14 dias, e alterações reiniciam a calibração.</p>
+<p><strong>Consequência direta:</strong> "Otimização Diária de Orçamento" é 28% de todo o esforço da equipe de ads. Os dados não sustentam que esse esforço gere retorno.</p>
+<hr />
+<h1 id="parte-4-o-que-isso-faz-com-a-leitura-do-checklist">PARTE 4 — O QUE ISSO FAZ COM A LEITURA DO CHECKLIST</h1>
+<p>Comparando as duas fontes para os mesmos analistas:</p>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Checklist (dias de otimização)</th>
+<th>Resultado (Δ GMV abr-jul)</th>
+<th>Resultado (Δ ROAS)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kaua</strong></td>
+<td><strong>26,9 de 30</strong> — o mais disciplinado</td>
+<td>+51,4% <em>(acima do mercado)</em></td>
+<td>−1,8% <em>(em linha)</em></td>
+</tr>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td>7,8 de 30</td>
+<td>+42,8% <em>(abaixo do mercado)</em></td>
+<td><strong>+10,4%</strong> <em>(o melhor)</em></td>
+</tr>
+<tr>
+<td><strong>Ewerton</strong></td>
+<td>4,8 de 30 — parecia o pior</td>
+<td><strong>+76,0%</strong> <em>(o melhor)</em></td>
+<td>−9,5%</td>
+</tr>
+<tr>
+<td><strong>Luiz</strong></td>
+<td>3,1 de 30</td>
+<td>+56,1%</td>
+<td>−11,8%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A leitura do checklist se inverte quando se olha resultado.</strong></p>
+<ul>
+<li><strong>Ewerton</strong> parecia o pior no checklist. Tem o melhor crescimento de GMV e a menor proporção de contas em queda (6%).</li>
+<li><strong>Kaua</strong> é o mais disciplinado do time. Seu resultado é bom, mas não superior ao dos colegas com muito menos intervenção.</li>
+<li><strong>Leonardo</strong> tem baixa frequência e é <strong>o único que melhorou ROAS</strong> de forma consistente — foi o melhor em duas das três janelas.</li>
+</ul>
+<p><strong>Conclusão prática: usar o checklist como métrica de performance levaria a decisões erradas.</strong> Ele mede esforço registrado, não resultado.</p>
+<hr />
+<h1 id="parte-5-leitura-de-gestao-por-pessoa">PARTE 5 — LEITURA DE GESTÃO, POR PESSOA</h1>
+<h2 id="ewerton">Ewerton</h2>
+<p><strong>Melhor crescimento de GMV do time (+76%) e menor taxa de contas em queda (6%).</strong> 24 de 26 contas cresceram. Perde ROAS (−9,5%), o que é esperado em carteira que cresce rápido — expandir alcance dilui eficiência.</p>
+<p>Ele acumula 37 contas de ads + 5 de consultor + atendimento a cliente, e tem três cadastros no sistema. <strong>É o mais sobrecarregado em variedade de função e entrega o melhor crescimento.</strong></p>
+<p><em>Ação sugerida:</em> reconhecer o resultado, resolver a duplicidade de cadastro, e discutir se a sobrecarga de funções é sustentável.</p>
+<h2 id="leonardo">Leonardo</h2>
+<p><strong>O único que melhora ROAS de forma consistente</strong> (+12,9% e +10,4% em duas janelas). Em compensação, cresce menos que o mercado em GMV (+42,8% contra +44,8%) e tem a maior proporção de contas em queda (36% caíram no período longo).</p>
+<p>Perfil de quem prioriza eficiência sobre expansão. <strong>Não é erro — é uma escolha estratégica</strong>, mas precisa estar alinhada com o que a empresa quer.</p>
+<p><em>Ação sugerida:</em> conversa sobre prioridade — eficiência ou crescimento? E investigar as 7 contas em queda, especialmente SDLBELEZA (−88%), que também aparecia sem nenhuma otimização registrada.</p>
+<h2 id="kaua">Kaua</h2>
+<p><strong>Resultado sólido e o mais consistente:</strong> +51,4% de GMV com ROAS praticamente estável (−1,8%, melhor que o mercado). 25 de 33 contas cresceram.</p>
+<p>O ponto de atenção não é o resultado — <strong>é o custo do método</strong>. Ele intervém 27 dias por mês e entrega resultado equivalente ao de colegas que intervêm 5. Se a alta frequência não gera retorno adicional, há muito tempo sendo gasto sem retorno.</p>
+<p><em>Ação sugerida:</em> testar reduzir a frequência em parte da carteira dele e medir. Se o resultado se mantiver, libera capacidade enorme.</p>
+<h2 id="luiz-gerente-de-ads">Luiz <em>(gerente de ads)</em></h2>
+<p><strong>O sinal mais preocupante do time.</strong> ROAS caindo consistentemente (−5,3%, −16,8%, −11,8% nas três janelas), 30% da carteira em queda, e as duas maiores perdas absolutas — Laffy Tricot perdeu R$246k de GMV e Abbalive R$46k.</p>
+<p>Some-se a isso: 5 das 16 contas sem nenhuma otimização registrada em 30 dias, zero análises semanais, e parou de registrar nas últimas duas semanas do período.</p>
+<p><em>Ação sugerida:</em> esta é a conversa mais urgente. Mas antes: <strong>ele é gestor ou operador?</strong> Se o papel dele é gerir o time, ter 16 contas operacionais pode ser o problema estrutural. Se é operador, o resultado precisa ser endereçado.</p>
+<h2 id="raissa">Raissa</h2>
+<p><strong>Amostra pequena demais para conclusão</strong> — 3 contas. Dois terços da carteira em queda e ROAS −29% parece grave, mas com 3 contas qualquer variação individual domina o resultado.</p>
+<p>O que é fato: ela tem <strong>3 contas enquanto colegas carregam 40+</strong>. Ou está subutilizada, ou há um motivo que o sistema não mostra.</p>
+<p><em>Ação sugerida:</em> entender o contexto antes de qualquer avaliação. Se está disponível, redistribuir carteira — e aí sim será possível avaliar performance com base real.</p>
+<hr />
+<h1 id="parte-6-o-que-fazer">PARTE 6 — O QUE FAZER</h1>
+<h2 id="decisoes-que-os-dados-sustentam">Decisões que os dados sustentam</h2>
+<ol>
+<li><strong>Não usar checklist como métrica de performance.</strong> Ele inverteu a leitura em dois casos.</li>
+<li><strong>Redistribuir carteira:</strong> Raissa com 3 contas contra colegas com 40+ é desperdício de capacidade.</li>
+<li><strong>Questionar a otimização diária.</strong> É 28% do esforço da equipe sem evidência de retorno. Testar redução controlada.</li>
+<li><strong>Investigar as 4 grandes quedas individualmente:</strong> Magazine_Infinity8, Laffy Tricot, MIXX OFERTA SHOP, abbalive. Juntas somam R$650k de GMV perdido em um mês — mais que todo o resto da carteira.</li>
+<li><strong>Definir o papel do gerente de ads.</strong></li>
+</ol>
+<h2 id="o-que-os-dados-nao-sustentam">O que os dados não sustentam</h2>
+<ol>
+<li><strong>Nenhum desligamento.</strong> As diferenças de resultado existem, mas são explicáveis por perfil de carteira, escolha estratégica e fatores fora do controle do analista. Para fundamentar desligamento seria necessário: histórico de atribuição de contas, contexto de cada conta em queda, e avaliação de fatores não capturados pelo sistema.</li>
+</ol>
+<h2 id="o-que-falta-medir-e-da-para-resolver">O que falta medir e dá para resolver</h2>
+<ol>
+<li><strong>Registrar histórico de atribuição de conta.</strong> Sem isso, nunca será possível separar resultado herdado de resultado causado. É uma mudança simples no sistema e resolve o maior buraco desta análise.</li>
+</ol>
+<hr />
+<p><em>Análise sobre métricas reais de 149 contas · 10 meses de série · agosto/2026</em>
+<em>Resultado de conta é influenciado, não controlado, pelo analista. Confirmar contexto antes de qualquer decisão sobre pessoas.</em></p></main></body></html>
