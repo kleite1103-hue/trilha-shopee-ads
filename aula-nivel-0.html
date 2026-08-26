@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aula · Nível 0 — Antes de Começar</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg:#07080a; --panel:#0e1116; --panel2:#141922; --line:#1c222b; --line2:#2a323d;
+  --lar:#ff4d1c; --lar2:#ff7a52; --rox:#7B2FFF; --verde:#2fd672; --ama:#ffc233; --azul:#3d9bff; --verm:#ff3b3b;
+  --t1:#f4f6f9; --t2:#9aa2b1; --t3:#5b6472; --t4:#39414d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+.mono{font-family:'Space Mono',monospace}
+
+/* ═══ ESTRUTURA ═══ */
+#palco{position:fixed;inset:0;display:flex;flex-direction:column}
+#topo{display:flex;align-items:center;gap:16px;padding:14px 32px;flex-shrink:0;z-index:20;transition:opacity .4s}
+#topo .mod{font-family:'Space Mono';font-size:11px;letter-spacing:2px;color:var(--lar)}
+#topo .sec{font-family:'Space Mono';font-size:11px;letter-spacing:2px;color:var(--t4)}
+#topo .gap{flex:1}
+#pontos{display:flex;gap:5px}
+#pontos i{width:6px;height:6px;border-radius:50%;background:var(--line2);transition:.3s}
+#pontos i.on{background:var(--lar);transform:scale(1.4)}
+#pontos i.foi{background:var(--t4)}
+
+#slides{flex:1;position:relative;overflow:hidden}
+.s{position:absolute;inset:0;padding:38px 68px 84px;display:none;flex-direction:column;justify-content:center}
+.s.on{display:flex;animation:entra .45s cubic-bezier(.2,.8,.25,1)}
+@keyframes entra{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+[data-r]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-r].v{opacity:1;transform:none}
+
+/* ═══ TIPOGRAFIA ═══ */
+.olho{font-family:'Space Mono';font-size:11.5px;letter-spacing:3px;text-transform:uppercase;color:var(--lar);margin-bottom:18px}
+h1{font-family:'Bebas Neue';font-size:clamp(56px,9vw,116px);line-height:.88;letter-spacing:1.5px}
+h2{font-family:'Bebas Neue';font-size:clamp(34px,4.8vw,58px);line-height:.98;letter-spacing:1.2px}
+h3{font-weight:600;font-size:clamp(19px,2.2vw,27px);line-height:1.28;letter-spacing:-.2px}
+.sub{font-size:clamp(15px,1.6vw,19px);color:var(--t2);line-height:1.55;max-width:720px;margin-top:14px}
+.mini{font-family:'Space Mono';font-size:11.5px;color:var(--t4);letter-spacing:1px}
+b{color:#fff;font-weight:600}
+.lar{color:var(--lar)} .vd{color:var(--verde)} .am{color:var(--ama)} .rx{color:var(--rox)} .vm{color:var(--verm)}
+
+/* ═══ TELA SHOPEE SIMULADA ═══ */
+.fake{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px;max-width:660px}
+.fp{background:var(--panel);border:1px solid var(--line);border-radius:11px;overflow:hidden;position:relative;transition:.4s}
+.fp .img{height:74px;background:linear-gradient(135deg,#1a2029,#141920)}
+.fp .txt{padding:9px 10px}
+.fp .l1{height:6px;background:var(--line2);border-radius:3px;margin-bottom:5px}
+.fp .l2{height:6px;width:60%;background:var(--line2);border-radius:3px}
+.fp .pr{font-family:'Space Mono';font-size:12px;color:var(--verde);margin-top:7px}
+.fp.ad{border-color:var(--lar)}
+.fp .selo{position:absolute;top:6px;left:6px;background:var(--lar);color:#fff;font-family:'Space Mono';font-size:8px;letter-spacing:.5px;padding:2px 6px;border-radius:4px;opacity:0;transition:.4s .2s}
+.fake.revela .fp.ad .selo{opacity:1}
+.fake.revela .fp:not(.ad){opacity:.35}
+
+/* ═══ CÍRCULO VICIOSO ═══ */
+.ciclo{position:relative;width:min(430px,92%);margin:26px auto 0;aspect-ratio:1}
+.ciclo .no{position:absolute;width:150px;text-align:center;font-size:14.5px;line-height:1.4;background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:13px 12px;opacity:0;transform:scale(.85);transition:.5s}
+.ciclo .no.v{opacity:1;transform:scale(1)}
+.ciclo .no b{color:var(--lar);display:block;font-size:16px}
+.ciclo .n1{top:0;left:50%;transform:translateX(-50%) scale(.85)}
+.ciclo .n1.v{transform:translateX(-50%) scale(1)}
+.ciclo .n2{bottom:8%;right:0}
+.ciclo .n3{bottom:8%;left:0}
+.ciclo svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ciclo svg path{stroke:var(--line2);stroke-width:2;fill:none;stroke-dasharray:400;stroke-dashoffset:400;transition:stroke-dashoffset 1s ease}
+.ciclo.gira svg path{stroke-dashoffset:0}
+.ciclo .quebra{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.6);opacity:0;transition:.5s;background:var(--lar);color:#fff;font-family:'Bebas Neue';font-size:22px;letter-spacing:1.5px;padding:11px 22px;border-radius:11px;white-space:nowrap;box-shadow:0 0 40px rgba(255,77,28,.4)}
+.ciclo .quebra.v{opacity:1;transform:translate(-50%,-50%) scale(1)}
+
+/* ═══ FUNIL ANIMADO ═══ */
+.funil{display:flex;flex-direction:column;gap:5px;margin-top:22px;max-width:600px}
+.fn{position:relative;height:56px;border-radius:11px;overflow:hidden;background:var(--panel);border:1px solid var(--line)}
+.fn .barra{position:absolute;inset:0;background:linear-gradient(90deg,var(--lar),var(--lar2));width:0;transition:width 1.1s cubic-bezier(.2,.8,.3,1);border-radius:10px}
+.fn .cont{position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;z-index:2}
+.fn .nome{font-size:14.5px;font-weight:600;color:#fff}
+.fn .val{font-family:'Space Mono';font-size:15px;font-weight:700;color:#fff}
+.fperda{font-family:'Space Mono';font-size:11px;color:var(--verm);padding-left:18px;opacity:0;transition:.4s}
+.fperda.v{opacity:1}
+
+/* ═══ CHECKLIST INTERATIVO ═══ */
+.chk{display:flex;flex-direction:column;gap:7px;margin-top:16px;max-width:740px}
+.ci{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:12px 16px;cursor:pointer;transition:.2s}
+.ci:hover{border-color:var(--line2)}
+.ci .cx{flex-shrink:0;width:24px;height:24px;border-radius:7px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;transition:.2s}
+.ci .cx svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:.2s}
+.ci.ok{border-color:rgba(47,214,114,.4)}
+.ci.ok .cx{background:var(--verde);border-color:var(--verde)}
+.ci.ok .cx svg{opacity:1;transform:none}
+.ci .ct{font-size:15.5px;color:#fff}
+.ci .cdesc{font-size:13px;color:var(--t2);margin-top:3px;line-height:1.4}
+.veredito{margin-top:14px;font-family:'Space Mono';font-size:13px;letter-spacing:1px;padding:13px 18px;border-radius:11px;text-align:center;transition:.3s}
+.veredito.nao{background:rgba(255,59,59,.1);color:var(--verm)}
+.veredito.sim{background:rgba(47,214,114,.12);color:var(--verde)}
+
+/* ═══ QUEBRA DE PREÇO ═══ */
+.quebra-preco{max-width:520px;margin-top:22px;font-family:'Space Mono'}
+.qp{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line);font-size:15px;opacity:0;transform:translateX(-10px);transition:.45s}
+.qp.v{opacity:1;transform:none}
+.qp .q1{color:var(--t2)}
+.qp .q2{color:var(--verm);font-weight:700}
+.qp.top{border-bottom:1px solid var(--line2)}
+.qp.top .q1,.qp.top .q2{color:#fff;font-size:17px;font-weight:700}
+.qp.fim{border-bottom:none;border-top:2px solid var(--verde);margin-top:4px;padding-top:16px}
+.qp.fim .q1{color:#fff;font-size:16px;font-weight:700}
+.qp.fim .q2{color:var(--verde);font-size:22px;font-weight:700}
+
+/* ═══ DEGRAU DE COMISSÃO ═══ */
+.degrau{margin-top:22px;max-width:640px}
+.slider-wrap{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:22px 24px}
+.slider-wrap input[type=range]{width:100%;-webkit-appearance:none;height:5px;border-radius:3px;background:var(--line2);outline:none;margin:16px 0 10px}
+.slider-wrap input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--lar);cursor:pointer;box-shadow:0 0 14px rgba(255,77,28,.5)}
+.slider-wrap input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--lar);cursor:pointer;border:none}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px}
+.dg{text-align:center}
+.dg .dv{font-family:'Bebas Neue';font-size:38px;line-height:1}
+.dg .dl{font-family:'Space Mono';font-size:10px;color:var(--t4);letter-spacing:1.2px;text-transform:uppercase;margin-top:3px}
+.alerta-degrau{margin-top:14px;font-family:'Space Mono';font-size:12.5px;padding:11px 16px;border-radius:10px;background:rgba(255,194,51,.1);color:var(--ama);opacity:0;transition:.3s}
+.alerta-degrau.v{opacity:1}
+
+/* ═══ CALCULADORA ═══ */
+.calc{background:var(--panel);border:1px solid var(--lar);border-radius:16px;padding:26px;margin-top:20px;max-width:760px}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.cf label{display:block;font-family:'Space Mono';font-size:10px;color:var(--t3);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:6px}
+.cf input{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:9px;padding:11px 13px;color:#fff;font-family:'Space Mono';font-size:16px;font-weight:700;outline:none}
+.cf input:focus{border-color:var(--lar)}
+.cr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.cr .r{background:var(--bg);border-radius:11px;padding:15px;text-align:center}
+.cr .rl{font-family:'Space Mono';font-size:9.5px;color:var(--t4);letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px}
+.cr .rv{font-family:'Bebas Neue';font-size:33px;line-height:1}
+.cr .rs{font-size:11px;color:var(--t3);margin-top:2px}
+
+/* ═══ BARRA DE FONTES ═══ */
+.fontes{margin-top:24px;max-width:640px}
+.fb{height:44px;border-radius:11px;overflow:hidden;display:flex;background:var(--panel);border:1px solid var(--line)}
+.fb div{height:100%;width:0;transition:width 1.2s cubic-bezier(.2,.8,.3,1);display:flex;align-items:center;justify-content:center;font-family:'Space Mono';font-size:11.5px;font-weight:700;color:#fff;overflow:hidden;white-space:nowrap}
+.fleg{display:flex;gap:20px;margin-top:12px;flex-wrap:wrap}
+.fleg span{font-size:12.5px;color:var(--t2);display:flex;align-items:center;gap:7px}
+.fleg i{width:11px;height:11px;border-radius:3px;display:inline-block}
+
+/* ═══ CARDS ═══ */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:22px;max-width:820px}
+.cards .cd{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:20px}
+.cards .cd .ct2{font-family:'Bebas Neue';font-size:20px;letter-spacing:1px;color:var(--lar);margin-bottom:7px}
+.cards .cd p{font-size:14px;color:var(--t2);line-height:1.5}
+
+.aviso{border-left:3px solid var(--ama);padding:16px 22px;margin-top:22px;background:rgba(255,194,51,.06);border-radius:0 12px 12px 0;max-width:780px}
+.aviso .tg{font-family:'Space Mono';font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--ama);margin-bottom:6px}
+.aviso p{font-size:15px;line-height:1.5}
+.aviso.erro{border-color:var(--verm);background:rgba(255,59,59,.06)}
+.aviso.erro .tg{color:var(--verm)}
+.aviso.ok{border-color:var(--verde);background:rgba(47,214,114,.06)}
+.aviso.ok .tg{color:var(--verde)}
+
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:18px;max-width:700px}
+th{color:var(--t4);padding:9px 13px;text-align:left;font-family:'Space Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;border-bottom:1px solid var(--line2)}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:#e2e6ed}
+td.destaque{color:var(--lar);font-weight:700}
+
+/* ═══ CANVAS ═══ */
+#tela{position:absolute;inset:0;z-index:15;pointer-events:none;touch-action:none}
+body.desenha #tela{pointer-events:auto;cursor:crosshair}
+
+/* ═══ BARRA ═══ */
+#barra{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:11px;padding:12px 32px;background:rgba(7,8,10,.92);backdrop-filter:blur(14px);border-top:1px solid var(--line);transition:opacity .4s,transform .4s}
+body.limpo #barra{opacity:0;transform:translateY(100%);pointer-events:none}
+body.limpo #topo .sec,body.limpo #atalhos{opacity:0}
+.bt{width:36px;height:36px;border-radius:9px;border:1px solid var(--line2);background:transparent;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.bt:hover{border-color:var(--t3);color:var(--t1)}
+.bt.on{background:var(--lar);border-color:var(--lar);color:#fff}
+#cores{display:flex;gap:6px}
+#cores b{width:21px;height:21px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}
+#cores b.on{border-color:#fff;transform:scale(1.15)}
+#barra .gap{flex:1}
+#atalhos{font-family:'Space Mono';font-size:10px;color:var(--t4);letter-spacing:.5px}
+#cont{font-family:'Space Mono';font-size:12px;color:var(--t3)}
+
+#grade{position:fixed;inset:0;z-index:50;background:rgba(7,8,10,.97);display:none;padding:40px;overflow-y:auto}
+#grade.on{display:block}
+#grade h4{font-family:'Bebas Neue';font-size:25px;letter-spacing:2px;margin-bottom:20px}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.ms{border:1px solid var(--line2);border-radius:11px;padding:16px;cursor:pointer;transition:.15s;min-height:96px}
+.ms:hover{border-color:var(--lar)}
+.ms.at{border-color:var(--lar);background:rgba(255,77,28,.07)}
+.ms .mn{font-family:'Space Mono';font-size:10px;color:var(--lar);letter-spacing:1px}
+.ms .mt{font-weight:600;font-size:14px;margin-top:7px;line-height:1.3}
+
+@media(max-width:900px){
+  .s{padding:26px 22px 80px}
+  .cg,.cr,.dgrid{grid-template-columns:1fr}
+  .fake{grid-template-columns:repeat(2,1fr)}
+  #atalhos{display:none}
+  #topo{padding:12px 18px}
+  #barra{padding:11px 16px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div id="palco">
+  <div id="topo">
+    <span class="mod">NÍVEL 0</span>
+    <span class="sec">ANTES DE COMEÇAR</span>
+    <span class="gap"></span>
+    <div id="pontos"></div>
+  </div>
+
+  <div id="slides">
+
+    <!-- 01 · CAPA -->
+    <section class="s" data-t="Capa">
+      <div class="olho">Trilha Shopee Ads · Nível 0</div>
+      <h1>Antes de<br>Começar</h1>
+      <p class="sub" data-r>O que é Shopee Ads, por que anunciar — e como saber se você <b>pode</b> anunciar antes de gastar o primeiro real.</p>
+      <p class="mini" data-r style="margin-top:34px">5 módulos · nenhum conhecimento prévio necessário</p>
+    </section>
+
+    <!-- 02 · O QUE É -->
+    <section class="s" data-t="O que é Shopee Ads">
+      <div class="olho">Módulo 0.1</div>
+      <h2>Nem tudo que você vê<br>na busca chegou lá <span class="lar">de graça</span></h2>
+      <p class="sub" data-r>Alguém busca "tapete de sala". Aparece uma lista. Mas parte dela está ali porque <b>pagou</b>.</p>
+      <div class="fake" id="fake1" data-r data-anim="ads">
+        <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 89,90</div></div></div>
+        <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 124,00</div></div></div>
+        <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 76,50</div></div></div>
+        <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 95,00</div></div></div>
+      </div>
+      <p class="sub" data-r id="revela-ads">Os dois primeiros costumam ser <b class="lar">anúncios</b>. Depois, aparece um a cada três produtos.</p>
+    </section>
+
+    <!-- 03 · ONDE APARECEM -->
+    <section class="s" data-t="Onde aparecem">
+      <div class="olho">Módulo 0.1</div>
+      <h3>Seu anúncio aparece em dois lugares — e eles são bem diferentes</h3>
+      <div class="cards">
+        <div class="cd" data-r><div class="ct2">NA BUSCA</div><p>Alguém digitou exatamente o que você vende. A pessoa está <b>procurando</b>. Intenção alta, concorrência alta.</p></div>
+        <div class="cd" data-r><div class="ct2">NA DESCOBERTA</div><p>Nas áreas de "Você Também Pode Gostar". A Shopee mostra para quem tem <b>perfil parecido</b> com seu comprador. A pessoa não estava procurando — foi encontrada.</p></div>
+      </div>
+      <p class="sub" data-r>Guarde essa diferença. Ela explica por que o mesmo produto pode ter custos bem diferentes dependendo de onde aparece.</p>
+    </section>
+
+    <!-- 04 · O CÍRCULO VICIOSO -->
+    <section class="s" data-t="Por que anunciar">
+      <div class="olho">Módulo 0.2 · Por que anunciar</div>
+      <h3>"Se meu produto é bom, ele não vende sozinho?"</h3>
+      <p class="sub">Raramente. E o motivo é um círculo que trava todo vendedor novo.</p>
+      <div class="ciclo" id="ciclo" data-r data-anim="ciclo">
+        <svg viewBox="0 0 400 400">
+          <path d="M 200 70 A 130 130 0 0 1 313 265" />
+          <path d="M 313 265 A 130 130 0 0 1 87 265" />
+          <path d="M 87 265 A 130 130 0 0 1 200 70" />
+        </svg>
+        <div class="no n1">Para vender, precisa <b>APARECER</b></div>
+        <div class="no n2">Para aparecer, a Shopee precisa <b>CONFIAR</b></div>
+        <div class="no n3">Para confiar, precisa <b>JÁ TER VENDIDO</b></div>
+        <div class="quebra" id="quebra">O ANÚNCIO QUEBRA O CICLO</div>
+      </div>
+    </section>
+
+    <!-- 05 · O QUE VOCÊ COMPRA -->
+    <section class="s" data-t="O que você compra">
+      <div class="olho">Módulo 0.2</div>
+      <h2>Você não está comprando<br>só <span class="lar">vendas</span></h2>
+      <p class="sub" data-r>Está comprando o <b>histórico</b> que faz o algoritmo passar a confiar no seu produto. As primeiras vendas geram os dados que a Shopee usa para decidir se te mostra organicamente depois.</p>
+      <div class="fontes" data-r data-anim="barras">
+        <div class="fb" id="fb1">
+          <div style="background:var(--lar)" data-w="60">ADS</div>
+          <div style="background:var(--azul)" data-w="21">ORGÂNICO</div>
+          <div style="background:var(--rox)" data-w="12">AFILIADO</div>
+          <div style="background:var(--t4)" data-w="7">OUTROS</div>
+        </div>
+        <div class="fleg">
+          <span><i style="background:var(--lar)"></i>Anúncios</span>
+          <span><i style="background:var(--azul)"></i>Busca orgânica</span>
+          <span><i style="background:var(--rox)"></i>Afiliados</span>
+          <span><i style="background:var(--t4)"></i>Lives e vídeos</span>
+        </div>
+      </div>
+      <p class="sub" data-r>Na maioria das lojas que acompanhamos, <b>a maior parte do faturamento vem de anúncio</b>. Não é um extra — é o motor principal.</p>
+    </section>
+
+    <!-- 06 · ANÚNCIO NÃO CONSERTA -->
+    <section class="s" data-t="Anúncio não conserta">
+      <div class="olho">Módulo 0.3 · Você está pronto?</div>
+      <h2>Anúncio não conserta<br>produto ruim.</h2>
+      <h2 style="color:var(--verm);margin-top:8px" data-r>Ele acelera o prejuízo.</h2>
+      <p class="sub" data-r>Se você anuncia um produto que dá prejuízo, você não está investindo — está perdendo dinheiro <b>mais rápido</b>.</p>
+      <p class="sub" data-r>Antes de gastar o primeiro real, tem cinco perguntas que precisam de um "sim".</p>
+    </section>
+
+    <!-- 07 · CHECKLIST -->
+    <section class="s" data-t="Os 5 pré-requisitos">
+      <div class="olho">Módulo 0.3 · Marque o que você já tem</div>
+      <h3>Os cinco pré-requisitos</h3>
+      <div class="chk" id="chk">
+        <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Sei quanto sobra em cada venda</div><div class="cdesc">Preço menos custo, comissão, frete e embalagem</div></div></div>
+        <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">A foto principal mostra o produto com clareza</div><div class="cdesc">É o único elemento que compete na tela cheia de concorrentes</div></div></div>
+        <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">O produto tem avaliações</div><div class="cdesc">Produto zerado converte muito menos</div></div></div>
+        <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Tenho estoque para dez vezes mais venda</div><div class="cdesc">Anúncio funcionando com estoque acabando é o pior cenário</div></div></div>
+        <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Meu preço está na faixa do mercado</div><div class="cdesc">Busque seu produto na Shopee e compare</div></div></div>
+      </div>
+      <div class="veredito nao" id="veredito">0 de 5 · conserte antes de anunciar</div>
+    </section>
+
+    <!-- 08 · O QUE SAI DO PREÇO -->
+    <section class="s" data-t="O que sai do preço">
+      <div class="olho">Módulo 0.4 · Sua precificação aguenta?</div>
+      <h3>Você vende por R$79,90. Quanto entra no seu bolso?</h3>
+      <div class="quebra-preco" id="qp" data-r data-anim="preco">
+        <div class="qp top"><span class="q1">Preço de venda</span><span class="q2">R$ 79,90</span></div>
+        <div class="qp"><span class="q1">− custo do produto</span><span class="q2">− R$ 32,00</span></div>
+        <div class="qp"><span class="q1">− comissão Shopee</span><span class="q2">− R$ 19,98</span></div>
+        <div class="qp"><span class="q1">− frete e embalagem</span><span class="q2">− R$ 6,00</span></div>
+        <div class="qp fim"><span class="q1">Sobra</span><span class="q2">R$ 21,92</span></div>
+      </div>
+      <p class="sub" data-r>Sobrou <b class="vd">R$21,92</b> — ou seja, <b>27% do preço</b>. É esse número que decide tudo o que vem a seguir.</p>
+    </section>
+
+    <!-- 09 · DEGRAU DE COMISSÃO -->
+    <section class="s" data-t="O degrau da comissão">
+      <div class="olho">Módulo 0.4</div>
+      <h3>A comissão tem degraus. E um deles é uma armadilha.</h3>
+      <p class="sub">Arraste o preço e veja o que acontece.</p>
+      <div class="degrau">
+        <div class="slider-wrap">
+          <div class="mini">PREÇO DE VENDA</div>
+          <input type="range" id="sl" min="40" max="220" value="70" step="1">
+          <div class="dgrid">
+            <div class="dg"><div class="dv lar" id="d-preco">R$70</div><div class="dl">preço</div></div>
+            <div class="dg"><div class="dv" id="d-com">R$18</div><div class="dl">comissão</div></div>
+            <div class="dg"><div class="dv vd" id="d-pct">25,7%</div><div class="dl">% do preço</div></div>
+          </div>
+          <div class="alerta-degrau" id="alerta-d">⚠ Passou de R$79,99 — a comissão saltou R$7,20 por um centavo</div>
+        </div>
+      </div>
+      <p class="sub" data-r>Produto entre R$80 e R$85? Quase sempre vale <b>baixar para R$79,90</b>.</p>
+    </section>
+
+    <!-- 10 · ROAS MÍNIMO -->
+    <section class="s" data-t="O ROAS mínimo">
+      <div class="olho">Módulo 0.4 · O número mágico</div>
+      <h2>Não existe<br><span class="lar">"ROAS bom"</span> no vácuo</h2>
+      <p class="sub" data-r>ROAS é quanto volta para cada R$1 investido em anúncio. Todo mundo repete que "5× é bom". <b>Depende inteiramente da sua margem.</b></p>
+      <table data-r>
+        <thead><tr><th>Se sua margem é</th><th>Você precisa de</th><th>Só para empatar</th></tr></thead>
+        <tbody>
+          <tr><td>10%</td><td class="destaque">10,0×</td><td>cada R$1 precisa virar R$10</td></tr>
+          <tr><td>15%</td><td class="destaque">6,7×</td><td></td></tr>
+          <tr><td>20%</td><td class="destaque">5,0×</td><td>aqui "5× é bom" empata</td></tr>
+          <tr><td>30%</td><td class="destaque">3,3×</td><td></td></tr>
+          <tr><td>40%</td><td class="destaque">2,5×</td><td>margem alta perdoa mais</td></tr>
+        </tbody>
+      </table>
+      <div class="aviso erro" data-r><div class="tg">A conclusão</div><p>Para margem de 30%, ROAS 5× dá lucro. Para margem de 15%, o <b>mesmo</b> ROAS 5× dá prejuízo. Quem anuncia sem saber a margem está perseguindo um número que pode estar levando ao vermelho.</p></div>
+    </section>
+
+    <!-- 11 · CALCULADORA -->
+    <section class="s" data-t="Calcule o seu">
+      <div class="olho">Módulo 0.4 · Faça agora</div>
+      <h3>Calcule o ROAS mínimo do seu produto</h3>
+      <div class="calc">
+        <div class="cg">
+          <div class="cf"><label>Preço de venda</label><input type="number" id="c-preco" value="79.90" step="0.1"></div>
+          <div class="cf"><label>Custo do produto</label><input type="number" id="c-custo" value="32" step="0.1"></div>
+          <div class="cf"><label>Frete + embalagem</label><input type="number" id="c-frete" value="6" step="0.1"></div>
+        </div>
+        <div class="cr">
+          <div class="r"><div class="rl">Comissão Shopee</div><div class="rv" id="c-com">—</div><div class="rs" id="c-faixa"></div></div>
+          <div class="r"><div class="rl">Sua margem</div><div class="rv vd" id="c-marg">—</div><div class="rs" id="c-margpct"></div></div>
+          <div class="r"><div class="rl">ROAS mínimo</div><div class="rv lar" id="c-roas">—</div><div class="rs">abaixo disso, prejuízo</div></div>
+        </div>
+      </div>
+      <p class="sub" data-r>Esse número é <b>seu</b>. Ninguém pode te dizer qual ROAS perseguir sem conhecer essa conta.</p>
+    </section>
+
+    <!-- 12 · COMO PAGA -->
+    <section class="s" data-t="Como você paga">
+      <div class="olho">Módulo 0.5</div>
+      <h3>Duas coisas definem seu gasto</h3>
+      <div class="cards">
+        <div class="cd" data-r><div class="ct2">ORÇAMENTO DIÁRIO</div><p>Você define quanto gastar por dia. A Shopee distribui ao longo do dia e para quando acaba. No dia seguinte, recomeça.</p><p style="margin-top:9px;color:var(--t1)">Para produto novo em teste: <b>R$15 a R$30 por dia</b> costuma bastar.</p></div>
+        <div class="cd" data-r><div class="ct2">A FORMA DE COBRANÇA</div><p>Hoje a Shopee cobra por <b>mil vezes que seu anúncio aparece</b> na tela de alguém.</p><p style="margin-top:9px;color:var(--verm)">Você paga <b>mesmo que ninguém clique.</b></p></div>
+      </div>
+      <div class="aviso" data-r><div class="tg">E aqui está o que confunde todo mundo</div><p>Você <b>não escolhe</b> quanto paga por mil aparições. Quem calcula é o algoritmo. Entender como ele calcula é o assunto do Nível 2 — e é onde está o coração deste método.</p></div>
+    </section>
+
+    <!-- 13 · FECHAMENTO -->
+    <section class="s" data-t="Fechamento">
+      <div class="olho">Fim do Nível 0</div>
+      <h2>Você está pronto<br>para o <span class="lar">Nível 1</span>?</h2>
+      <div class="aviso ok" data-r><div class="tg">Se você conseguiu</div><p><b>(a)</b> marcar os cinco pré-requisitos e <b>(b)</b> calcular o ROAS mínimo do seu produto — você está pronto para anunciar. No Nível 1 você aprende a <b>ler o que o anúncio devolve</b>.</p></div>
+      <div class="aviso erro" data-r><div class="tg">Se ainda não calculou a margem</div><p>Resolva isso primeiro. É o único item de toda a trilha que <b>não dá para pular</b>.</p></div>
+    </section>
+
+  </div>
+  <canvas id="tela"></canvas>
+</div>
+
+<div id="barra">
+  <button class="bt" id="ant" title="Anterior"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="bt" id="prox" title="Próximo"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <button class="bt" id="pena" title="Desenhar (D)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></button>
+  <div id="cores">
+    <b data-c="#ff4d1c" class="on" style="background:#ff4d1c"></b>
+    <b data-c="#ffffff" style="background:#fff"></b>
+    <b data-c="#2fd672" style="background:#2fd672"></b>
+    <b data-c="#3d9bff" style="background:#3d9bff"></b>
+  </div>
+  <button class="bt" id="limpa" title="Apagar (L)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+  <span class="gap"></span>
+  <span id="atalhos">← → NAVEGA · D DESENHA · L LIMPA · R REPETE · G GRADE · H ESCONDE · F TELA</span>
+  <button class="bt" id="repete" title="Repetir animação (R)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg></button>
+  <button class="bt" id="bgrade" title="Grade (G)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+  <button class="bt" id="btela" title="Tela cheia (F)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+  <span id="cont">01 / 13</span>
+</div>
+
+<div id="grade"><h4>TODOS OS SLIDES · NÍVEL 0</h4><div class="mg" id="mg"></div></div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.s')], total=slides.length;
+  let atual=0, passo=0, desenhando=false, pintando=false, cor='#ff4d1c';
+  const desenhos={};
+
+  // pontos
+  const pts=document.getElementById('pontos');
+  pts.innerHTML=slides.map(()=>'<i></i>').join('');
+  const bolas=[...pts.children];
+
+  // ═══ CANVAS ═══
+  const tela=document.getElementById('tela'), ctx=tela.getContext('2d');
+  function dim(){
+    const r=devicePixelRatio||1;
+    tela.width=innerWidth*r; tela.height=innerHeight*r;
+    tela.style.width=innerWidth+'px'; tela.style.height=innerHeight+'px';
+    ctx.setTransform(r,0,0,r,0,0); ctx.lineCap='round'; ctx.lineJoin='round';
+    restaura();
+  }
+  function restaura(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    const d=desenhos[atual];
+    if(d){const i=new Image(); i.onload=()=>ctx.drawImage(i,0,0,innerWidth,innerHeight); i.src=d;}
+  }
+  const pos=e=>{const r=tela.getBoundingClientRect(); return {x:e.clientX-r.left,y:e.clientY-r.top};};
+  tela.addEventListener('pointerdown',e=>{
+    if(!desenhando && e.pointerType!=='pen') return;
+    pintando=true; tela.setPointerCapture(e.pointerId);
+    const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y);
+    ctx.strokeStyle=cor; ctx.lineWidth=e.pointerType==='pen'?Math.max(1.8,(e.pressure||.5)*7):3.2;
+  });
+  tela.addEventListener('pointermove',e=>{
+    if(!pintando) return; const p=pos(e);
+    if(e.pointerType==='pen') ctx.lineWidth=Math.max(1.8,(e.pressure||.5)*7);
+    ctx.lineTo(p.x,p.y); ctx.stroke();
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>tela.addEventListener(ev,()=>{if(pintando){pintando=false;desenhos[atual]=tela.toDataURL();}}));
+  document.addEventListener('pointerdown',e=>{if(e.pointerType==='pen')tela.style.pointerEvents='auto';},true);
+
+  // ═══ ANIMAÇÕES · disparam quando o elemento é revelado ═══
+  const anims={
+    ads(el){ setTimeout(()=>el.classList.add('revela'),500); },
+    ciclo(el){
+      setTimeout(()=>el.classList.add('gira'),150);
+      el.querySelectorAll('.no').forEach((n,i)=>setTimeout(()=>n.classList.add('v'),300+i*550));
+      setTimeout(()=>el.querySelector('.quebra').classList.add('v'),2300);
+    },
+    barras(el){
+      el.querySelectorAll('.fb div').forEach((d,i)=>setTimeout(()=>d.style.width=d.dataset.w+'%',200+i*140));
+    },
+    preco(el){
+      el.querySelectorAll('.qp').forEach((q,i)=>setTimeout(()=>q.classList.add('v'),150+i*450));
+    }
+  };
+  const resets={
+    ads:el=>el.classList.remove('revela'),
+    ciclo:el=>{el.classList.remove('gira');el.querySelectorAll('.no').forEach(n=>n.classList.remove('v'));el.querySelector('.quebra').classList.remove('v');},
+    barras:el=>el.querySelectorAll('.fb div').forEach(d=>d.style.width='0'),
+    preco:el=>el.querySelectorAll('.qp').forEach(q=>q.classList.remove('v'))
+  };
+  function dispara(el){ const a=el.dataset.anim; if(a&&anims[a]) anims[a](el); }
+  function reseta(s){ s.querySelectorAll('[data-anim]').forEach(el=>{const a=el.dataset.anim; if(resets[a])resets[a](el);}); }
+  function rodaTodas(s){ s.querySelectorAll('[data-anim]').forEach(dispara); }
+
+  // ═══ NAVEGAÇÃO ═══
+  function mostra(i,revelarTudo){
+    reseta(slides[atual]);
+    slides[atual].classList.remove('on');
+    atual=(i+total)%total;
+    const s=slides[atual]; s.classList.add('on');
+    const revs=[...s.querySelectorAll('[data-r]')];
+    reseta(s);
+    if(revelarTudo){ revs.forEach(e=>e.classList.add('v')); passo=revs.length; setTimeout(()=>rodaTodas(s),60); }
+    else { revs.forEach(e=>e.classList.remove('v')); passo=0;
+           // elementos com animação que NÃO têm data-r rodam na entrada
+           s.querySelectorAll('[data-anim]:not([data-r])').forEach(el=>setTimeout(()=>dispara(el),300)); }
+    bolas.forEach((b,k)=>b.className=k===atual?'on':(k<atual?'foi':''));
+    document.getElementById('cont').textContent=String(atual+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    restaura(); marcaGrade();
+  }
+  function avanca(){
+    const revs=[...slides[atual].querySelectorAll('[data-r]')];
+    if(passo<revs.length){ const el=revs[passo]; el.classList.add('v'); dispara(el); passo++; return; }
+    if(atual<total-1) mostra(atual+1,false);
+  }
+  function volta(){
+    if(passo>0){ passo--; const el=slides[atual].querySelectorAll('[data-r]')[passo];
+                 el.classList.remove('v'); const a=el.dataset.anim; if(a&&resets[a])resets[a](el); return; }
+    if(atual>0) mostra(atual-1,true);
+  }
+
+  // ═══ INTERATIVOS ═══
+  // checklist
+  const chk=document.getElementById('chk'), ver=document.getElementById('veredito');
+  chk.addEventListener('click',e=>{
+    const ci=e.target.closest('.ci'); if(!ci) return;
+    ci.classList.toggle('ok');
+    const n=chk.querySelectorAll('.ci.ok').length;
+    ver.textContent = n===5 ? '5 de 5 · você está pronto para anunciar' : n+' de 5 · conserte antes de anunciar';
+    ver.className = 'veredito '+(n===5?'sim':'nao');
+  });
+
+  // slider de comissão
+  const sl=document.getElementById('sl');
+  function comissao(p){
+    if(p<=79.99) return p*0.20+4;
+    if(p<=99.99) return p*0.14+16;
+    if(p<=199.99) return p*0.14+20;
+    return p*0.14+26;
+  }
+  function attSlider(){
+    const p=+sl.value, c=comissao(p);
+    document.getElementById('d-preco').textContent='R$'+p;
+    document.getElementById('d-com').textContent='R$'+c.toFixed(2);
+    const pct=c/p*100;
+    const el=document.getElementById('d-pct');
+    el.textContent=pct.toFixed(1)+'%';
+    el.className='dv '+(pct>30?'vm':pct>26?'am':'vd');
+    document.getElementById('alerta-d').classList.toggle('v', p>=80 && p<=86);
+  }
+  sl.addEventListener('input',attSlider); attSlider();
+
+  // calculadora
+  function calc(){
+    const p=+document.getElementById('c-preco').value||0;
+    const cu=+document.getElementById('c-custo').value||0;
+    const fr=+document.getElementById('c-frete').value||0;
+    const c=comissao(p);
+    const m=p-cu-fr-c, mp=p?m/p*100:0;
+    document.getElementById('c-com').textContent='R$'+c.toFixed(2);
+    document.getElementById('c-faixa').textContent=p<=79.99?'20% + R$4':p<=99.99?'14% + R$16':p<=199.99?'14% + R$20':'14% + R$26';
+    document.getElementById('c-marg').textContent='R$'+m.toFixed(2);
+    document.getElementById('c-margpct').textContent=mp.toFixed(1)+'% do preço';
+    const r=document.getElementById('c-roas');
+    if(mp>0){ r.textContent=(100/mp).toFixed(1)+'×'; r.className='rv lar'; }
+    else { r.textContent='∞'; r.className='rv vm'; document.getElementById('c-marg').className='rv vm'; }
+    if(mp>0) document.getElementById('c-marg').className='rv vd';
+  }
+  ['c-preco','c-custo','c-frete'].forEach(id=>document.getElementById(id).addEventListener('input',calc));
+  calc();
+
+  // ═══ BOTÕES ═══
+  document.getElementById('prox').onclick=avanca;
+  document.getElementById('ant').onclick=volta;
+  document.getElementById('repete').onclick=()=>{const s=slides[atual];reseta(s);setTimeout(()=>rodaTodas(s),80);};
+  const pena=document.getElementById('pena');
+  pena.onclick=()=>{desenhando=!desenhando;document.body.classList.toggle('desenha',desenhando);pena.classList.toggle('on',desenhando);};
+  document.getElementById('limpa').onclick=()=>{ctx.clearRect(0,0,innerWidth,innerHeight);delete desenhos[atual];};
+  document.querySelectorAll('#cores b').forEach(b=>b.onclick=()=>{
+    cor=b.dataset.c;
+    document.querySelectorAll('#cores b').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); if(!desenhando) pena.click();
+  });
+  document.getElementById('btela').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+  // grade
+  const grade=document.getElementById('grade'), mg=document.getElementById('mg');
+  mg.innerHTML=slides.map((s,i)=>`<div class="ms" data-i="${i}"><div class="mn">${String(i+1).padStart(2,'0')}</div><div class="mt">${s.dataset.t}</div></div>`).join('');
+  const marcaGrade=()=>[...mg.children].forEach((c,i)=>c.classList.toggle('at',i===atual));
+  mg.onclick=e=>{const c=e.target.closest('.ms'); if(c){mostra(+c.dataset.i,false); grade.classList.remove('on');}};
+  document.getElementById('bgrade').onclick=()=>grade.classList.toggle('on');
+
+  // modo gravação
+  let ocio, travado=false;
+  function acorda(){
+    if(travado) return;
+    document.body.classList.remove('limpo');
+    clearTimeout(ocio); ocio=setTimeout(()=>document.body.classList.add('limpo'),3000);
+  }
+  ['mousemove','keydown','pointerdown'].forEach(ev=>addEventListener(ev,acorda));
+
+  // teclado
+  addEventListener('keydown',e=>{
+    if(e.target.tagName==='INPUT') return;
+    const k=e.key.toLowerCase();
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();avanca();}
+    else if(e.key==='ArrowLeft'){e.preventDefault();volta();}
+    else if(k==='d')pena.click();
+    else if(k==='l')document.getElementById('limpa').click();
+    else if(k==='r')document.getElementById('repete').click();
+    else if(k==='g')grade.classList.toggle('on');
+    else if(k==='f')document.getElementById('btela').click();
+    else if(k==='h'){travado=!travado;document.body.classList.toggle('limpo',travado);clearTimeout(ocio);}
+    else if(e.key==='Escape')grade.classList.remove('on');
+    else if(e.key==='Home')mostra(0,false);
+    else if(e.key==='End')mostra(total-1,false);
+  });
+
+  // toque
+  document.getElementById('slides').addEventListener('click',e=>{
+    if(desenhando||e.target.closest('.ci,input,.calc,.slider-wrap')) return;
+    (e.clientX>innerWidth*0.32)?avanca():volta();
+  });
+
+  addEventListener('resize',dim);
+  dim(); mostra(0,false); acorda();
+})();
+</script>
+</body>
+</html>
