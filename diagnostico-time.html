@@ -1,0 +1,714 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico Operacional do Time</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#07080a;--panel:#0e1116;--line:#1c222b;--line2:#2a323d;--lar:#ff4d1c;--verde:#2fd672;--ama:#ffc233;--verm:#ff3b3b;--t1:#f4f6f9;--t2:#9aa2b1;--t3:#5b6472}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;line-height:1.68;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;width:270px;height:100vh;overflow-y:auto;background:#0a0c0e;border-right:1px solid var(--line);padding:26px 0;z-index:50}
+nav .m{font-family:'Bebas Neue';font-size:19px;letter-spacing:1.5px;color:var(--lar);padding:0 22px 4px}
+nav .s{font-family:'Space Mono';font-size:9.5px;color:var(--t3);letter-spacing:1.5px;padding:0 22px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}
+nav a{display:block;padding:8px 22px;color:var(--t2);text-decoration:none;font-size:13px;border-left:2px solid transparent;transition:.15s}
+nav a:hover{color:var(--t1);background:var(--panel);border-left-color:var(--lar)}
+main{margin-left:270px;max-width:900px;padding:50px 52px 110px}
+h1{font-family:'Bebas Neue';font-size:clamp(30px,4.4vw,46px);letter-spacing:1.5px;line-height:1.05;margin:56px 0 10px;color:#fff;scroll-margin-top:20px;padding-top:24px;border-top:1px solid var(--line2)}
+h1:first-child{margin-top:0;border-top:none;padding-top:0}
+h2{font-family:'Bebas Neue';font-size:clamp(22px,3vw,30px);letter-spacing:1.2px;margin:38px 0 10px;color:var(--lar)}
+h3{font-weight:700;font-size:18px;margin:26px 0 8px;color:#fff}
+p{margin:12px 0;font-size:15.5px;color:#e2e6ed}
+strong{color:#fff;font-weight:600}
+em{color:var(--t2);font-style:normal}
+ul,ol{margin:12px 0 12px 22px} li{margin:7px 0;font-size:15.5px;color:#e2e6ed}
+hr{border:none;border-top:1px solid var(--line);margin:44px 0}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px;display:block;overflow-x:auto}
+th{background:#12151a;color:var(--t2);padding:10px 13px;text-align:left;font-family:'Space Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:#e2e6ed}
+tr:hover td{background:var(--panel)}
+code{font-family:'Space Mono';font-size:12.5px;background:#12151a;padding:2px 6px;border-radius:5px;color:var(--lar)}
+@media(max-width:900px){nav{display:none}main{margin-left:0;padding:30px 20px 80px}}
+</style></head><body>
+<nav><div class="m">DIAGNÓSTICO</div><div class="s">OPERACIONAL · AGO 2026</div><a href="#diagnostico-operacional-do-time">DIAGNÓSTICO OPERACIONAL DO TIME</a><a href="#1-o-time-hoje">1. O TIME HOJE</a><a href="#2-distribuicao-da-carteira">2. DISTRIBUIÇÃO DA CARTEIRA</a><a href="#3-o-que-cada-cargo-executa">3. O QUE CADA CARGO EXECUTA</a><a href="#4-como-o-time-marca">4. COMO O TIME MARCA</a><a href="#5-cobertura-e-intensidade">5. COBERTURA E INTENSIDADE</a><a href="#6-o-catalogo-de-acoes">6. O CATÁLOGO DE AÇÕES</a><a href="#7-o-que-o-sistema-nao-captura">7. O QUE O SISTEMA NÃO CAPTURA</a><a href="#8-pessoas-para-verificar-antes-da-reuniao">8. PESSOAS PARA VERIFICAR ANTES DA REUNIÃO</a><a href="#9-pauta-sugerida-para-a-reuniao">9. PAUTA SUGERIDA PARA A REUNIÃO</a></nav>
+<main><h1 id="diagnostico-operacional-do-time">DIAGNÓSTICO OPERACIONAL DO TIME</h1>
+<h3 id="levantamento-para-reuniao-de-reestruturacao">Levantamento para reunião de reestruturação</h3>
+<p><strong>Efeito Vendas · agosto 2026</strong></p>
+<p><strong>Base:</strong> 53.680 execuções de checklist · 18 semanas (25/abr a 24/ago) · 153 contas ativas · 29 cadastros de membro
+<strong>Recorte de atividade:</strong> últimas 4 semanas (03/ago a 24/ago)</p>
+<hr />
+<h2 id="aviso-metodologico-leia-antes-de-usar-estes-numeros">AVISO METODOLÓGICO — leia antes de usar estes números</h2>
+<p>O checklist mede <strong>registro de execução</strong>, não trabalho realizado. As três limitações que precisam ser ditas na reunião:</p>
+<ol>
+<li>
+<p><strong>100% dos 53.680 registros estão como "concluída".</strong> Não existe estado "pendente" ou "não executada" — o registro só nasce quando alguém marca. Portanto <strong>não é possível calcular taxa de cumprimento</strong>. O que se mede é volume de marcação.</p>
+</li>
+<li>
+<p><strong>Volume de marcação não é produtividade.</strong> Quem marca mais pode estar trabalhando mais, marcando com mais granularidade, ou apenas marcando mais. Os números abaixo mostram <em>padrões</em>, e padrões levantam perguntas — não veredictos.</p>
+</li>
+<li>
+<p><strong>Zero execuções não significa zero trabalho.</strong> Pode significar que a pessoa não usa o sistema, mudou de função, está afastada, ou o trabalho dela não está no catálogo. Cada caso precisa ser confirmado antes de conclusão.</p>
+</li>
+</ol>
+<p><strong>Use este documento para fazer perguntas melhores na reunião, não para fechar diagnósticos.</strong></p>
+<hr />
+<h1 id="1-o-time-hoje">1. O TIME HOJE</h1>
+<table>
+<thead>
+<tr>
+<th>Cargo</th>
+<th>Pessoas</th>
+<th>Nomes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>consultor_conta</td>
+<td>11 registros</td>
+<td>Elisandra, Ewerton, Fernanda Almeida, Gustavo ×2, Janaina, Mariana Ramos, Maysa ×2, Patricia, Victoria</td>
+</tr>
+<tr>
+<td>analista_ads</td>
+<td>6</td>
+<td>Christian, Ewerton, Gabriel, Kaua, Leonardo, Raissa</td>
+</tr>
+<tr>
+<td>assistente_shopee</td>
+<td>4</td>
+<td>Ana, Beatriz, Kauane, Sthefany</td>
+</tr>
+<tr>
+<td>gerente_conta</td>
+<td>3</td>
+<td>Karina, Ketylyn, Raiane</td>
+</tr>
+<tr>
+<td>gerente_ads</td>
+<td>1</td>
+<td>Luiz</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Problema de cadastro:</strong> há duplicidade real — dois "Gustavo", dois "Maysa", Ewerton aparece como consultor e como analista, e existe um "Ewerton Teste" com 1 conta real atribuída. Além de três "TESTE TESTE". Isso polui qualquer relatório e precisa ser limpo antes da reestruturação.</p>
+<hr />
+<h1 id="2-distribuicao-da-carteira">2. DISTRIBUIÇÃO DA CARTEIRA</h1>
+<h2 id="21-consultores-de-conta">2.1 Consultores de conta</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Contas</th>
+<th>Execuções (4 sem)</th>
+<th>Por conta</th>
+<th>Por conta/semana</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Patricia</td>
+<td>28</td>
+<td>2.179</td>
+<td>78</td>
+<td>19,5</td>
+</tr>
+<tr>
+<td>Fernanda Almeida</td>
+<td>27</td>
+<td>1.477</td>
+<td>55</td>
+<td>13,7</td>
+</tr>
+<tr>
+<td>Janaina</td>
+<td>26</td>
+<td>1.865</td>
+<td>72</td>
+<td>17,9</td>
+</tr>
+<tr>
+<td>Elisandra</td>
+<td>24</td>
+<td>1.823</td>
+<td>76</td>
+<td>19,0</td>
+</tr>
+<tr>
+<td>Mariana Ramos</td>
+<td>19</td>
+<td>955</td>
+<td>50</td>
+<td>12,6</td>
+</tr>
+<tr>
+<td>Ketylyn <em>(gerente)</em></td>
+<td>16</td>
+<td>1.045</td>
+<td>65</td>
+<td>16,3</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>5</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leitura:</strong> a distribuição entre os cinco consultores principais é razoavelmente equilibrada (19 a 28 contas). A intensidade por conta varia de 12,6 a 19,5 execuções semanais — uma diferença de 55% entre o menor e o maior.</p>
+<p><strong>Ponto de atenção:</strong> Ketylyn é gerente de conta mas carrega 16 contas operacionais. Vale discutir se gerente deve ter carteira própria ou se isso está consumindo o tempo de gestão.</p>
+<h2 id="22-analistas-de-ads">2.2 Analistas de Ads</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Contas</th>
+<th>Execuções (4 sem)</th>
+<th>Por conta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leonardo</td>
+<td>47</td>
+<td>1.472</td>
+<td>31</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>44</td>
+<td>1.779</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>37</td>
+<td>1.202</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Luiz <em>(gerente)</em></td>
+<td>16</td>
+<td>154</td>
+<td>10</td>
+</tr>
+<tr>
+<td><strong>Raissa</strong></td>
+<td><strong>3</strong></td>
+<td><strong>0</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Christian</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Gabriel</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Este é o desequilíbrio mais grave da operação.</strong> Três pessoas concentram <strong>128 das 131 contas de ads</strong> (98%). Enquanto isso:
+- <strong>Raissa</strong> tem 3 contas e nenhuma execução registrada nas últimas 4 semanas
+- <strong>Christian</strong> e <strong>Gabriel</strong> estão cadastrados como analistas de ads e <strong>não têm nenhuma conta atribuída</strong></p>
+<p>Se essas três pessoas estão ativas na empresa, há capacidade ociosa enquanto Leonardo, Kaua e Ewerton carregam 40+ contas cada.</p>
+<p><strong>Pergunta para a reunião:</strong> Christian, Gabriel e Raissa estão ativos? Se sim, por que não têm carteira? Se não, por que continuam no sistema?</p>
+<h2 id="23-assistentes">2.3 Assistentes</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Contas</th>
+<th>Execuções (4 sem)</th>
+<th>Por conta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sthefany</td>
+<td>23</td>
+<td>1.456</td>
+<td>63</td>
+</tr>
+<tr>
+<td><strong>Ana</strong></td>
+<td><strong>36</strong></td>
+<td><strong>0</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td><strong>Beatriz</strong></td>
+<td><strong>6</strong></td>
+<td><strong>0</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>Kauane</td>
+<td>0</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O achado mais crítico do levantamento.</strong> Ana tem <strong>36 contas atribuídas e zero execuções registradas</strong> nas últimas 4 semanas. Beatriz, 6 contas e zero. Somando, <strong>42 contas</strong> estão com assistente atribuído que não está registrando nada.</p>
+<p>Historicamente Ana tinha atividade (1.188 execuções em 6 semanas anteriores), então algo mudou. Sthefany, sozinha, cobre 158 contas distintas no histórico — muito além das 23 formalmente atribuídas a ela.</p>
+<p><strong>Além disso: 88 das 153 contas ativas (57%) não têm assistente atribuído.</strong></p>
+<p><strong>Pergunta para a reunião:</strong> Ana e Beatriz saíram, mudaram de função ou pararam de usar o sistema? E as 88 contas sem assistente — quem faz oferta relâmpago nelas?</p>
+<hr />
+<h1 id="3-o-que-cada-cargo-executa">3. O QUE CADA CARGO EXECUTA</h1>
+<h2 id="consultor-de-conta-32953-execucoes-109-acoes-distintas">Consultor de conta — 32.953 execuções · 109 ações distintas</h2>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Volume</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Atendimento via WhatsApp Personalizado</td>
+<td>3.147</td>
+<td>9,5%</td>
+</tr>
+<tr>
+<td>Alinhamento com Cliente sobre Ações Executadas</td>
+<td>1.859</td>
+<td>5,6%</td>
+</tr>
+<tr>
+<td>Análise Geral de Performance da Conta</td>
+<td>1.510</td>
+<td>4,6%</td>
+</tr>
+<tr>
+<td>Acompanhamento de Penalidades e Performance</td>
+<td>1.500</td>
+<td>4,6%</td>
+</tr>
+<tr>
+<td>Diagnóstico de Conta e Oportunidades</td>
+<td>1.383</td>
+<td>4,2%</td>
+</tr>
+<tr>
+<td>Resgate de Informações e Aprovações</td>
+<td>1.342</td>
+<td>4,1%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leitura:</strong> o consultor é, na prática, um <strong>gestor de relacionamento</strong>. As duas ações mais executadas (15% do total) são comunicação com cliente. Análise e diagnóstico vêm depois.</p>
+<h2 id="analista-de-ads-9502-execucoes-62-acoes">Analista de Ads — 9.502 execuções · 62 ações</h2>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Volume</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Otimização Diária de Orçamento</td>
+<td>2.792</td>
+<td>29,4%</td>
+</tr>
+<tr>
+<td>Monitoramento Diário da Performance</td>
+<td>1.482</td>
+<td>15,6%</td>
+</tr>
+<tr>
+<td>Ajuste de Campanha Existente</td>
+<td>995</td>
+<td>10,5%</td>
+</tr>
+<tr>
+<td>Reajuste de Meta de ROAS</td>
+<td>758</td>
+<td>8,0%</td>
+</tr>
+<tr>
+<td>Comunicação com Cliente</td>
+<td>743</td>
+<td>7,8%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leitura:</strong> <strong>55% do trabalho de ads é rotina diária</strong> (otimizar orçamento + monitorar). Ações estratégicas — escala, funil, análise — somam menos de 15%.</p>
+<p><strong>Ponto crítico à luz do que sabemos sobre o algoritmo:</strong> "Otimização Diária de Orçamento" é a ação mais executada da equipe de ads. Mas o oCPM tem fase de aprendizado de 7 a 14 dias, e mexer no produto reinicia a calibração. <strong>Otimização diária pode estar ativamente prejudicando o desempenho</strong> — é uma hipótese que vale testar com um grupo de contas.</p>
+<h2 id="assistente-shopee-6396-execucoes-9-acoes">Assistente Shopee — 6.396 execuções · 9 ações</h2>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Volume</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Oferta Relâmpago — Renovação</td>
+<td>4.256</td>
+<td>66,5%</td>
+</tr>
+<tr>
+<td>Shopee Vídeo — Upload</td>
+<td>1.447</td>
+<td>22,6%</td>
+</tr>
+<tr>
+<td>Transmissão Via Chat</td>
+<td>645</td>
+<td>10,1%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>99% do cargo são três tarefas mecânicas.</strong> Nenhuma exige julgamento. Este é o cargo com maior potencial de automação da empresa — e o que mais gera turnover por tédio.</p>
+<h2 id="gerente-de-ads-1430-execucoes-23-acoes">Gerente de Ads — 1.430 execuções · 23 ações</h2>
+<p>Luiz executa as mesmas ações operacionais dos analistas (otimização de orçamento, ajuste de campanha, reajuste de meta). <strong>Nas últimas 2 semanas: zero execuções.</strong></p>
+<p><strong>Pergunta para a reunião:</strong> o papel do gerente de ads é operar 16 contas ou supervisionar os analistas? Hoje o registro mostra operação, não gestão.</p>
+<hr />
+<h1 id="4-como-o-time-marca">4. COMO O TIME MARCA</h1>
+<h2 id="41-ritmo-de-marcacao">4.1 Ritmo de marcação</h2>
+<p>Tempo mediano entre uma marcação e a seguinte:</p>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Mediana entre cliques</th>
+<th>% em menos de 5s</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ana</td>
+<td>208s</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Sthefany</td>
+<td>190s</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>Patricia</td>
+<td>22s</td>
+<td>7%</td>
+</tr>
+<tr>
+<td>Raiane</td>
+<td>22s</td>
+<td>24%</td>
+</tr>
+<tr>
+<td>Janaina</td>
+<td>19s</td>
+<td>31%</td>
+</tr>
+<tr>
+<td>Mariana Ramos</td>
+<td>17s</td>
+<td>18%</td>
+</tr>
+<tr>
+<td>Fernanda Almeida</td>
+<td>17s</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>Gustavo</td>
+<td>16s</td>
+<td>1%</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>11s</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>Ketylyn</td>
+<td>10s</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>Maysa</td>
+<td>10s</td>
+<td>9%</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>7s</td>
+<td>34%</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>7s</td>
+<td>39%</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>6s</td>
+<td>37%</td>
+</tr>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td><strong>5s</strong></td>
+<td><strong>48%</strong></td>
+</tr>
+<tr>
+<td><strong>Elisandra</strong></td>
+<td><strong>4s</strong></td>
+<td><strong>55%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Como ler com honestidade:</strong> ritmo rápido pode significar (a) marcação em bloco depois de fazer o trabalho, (b) fluxo de tela que permite marcar vários itens em sequência, ou (c) marcação sem execução. <strong>Os dados não distinguem essas três hipóteses.</strong></p>
+<p>O que chama atenção é o <strong>contraste</strong>: Ana e Sthefany levam ~3 minutos entre marcações; Elisandra e Leonardo, menos de 5 segundos em mais da metade dos casos. São padrões de uso muito diferentes do mesmo sistema.</p>
+<p><strong>Marcação em lote:</strong> 10% das execuções acontecem em blocos de 10 ou mais no mesmo minuto. O maior lote registrado foi de 20 ações em um minuto.</p>
+<h2 id="42-dia-da-semana">4.2 Dia da semana</h2>
+<table>
+<thead>
+<tr>
+<th>Dia</th>
+<th>Execuções</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Segunda</td>
+<td>13.361</td>
+</tr>
+<tr>
+<td>Sexta</td>
+<td>12.149</td>
+</tr>
+<tr>
+<td>Terça</td>
+<td>10.007</td>
+</tr>
+<tr>
+<td>Quarta</td>
+<td>9.053</td>
+</tr>
+<tr>
+<td>Quinta</td>
+<td>9.010</td>
+</tr>
+<tr>
+<td>Sábado</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Domingo</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Concentração em segunda (início) e sexta (fechamento). Meio de semana mais leve.</p>
+<p><strong>Nota:</strong> 99% das marcações coincidem com o dia declarado — mas isso provavelmente é porque o sistema preenche o campo automaticamente com o dia da marcação, não porque o time segue o cronograma. <strong>Não use esse número como indicador de disciplina.</strong></p>
+<hr />
+<h1 id="5-cobertura-e-intensidade">5. COBERTURA E INTENSIDADE</h1>
+<p><strong>Cobertura está boa:</strong> 149 das 153 contas ativas tiveram alguma execução nas últimas 4 semanas.</p>
+<p><strong>As 4 contas sem nenhuma execução:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Conta</th>
+<th>Consultor</th>
+<th>Ads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SDLBELEZA</td>
+<td>Patricia</td>
+<td>Leonardo</td>
+</tr>
+<tr>
+<td>SDL IMPORTADORA</td>
+<td>Patricia</td>
+<td>Leonardo</td>
+</tr>
+<tr>
+<td>LumaShopping</td>
+<td>Elisandra</td>
+<td>Kaua</td>
+</tr>
+<tr>
+<td>TESTE TESTE</td>
+<td><em>(cadastro de teste)</em></td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Intensidade por conta (4 semanas):</strong> mínimo 1 · p25 87 · mediana 108 · p75 125 · máximo 188.</p>
+<p>93 contas receberam mais de 100 execuções em 4 semanas — cerca de 25 por semana por conta. Vale perguntar se esse volume reflete profundidade de trabalho ou granularidade excessiva do catálogo.</p>
+<hr />
+<h1 id="6-o-catalogo-de-acoes">6. O CATÁLOGO DE AÇÕES</h1>
+<ul>
+<li><strong>121 ações distintas</strong> no catálogo</li>
+<li><strong>50% de todo o esforço</strong> se concentra em apenas <strong>13 ações</strong></li>
+<li><strong>80% do esforço</strong> em 32 ações</li>
+<li><strong>35 ações foram executadas 20 vezes ou menos</strong> em 18 semanas</li>
+</ul>
+<p>Ações que praticamente não existem na prática (1 a 3 execuções em 18 semanas): Substituição de Produtos Fora de Linha, Gestão de Orçamento Estratégico, Criação de Kit ou Combo para Afiliado, Cupons Específicos para Afiliados, Análise de Estoque e Disponibilidade, Análise de Concorrência e Posicionamento, Projeção de Receita e ROAS por Campanha, Injeção de VET no Anúncio, Preparação de Insights Semanais.</p>
+<p><strong>Duas leituras possíveis, e a reunião precisa decidir qual é:</strong>
+- São ações importantes que o time <strong>não está fazendo</strong> → problema de execução
+- São ações que <strong>não fazem sentido</strong> no fluxo real → problema de catálogo</p>
+<p>Chama atenção que várias das ações abandonadas são exatamente as <strong>estratégicas</strong> (kit, combo, análise de concorrência, projeção). O time está fazendo o operacional e deixando o estratégico de lado — ou o catálogo pede coisas que não cabem na rotina.</p>
+<hr />
+<h1 id="7-o-que-o-sistema-nao-captura">7. O QUE O SISTEMA NÃO CAPTURA</h1>
+<p><strong>Apenas 57 de 53.680 execuções (0,11%) têm observação substantiva.</strong></p>
+<p>Isso significa que o sistema registra <strong>que</strong> algo foi feito, mas não <strong>o que</strong> foi feito, <strong>por que</strong>, nem <strong>qual foi o resultado</strong>. Consequências práticas:</p>
+<ul>
+<li>Não há memória de conta. Se um consultor sai, o sucessor herda contas sem histórico de decisão</li>
+<li>Não dá para auditar qualidade, só quantidade</li>
+<li>Não dá para aprender: nenhuma ação está ligada a um resultado</li>
+</ul>
+<p>O trabalho intelectual da operação vive no WhatsApp e na cabeça das pessoas.</p>
+<hr />
+<h1 id="8-pessoas-para-verificar-antes-da-reuniao">8. PESSOAS PARA VERIFICAR ANTES DA REUNIÃO</h1>
+<h2 id="com-carteira-e-zero-execucoes-4-semanas">Com carteira e zero execuções (4 semanas)</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Papel</th>
+<th>Contas</th>
+<th>Situação</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ana</strong></td>
+<td>assistente</td>
+<td><strong>36</strong></td>
+<td>tinha atividade antes, parou</td>
+</tr>
+<tr>
+<td><strong>Beatriz</strong></td>
+<td>assistente</td>
+<td>6</td>
+<td>sem registro</td>
+</tr>
+<tr>
+<td><strong>Raissa</strong></td>
+<td>ads</td>
+<td>3</td>
+<td>atividade esporádica no histórico</td>
+</tr>
+<tr>
+<td>Ewerton Teste</td>
+<td>consultor + ads</td>
+<td>2</td>
+<td>cadastro de teste com conta real</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cadastrados-sem-nenhuma-conta">Cadastrados sem nenhuma conta</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Cargo</th>
+<th>Tem login</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Christian</td>
+<td>analista_ads</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Gabriel</td>
+<td>analista_ads</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Kauane</td>
+<td>assistente_shopee</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Gustavo</td>
+<td>consultor_conta</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Raiane</td>
+<td>gerente_conta</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Karina</td>
+<td>gerente_conta</td>
+<td>sim</td>
+</tr>
+<tr>
+<td>Maysa ×2, Victoria, Gustavo, TESTE ×3</td>
+<td>vários</td>
+<td>não</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pararam-de-registrar-no-historico">Pararam de registrar no histórico</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Última atividade relevante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Maysa</td>
+<td>29/jun</td>
+</tr>
+<tr>
+<td>Raiane</td>
+<td>06/jul</td>
+</tr>
+<tr>
+<td>Victoria</td>
+<td>20/jul</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>10/ago</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="9-pauta-sugerida-para-a-reuniao">9. PAUTA SUGERIDA PARA A REUNIÃO</h1>
+<h3 id="bloco-1-confirmar-antes-de-decidir">Bloco 1 — Confirmar antes de decidir</h3>
+<ol>
+<li>Ana, Beatriz, Christian, Gabriel, Raissa, Kauane: estão ativos? Em qual função?</li>
+<li>As 88 contas sem assistente: quem executa oferta relâmpago nelas hoje?</li>
+<li>Ketylyn e Luiz são gestores ou operadores? A carteira própria deles é intencional?</li>
+</ol>
+<h3 id="bloco-2-desequilibrios-estruturais">Bloco 2 — Desequilíbrios estruturais</h3>
+<ol>
+<li>Ads: três pessoas com 128 contas, três pessoas com 3. Redistribuir ou reduzir quadro?</li>
+<li>Consultores: intensidade varia 55% entre o menor e o maior. É perfil de carteira ou de pessoa?</li>
+<li>Assistentes: 99% do cargo são 3 tarefas mecânicas. Automatizar e realocar as pessoas para trabalho de julgamento?</li>
+</ol>
+<h3 id="bloco-3-catalogo-e-metodo">Bloco 3 — Catálogo e método</h3>
+<ol>
+<li>As 35 ações quase nunca executadas: cortar do catálogo ou cobrar execução?</li>
+<li>"Otimização Diária de Orçamento" é a ação nº1 de ads — mas o algoritmo tem fase de aprendizado de 7 a 14 dias. Testar em um grupo de contas se a intervenção diária ajuda ou atrapalha.</li>
+<li>50% do esforço em 13 ações. O catálogo de 121 ações reflete a operação real?</li>
+</ol>
+<h3 id="bloco-4-o-sistema">Bloco 4 — O sistema</h3>
+<ol>
+<li>Criar estado "pendente" no checklist, para que a taxa de cumprimento passe a existir</li>
+<li>Tornar obrigatória a observação nas ações de diagnóstico e análise (não em todas — só onde há decisão)</li>
+<li>Limpar cadastros duplicados e de teste</li>
+</ol>
+<hr />
+<p><em>Levantamento gerado sobre dados reais do sistema · 53.680 execuções · 18 semanas · agosto/2026</em>
+<em>Os números medem registro de execução, não trabalho realizado. Confirmar contexto antes de qualquer decisão sobre pessoas.</em></p></main></body></html>
