@@ -1,0 +1,670 @@
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Diagnóstico — Time de Ads</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#07080a;--panel:#0e1116;--line:#1c222b;--line2:#2a323d;--lar:#ff4d1c;--verde:#2fd672;--ama:#ffc233;--verm:#ff3b3b;--t1:#f4f6f9;--t2:#9aa2b1;--t3:#5b6472}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;line-height:1.68;-webkit-font-smoothing:antialiased}
+nav{position:fixed;top:0;left:0;width:280px;height:100vh;overflow-y:auto;background:#0a0c0e;border-right:1px solid var(--line);padding:26px 0;z-index:50}
+nav .m{font-family:'Bebas Neue';font-size:20px;letter-spacing:1.5px;color:var(--lar);padding:0 22px 4px}
+nav .s{font-family:'Space Mono';font-size:9.5px;color:var(--t3);letter-spacing:1.5px;padding:0 22px 16px;border-bottom:1px solid var(--line);margin-bottom:10px}
+nav a{display:block;padding:9px 22px;color:var(--t2);text-decoration:none;font-size:13px;border-left:2px solid transparent;transition:.15s;line-height:1.4}
+nav a:hover{color:var(--t1);background:var(--panel);border-left-color:var(--lar)}
+main{margin-left:280px;max-width:920px;padding:50px 52px 110px}
+h1{font-family:'Bebas Neue';font-size:clamp(30px,4.4vw,46px);letter-spacing:1.5px;line-height:1.05;margin:58px 0 10px;color:#fff;scroll-margin-top:20px;padding-top:26px;border-top:1px solid var(--line2)}
+h1:first-child{margin-top:0;border-top:none;padding-top:0}
+h2{font-family:'Bebas Neue';font-size:clamp(22px,3vw,31px);letter-spacing:1.2px;margin:38px 0 10px;color:var(--lar)}
+h3{font-weight:700;font-size:18px;margin:26px 0 8px;color:#fff}
+p{margin:12px 0;font-size:15.5px;color:#e2e6ed}
+strong{color:#fff;font-weight:600} em{color:var(--t2);font-style:normal}
+ul,ol{margin:12px 0 12px 22px} li{margin:8px 0;font-size:15.5px;color:#e2e6ed}
+hr{border:none;border-top:1px solid var(--line);margin:44px 0}
+blockquote{border-left:3px solid var(--verm);padding:16px 0 16px 22px;margin:22px 0;background:rgba(255,59,59,.06);border-radius:0 12px 12px 0}
+blockquote p{margin:0;font-size:16px;color:#fff}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px;display:block;overflow-x:auto}
+th{background:#12151a;color:var(--t2);padding:10px 13px;text-align:left;font-family:'Space Mono';font-size:10px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:10px 13px;border-bottom:1px solid var(--line);color:#e2e6ed}
+tr:hover td{background:var(--panel)}
+code{font-family:'Space Mono';font-size:12.5px;background:#12151a;padding:2px 6px;border-radius:5px;color:var(--lar)}
+@media(max-width:900px){nav{display:none}main{margin-left:0;padding:30px 20px 80px}}
+</style></head><body>
+<nav><div class="m">TIME DE ADS</div><div class="s">DIAGNÓSTICO · AGO 2026</div><a href="#diagnostico-operacional-time-de-ads">DIAGNÓSTICO OPERACIONAL — TIME DE ADS</a><a href="#parte-1-correcao-metodologica-importante">PARTE 1 — CORREÇÃO METODOLÓGICA IMPORTANTE</a><a href="#parte-2-a-descoberta-central-nao-ha-padrao-de-operacao">PARTE 2 — A DESCOBERTA CENTRAL: NÃO HÁ PADRÃO DE OPERAÇÃO</a><a href="#parte-3-evidencia-e-rastreabilidade">PARTE 3 — EVIDÊNCIA E RASTREABILIDADE</a><a href="#parte-4-o-que-o-time-de-ads-faz">PARTE 4 — O QUE O TIME DE ADS FAZ</a><a href="#parte-5-contas-em-risco">PARTE 5 — CONTAS EM RISCO</a><a href="#parte-6-o-teste-que-resolve-a-duvida-principal">PARTE 6 — O TESTE QUE RESOLVE A DÚVIDA PRINCIPAL</a><a href="#parte-7-leitura-de-gestor">PARTE 7 — LEITURA DE GESTOR</a><a href="#parte-8-pauta-para-a-reuniao">PARTE 8 — PAUTA PARA A REUNIÃO</a></nav>
+<main><h1 id="diagnostico-operacional-time-de-ads">DIAGNÓSTICO OPERACIONAL — TIME DE ADS</h1>
+<h3 id="analise-de-gestao-para-reestruturacao">Análise de gestão para reestruturação</h3>
+<p><strong>Efeito Vendas · agosto 2026</strong></p>
+<p><strong>Base:</strong> 53.783 execuções de checklist · 18 semanas · 153 contas ativas
+<strong>Recorte principal:</strong> 30 dias úteis (16/jul a 26/ago)
+<strong>Quadro atualizado com contexto de RH:</strong> Ana em licença-maternidade · Beatriz e Gabriel desligados · Christian realocado para outro setor</p>
+<hr />
+<h1 id="parte-1-correcao-metodologica-importante">PARTE 1 — CORREÇÃO METODOLÓGICA IMPORTANTE</h1>
+<p>Antes dos números: <strong>encontrei um erro de dados que invalidaria toda a análise anterior de ads.</strong></p>
+<p>O campo <code>cargo</code> do checklist não reflete a ação executada. Ele registra o <strong>papel principal da pessoa</strong>, não o tipo de trabalho feito.</p>
+<table>
+<thead>
+<tr>
+<th>Ações de ads executadas</th>
+<th>Registradas sob qual cargo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>12.881</strong> ações de ads no total</td>
+<td>analista_ads: 8.612</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>consultor_conta: 2.812</strong></td>
+</tr>
+<tr>
+<td></td>
+<td>gerente_ads: 1.413</td>
+</tr>
+<tr>
+<td></td>
+<td>gerente_conta: 44</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O caso mais grave é o Ewerton.</strong> Ele tem três cadastros no sistema (analista_ads, consultor_conta e gerente_conta) e o sistema registra <strong>92% do trabalho dele sob "consultor_conta"</strong> — inclusive quando ele está fazendo otimização de orçamento e reajuste de meta de ROAS.</p>
+<p>Resultado prático: numa análise por cargo, o Ewerton aparecia com <strong>0,3 dias de otimização em 30</strong> e <strong>25 contas zeradas</strong>. Corrigindo para analisar <strong>por ação executada</strong>, ele aparece com <strong>4,8 dias de média e zero contas abandonadas</strong>.</p>
+<blockquote>
+<p><strong>Se a reunião usar o relatório por cargo, o Ewerton será acusado injustamente.</strong> Toda a análise abaixo usa ação executada, não cargo registrado.</p>
+</blockquote>
+<p><strong>Ação corretiva necessária:</strong> unificar os cadastros duplicados (Ewerton tem 3, Maysa 2, Gustavo 2) e permitir que uma execução registre o tipo de trabalho, não o cargo da pessoa.</p>
+<hr />
+<h1 id="parte-2-a-descoberta-central-nao-ha-padrao-de-operacao">PARTE 2 — A DESCOBERTA CENTRAL: NÃO HÁ PADRÃO DE OPERAÇÃO</h1>
+<p>Este é o achado que mais importa para a reestruturação. Os quatro analistas operam de formas <strong>radicalmente diferentes</strong>, e não existe um padrão definido que diga qual é a certa.</p>
+<h2 id="21-cobertura-de-otimizacao-diaria">2.1 Cobertura de otimização diária</h2>
+<p><em>"Otimização Diária de Orçamento" é a ação nº1 do time de ads — 3.033 execuções. Se é diária, cada conta deveria receber ~30 toques em 30 dias úteis.</em></p>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Contas</th>
+<th>Média de dias com otimização (de 30)</th>
+<th>Contas com 20+ dias</th>
+<th>Contas zeradas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Kaua</strong></td>
+<td>44</td>
+<td><strong>26,9</strong></td>
+<td><strong>40</strong></td>
+<td>1</td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>47</td>
+<td>7,8</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>37</td>
+<td>4,8</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Luiz <em>(gerente)</em></td>
+<td>16</td>
+<td>3,1</td>
+<td>0</td>
+<td><strong>5</strong></td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>3</td>
+<td>6,7</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>O contraste é de 9 para 1.</strong> Kaua toca praticamente toda a carteira todo dia útil. Leonardo, com carteira maior, toca cada conta ~8 vezes em 30 dias. Ewerton, ~5.</p>
+<p><strong>Como um gestor deve ler isso — três hipóteses, todas plausíveis:</strong></p>
+<ol>
+<li><strong>Kaua trabalha mais</strong> e os outros estão abaixo do esperado</li>
+<li><strong>Kaua registra com mais granularidade</strong> — marca cada ajuste, enquanto os outros marcam uma vez por sessão de trabalho</li>
+<li><strong>Kaua faz intervenção excessiva</strong> — e, à luz do que sabemos sobre o algoritmo (fase de aprendizado de 7 a 14 dias), pode estar prejudicando as contas dele</li>
+</ol>
+<p><strong>Os dados de checklist sozinhos não distinguem essas três hipóteses.</strong> A forma de descobrir está na Parte 6.</p>
+<h2 id="22-disciplina-diaria-individual">2.2 Disciplina diária individual</h2>
+<p>Em quantos dos 30 dias úteis a pessoa executou alguma ação diária:</p>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Dias com ação</th>
+<th>Cobertura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kaua</td>
+<td>30 de 30</td>
+<td><strong>100%</strong></td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>23 de 30</td>
+<td>77%</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>7 de 30</td>
+<td>23%</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>2 de 30 <em>(sob cargo de ads)</em></td>
+<td>—</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>0 de 30</td>
+<td>0%</td>
+</tr>
+</tbody>
+</table>
+<p><em>Nota: o número do Ewerton está distorcido pelo problema de cargo descrito na Parte 1. O volume real dele nos últimos 30 dias é de 1.627 ações de ads.</em></p>
+<h2 id="23-volume-real-de-trabalho-de-ads-por-acao-30-dias">2.3 Volume real de trabalho de ads (por ação, 30 dias)</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Ações de ads</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kaua</td>
+<td>2.768</td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>1.930</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>1.627</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>315</td>
+</tr>
+<tr>
+<td>Janaina <em>(consultora)</em></td>
+<td>129</td>
+</tr>
+<tr>
+<td>Patricia <em>(consultora)</em></td>
+<td>58</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Observação de gestão:</strong> consultores estão executando ações de ads (Janaina, Patricia, Elisandra, Mariana, Ketylyn somam ~260 ações). Isso é bom ou é falta de fronteira? Precisa ser definido.</p>
+<hr />
+<h1 id="parte-3-evidencia-e-rastreabilidade">PARTE 3 — EVIDÊNCIA E RASTREABILIDADE</h1>
+<h2 id="31-o-time-de-ads-praticamente-nao-anexa-print">3.1 O time de ads praticamente não anexa print</h2>
+<table>
+<thead>
+<tr>
+<th>Cargo</th>
+<th>Execuções</th>
+<th>% com print</th>
+<th>% com produto</th>
+<th>% com detalhe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>assistente_shopee</td>
+<td>6.398</td>
+<td><strong>97%</strong></td>
+<td>0%</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>consultor_conta</td>
+<td>33.025</td>
+<td><strong>29%</strong></td>
+<td>6,6%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>gerente_conta</td>
+<td>3.399</td>
+<td>28%</td>
+<td>1,6%</td>
+<td>6%</td>
+</tr>
+<tr>
+<td><strong>analista_ads</strong></td>
+<td>9.531</td>
+<td><strong>1%</strong></td>
+<td>1,0%</td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td><strong>gerente_ads</strong></td>
+<td>1.430</td>
+<td><strong>0%</strong></td>
+<td>0%</td>
+<td>2%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Este é o problema de governança mais sério do time de ads.</strong></p>
+<p>Enquanto Sthefany anexa print em 98% das execuções e Janaina em 44%, o time de ads inteiro está em <strong>0 a 1%</strong>.</p>
+<p>Por pessoa:</p>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Cargo</th>
+<th>Execuções</th>
+<th>Prints</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sthefany</td>
+<td>assistente</td>
+<td>5.210</td>
+<td>5.089</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>Janaina</td>
+<td>consultora</td>
+<td>7.816</td>
+<td>3.464</td>
+<td>44%</td>
+</tr>
+<tr>
+<td>Mariana Ramos</td>
+<td>consultora</td>
+<td>2.988</td>
+<td>1.134</td>
+<td>38%</td>
+</tr>
+<tr>
+<td>Patricia</td>
+<td>consultora</td>
+<td>8.159</td>
+<td>2.990</td>
+<td>37%</td>
+</tr>
+<tr>
+<td>Ketylyn</td>
+<td>gerente conta</td>
+<td>2.535</td>
+<td>652</td>
+<td>26%</td>
+</tr>
+<tr>
+<td><strong>Kaua</strong></td>
+<td><strong>analista ads</strong></td>
+<td>5.483</td>
+<td><strong>62</strong></td>
+<td><strong>1%</strong></td>
+</tr>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td><strong>analista ads</strong></td>
+<td>3.452</td>
+<td><strong>2</strong></td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td><strong>Luiz</strong></td>
+<td><strong>gerente ads</strong></td>
+<td>1.430</td>
+<td><strong>3</strong></td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td><strong>Raissa</strong></td>
+<td><strong>analista ads</strong></td>
+<td>283</td>
+<td><strong>1</strong></td>
+<td><strong>0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consequências práticas:</strong>
+- Não há como auditar se a otimização foi feita ou apenas marcada
+- Não há memória: se um analista sai, o sucessor não vê o que foi ajustado nem por quê
+- Cliente que questiona "o que vocês fizeram na minha conta?" não tem resposta documentada
+- Não é possível ligar uma ação a um resultado</p>
+<p><strong>Única exceção:</strong> "Criação de Imagens Otimizadas" tem 97% de print — porque a entrega <em>é</em> a imagem.</p>
+<h2 id="32-id-de-produto-quase-nunca-e-informado">3.2 ID de produto quase nunca é informado</h2>
+<p>Apenas <strong>1% das ações de ads</strong> registram qual produto foi trabalhado. As exceções fazem sentido: "Criação de Anúncio de Produto" (13%) e "Descontinuidade de Campanhas Ruins" (7%).</p>
+<p><strong>Curiosidade:</strong> Raissa é a única com 28% de preenchimento de produto — a maior taxa do time.</p>
+<p><strong>Por que isso importa:</strong> sem <code>produto_id</code>, "Reajuste de Meta de ROAS" registra que <em>algo</em> foi ajustado em <em>alguma</em> campanha. Não dá para saber qual produto, nem medir se o ajuste funcionou. <strong>É o elo que falta para fechar o ciclo entre ação e resultado.</strong></p>
+<hr />
+<h1 id="parte-4-o-que-o-time-de-ads-faz">PARTE 4 — O QUE O TIME DE ADS FAZ</h1>
+<h2 id="41-distribuicao-do-esforco">4.1 Distribuição do esforço</h2>
+<table>
+<thead>
+<tr>
+<th>Ação</th>
+<th>Execuções</th>
+<th>% do total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Otimização Diária de Orçamento</td>
+<td>3.033</td>
+<td>28%</td>
+</tr>
+<tr>
+<td>Monitoramento Diário da Performance</td>
+<td>1.682</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>Ajuste de Campanha Existente</td>
+<td>1.235</td>
+<td>11%</td>
+</tr>
+<tr>
+<td>Reajuste de Meta de ROAS</td>
+<td>1.018</td>
+<td>9%</td>
+</tr>
+<tr>
+<td>Comunicação com Cliente</td>
+<td>752</td>
+<td>7%</td>
+</tr>
+<tr>
+<td>Análise Semanal de Desempenho</td>
+<td>677</td>
+<td>6%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>43% do trabalho de ads é rotina diária</strong> (otimizar + monitorar). Ações de análise e estratégia ficam com o restante.</p>
+<h2 id="42-rotina-versus-analise-por-pessoa">4.2 Rotina versus análise, por pessoa</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Total</th>
+<th>Rotina diária</th>
+<th>%</th>
+<th>Análise semanal</th>
+<th>%</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Kaua</td>
+<td>5.483</td>
+<td>2.661</td>
+<td>49%</td>
+<td>534</td>
+<td><strong>10%</strong></td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>3.452</td>
+<td>1.442</td>
+<td>42%</td>
+<td>124</td>
+<td>4%</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>1.430</td>
+<td>429</td>
+<td>30%</td>
+<td><strong>0</strong></td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>313</td>
+<td>99</td>
+<td>32%</td>
+<td><strong>0</strong></td>
+<td><strong>0%</strong></td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>283</td>
+<td>84</td>
+<td>30%</td>
+<td>20</td>
+<td>7%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Luiz e Ewerton não registram nenhuma análise semanal.</strong> Kaua é quem mais equilibra rotina e análise.</p>
+<h2 id="43-acoes-estrategicas-cada-um-faz-uma-coisa-diferente">4.3 Ações estratégicas — cada um faz uma coisa diferente</h2>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Escala por ROAS</th>
+<th>Estratégia de Funil</th>
+<th>Descontinuidade</th>
+<th>Análise de Funil</th>
+<th>ROAS por Produto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Leonardo</strong></td>
+<td><strong>197</strong></td>
+<td><strong>325</strong></td>
+<td>47</td>
+<td>0</td>
+<td>45</td>
+</tr>
+<tr>
+<td><strong>Kaua</strong></td>
+<td>0</td>
+<td>84</td>
+<td>22</td>
+<td><strong>356</strong></td>
+<td>0</td>
+</tr>
+<tr>
+<td><strong>Luiz</strong></td>
+<td>13</td>
+<td>71</td>
+<td>30</td>
+<td>1</td>
+<td><strong>297</strong></td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>20</td>
+<td>16</td>
+<td>16</td>
+<td>15</td>
+<td>47</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>2</td>
+<td>37</td>
+<td>12</td>
+<td>4</td>
+<td>40</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Leia esta tabela com atenção — ela é a prova de que não existe método padronizado.</strong></p>
+<ul>
+<li>Leonardo escala produtos (197 vezes). Kaua <strong>nunca</strong> escalou (zero).</li>
+<li>Kaua analisa funil (356 vezes). Leonardo <strong>nunca</strong> analisou funil (zero).</li>
+<li>Luiz olha ROAS por produto (297). Kaua <strong>nunca</strong> olhou (zero).</li>
+</ul>
+<p>Três analistas, três metodologias completamente distintas, aplicadas a 128 contas de clientes. <strong>Nenhum cliente recebe o mesmo tipo de trabalho que outro</strong> — depende de quem pegou a conta.</p>
+<hr />
+<h1 id="parte-5-contas-em-risco">PARTE 5 — CONTAS EM RISCO</h1>
+<h2 id="51-contas-sem-otimizacao-em-30-dias-uteis">5.1 Contas sem otimização em 30 dias úteis</h2>
+<table>
+<thead>
+<tr>
+<th>Analista</th>
+<th>Contas zeradas</th>
+<th>Quais</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Luiz</strong></td>
+<td><strong>5</strong></td>
+<td>passion_boutique, ecocollor, alquiverde, looksalice, GMA STORE</td>
+</tr>
+<tr>
+<td>Leonardo</td>
+<td>2</td>
+<td>SDLBELEZA, SDL IMPORTADORA</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>1</td>
+<td>LumaShopping</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>0</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Raissa</td>
+<td>0</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Luiz tem 16 contas e 5 delas (31%) não receberam nenhuma otimização em 30 dias úteis.</strong> Ele também zerou completamente nas últimas duas semanas do período.</p>
+<p><strong>Pergunta de gestão:</strong> o gerente de ads deve ter carteira própria? Hoje ele opera 16 contas com a menor cobertura do time e não faz análise semanal nenhuma. Ou ele é gestor e não deveria ter carteira, ou é operador e a carteira precisa de acompanhamento.</p>
+<h2 id="52-distribuicao-de-cobertura-na-carteira-toda">5.2 Distribuição de cobertura na carteira toda</h2>
+<p>De 148 contas com analista atribuído:</p>
+<table>
+<thead>
+<tr>
+<th>Faixa</th>
+<th>Contas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>21 a 30 dias de otimização</td>
+<td>40</td>
+</tr>
+<tr>
+<td>11 a 20 dias</td>
+<td>9</td>
+</tr>
+<tr>
+<td>6 a 10 dias</td>
+<td>31</td>
+</tr>
+<tr>
+<td>1 a 5 dias</td>
+<td>32</td>
+</tr>
+<tr>
+<td><strong>Zero</strong></td>
+<td><strong>36</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>As 40 contas com cobertura alta são quase todas do Kaua.</strong> As demais 108 recebem tratamento muito mais esparso.</p>
+<hr />
+<h1 id="parte-6-o-teste-que-resolve-a-duvida-principal">PARTE 6 — O TESTE QUE RESOLVE A DÚVIDA PRINCIPAL</h1>
+<p>A pergunta que este relatório <strong>não consegue</strong> responder: a alta frequência do Kaua é melhor, indiferente ou pior?</p>
+<p>Isso importa porque as duas conclusões possíveis levam a decisões opostas:
+- Se frequência ajuda → Leonardo, Ewerton e Luiz precisam aumentar o ritmo
+- Se frequência atrapalha → Kaua está prejudicando 44 contas</p>
+<p><strong>Há razão técnica para suspeitar que atrapalha:</strong> o modelo oCPM tem fase de aprendizado documentada de 7 a 14 dias, e alterações significativas reiniciam a calibração. Otimizar orçamento todos os dias pode estar impedindo qualquer campanha de estabilizar.</p>
+<p><strong>O teste:</strong> comparar o desempenho das contas por faixa de frequência de otimização, controlando por tamanho de conta e segmento. Os dados para isso já existem — é cruzar o checklist com as métricas de ads.</p>
+<p><strong>Isso deveria acontecer antes de qualquer decisão de padronizar frequência.</strong> Posso rodar essa análise se você quiser levar a resposta para a reunião.</p>
+<hr />
+<h1 id="parte-7-leitura-de-gestor">PARTE 7 — LEITURA DE GESTOR</h1>
+<h2 id="o-que-esta-funcionando">O que está funcionando</h2>
+<ul>
+<li><strong>Cobertura geral é boa:</strong> 149 de 153 contas ativas tiveram alguma execução nas últimas 4 semanas</li>
+<li><strong>Kaua mantém disciplina exemplar:</strong> 100% dos dias úteis, 40 de 44 contas com alta frequência, e é o único que equilibra rotina com análise semanal (10%)</li>
+<li><strong>O time de consultoria documenta bem:</strong> 29% de prints, contra 1% de ads</li>
+<li><strong>Sthefany sustenta sozinha a operação de assistente</strong> — 98% de prints e cobertura de 158 contas distintas no histórico</li>
+</ul>
+<h2 id="os-quatro-problemas-reais">Os quatro problemas reais</h2>
+<p><strong>1. Ausência de método padronizado.</strong> Três analistas com três metodologias incompatíveis. Um escala e nunca analisa funil; outro analisa funil e nunca escala. Não é diferença de estilo — é ausência de definição do que é o trabalho.</p>
+<p><strong>2. Zero rastreabilidade em ads.</strong> 0-1% de prints, 1% de produto identificado, 0% de detalhe. O trabalho mais técnico e caro da operação é o único sem evidência.</p>
+<p><strong>3. Frequência de intervenção sem base.</strong> Varia de 3 a 27 dias por mês entre analistas, sem que ninguém saiba qual é a correta. E há suspeita técnica de que a alta frequência prejudique.</p>
+<p><strong>4. O gerente de ads opera em vez de gerir.</strong> Luiz tem a menor cobertura, 5 contas abandonadas, zero análises semanais, e parou de registrar nas últimas 2 semanas.</p>
+<h2 id="o-buraco-no-quadro-depois-das-saidas">O buraco no quadro depois das saídas</h2>
+<p>Com Gabriel desligado e Christian realocado, o time de ads passou de 6 para <strong>4 pessoas efetivas</strong> (Kaua, Leonardo, Ewerton e Raissa, mais Luiz como gerente).</p>
+<table>
+<thead>
+<tr>
+<th>Pessoa</th>
+<th>Contas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Leonardo</td>
+<td>47</td>
+</tr>
+<tr>
+<td>Kaua</td>
+<td>44</td>
+</tr>
+<tr>
+<td>Ewerton</td>
+<td>37</td>
+</tr>
+<tr>
+<td>Luiz</td>
+<td>16</td>
+</tr>
+<tr>
+<td><strong>Raissa</strong></td>
+<td><strong>3</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Raissa tem 3 contas enquanto três colegas carregam 40+.</strong> Se ela está ativa e disponível, há capacidade ociosa evidente. Redistribuir 15 contas para ela aliviaria os outros três imediatamente.</p>
+<p>E vale registrar: <strong>Ewerton acumula 37 contas de ads + 5 de consultor + atendimento a cliente.</strong> Ele é o mais sobrecarregado em variedade de função, e isso explica a cobertura menor.</p>
+<hr />
+<h1 id="parte-8-pauta-para-a-reuniao">PARTE 8 — PAUTA PARA A REUNIÃO</h1>
+<h3 id="decisoes-que-nao-dependem-de-mais-dados">Decisões que não dependem de mais dados</h3>
+<ol>
+<li><strong>Redistribuir carteira de ads.</strong> Raissa com 3 contas é desperdício de capacidade. Meta: equilibrar em ~33 contas por analista.</li>
+<li><strong>Tornar print obrigatório</strong> nas ações de ads que envolvem alteração: Ajuste de Campanha, Reajuste de Meta de ROAS, Descontinuidade, Escala. É o mesmo padrão que o time de consultoria já cumpre.</li>
+<li><strong>Tornar <code>produto_id</code> obrigatório</strong> nas ações que se referem a produto específico. Sem isso, nunca será possível medir se um ajuste funcionou.</li>
+<li><strong>Definir o papel do gerente de ads.</strong> Gestão ou operação? Se gestão, tirar a carteira. Se operação, acompanhar cobertura.</li>
+<li><strong>Unificar cadastros duplicados</strong> (Ewerton ×3, Maysa ×2, Gustavo ×2) e limpar os TESTE.</li>
+<li><strong>Definir o método padrão de ads.</strong> Qual é a sequência de trabalho semanal esperada de um analista? Hoje cada um inventou a sua.</li>
+</ol>
+<h3 id="decisoes-que-precisam-do-teste-da-parte-6">Decisões que precisam do teste da Parte 6</h3>
+<ol>
+<li><strong>Qual a frequência correta de otimização?</strong> Não decidir antes de medir se frequência alta ajuda ou prejudica.</li>
+<li><strong>Otimização diária deve continuar existindo como ação?</strong> Se o teste mostrar que não ajuda, ela é 28% do esforço da equipe sendo gasto sem retorno.</li>
+</ol>
+<h3 id="perguntas-de-contexto-para-confirmar">Perguntas de contexto para confirmar</h3>
+<ol>
+<li>Raissa está ativa e disponível para receber carteira?</li>
+<li>Com Ana em licença, quem cobre as 36 contas dela? Hoje o registro mostra zero.</li>
+<li>Kauane está ativa? Está cadastrada como assistente sem nenhuma conta.</li>
+<li>As 88 contas sem assistente atribuído — quem faz oferta relâmpago nelas?</li>
+</ol>
+<hr />
+<p><em>Análise sobre 53.783 execuções · 18 semanas · dados de agosto/2026</em>
+<em>Números medem registro de execução. A Parte 1 explica por que a análise por cargo é inválida e esta usa ação executada.</em></p></main></body></html>
