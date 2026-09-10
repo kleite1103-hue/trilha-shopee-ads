@@ -63,6 +63,12 @@ b{color:#fff;font-weight:600}
 .fp.ad .selo{position:absolute;top:5px;left:5px;background:var(--lar);color:#fff;font-family:'Space Mono';font-size:7.5px;padding:2px 5px;border-radius:3px}
 .fp:not(.ad){opacity:.4}
 
+/* ficha do caso */
+.ficha{margin-top:12px;max-width:660px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:6px 18px}
+.ficha .fl{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ficha .fl:last-child{border-bottom:none}
+.ficha .fk{font-family:'Space Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);width:150px;flex-shrink:0;padding-top:2px}
+.ficha .fv{color:#fff}
 /* ciclo linear */
 .circ{margin-top:12px;max-width:640px}
 .ce{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:13px 17px;font-size:15.5px}
@@ -300,19 +306,26 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
 </section>
 
 <section class="s" data-sec="AS MÉTRICAS" data-t="Números reais">
-  <div class="olho">Parte 2 · Como isso parece na prática</div>
-  <h3>Um produto real, em um mês</h3>
+  <div class="olho">Parte 2 · Um caso real</div>
+  <h3>Jaqueta de inverno · junho/2026 · mês fechado</h3>
+  <div class="ficha full">
+    <div class="fl"><span class="fk">Produto</span><span class="fv">Jaqueta suede · coleção inverno</span></div>
+    <div class="fl"><span class="fk">Período</span><span class="fv">01 a 30 de junho — mês inteiro</span></div>
+    <div class="fl"><span class="fk">Método de lance</span><span class="fv">GMV Max · Lance Automático</span></div>
+    <div class="fl"><span class="fk">Investimento</span><span class="fv">R$ 344,54 no mês <span class="mini">(~R$ 11,50/dia)</span></span></div>
+  </div>
   <table class="full">
-    <thead><tr><th>Etapa</th><th>Quantas pessoas</th><th>O que significa</th></tr></thead>
+    <thead><tr><th>Etapa</th><th>Quantidade</th><th>Métrica que sai daqui</th></tr></thead>
     <tbody>
-      <tr><td>Viram o produto</td><td class="d">105.752</td><td>apareceu na tela de cem mil pessoas</td></tr>
-      <tr><td>Clicaram</td><td class="d">3.166</td><td>3 em cada 100 que viram</td></tr>
-      <tr><td>Compraram</td><td class="d">17</td><td>menos de 1 em cada 100 que clicaram</td></tr>
-      <tr><td>Faturou</td><td class="d">R$ 5.233</td><td>gastando R$ 345 em anúncio</td></tr>
+      <tr><td>Apareceu para</td><td class="d">105.752 pessoas</td><td>—</td></tr>
+      <tr><td>Clicaram</td><td class="d">3.166</td><td>CTR <b>3,0%</b></td></tr>
+      <tr><td>Compraram</td><td class="d">17</td><td>Conversão <b>0,5%</b></td></tr>
+      <tr><td>Faturou</td><td class="d">R$ 5.232,80</td><td>Ticket <b>R$ 308</b> · ROAS <b class="vd">15,2×</b></td></tr>
     </tbody>
   </table>
-  <div class="aviso"><div class="tg">Isso é normal</div><p>Cem mil viram, dezessete compraram. <b>Não é produto ruim</b> — é assim que funciona. O trabalho é melhorar cada passagem <b>um pouco</b>.</p></div>
+  <div class="aviso ok"><div class="tg">Repare</div><p>Conversão de apenas <b>0,5%</b> — baixíssima. Mas o ticket de <b>R$308</b> é tão alto que cada venda paga muito anúncio. Resultado: <b>ROAS 15,2×</b> com R$11 por dia.</p></div>
 </section>
+
 
 <section class="s" data-sec="AS MÉTRICAS" data-t="CTR">
   <div class="olho">Métrica 1</div>
@@ -592,57 +605,99 @@ Ou seja: cada R$1 investido virou R$15,20 de venda.</div>
   <div class="aviso"><div class="tg">Regra</div><p>Leia CTR e conversão <b>sempre em par</b>. Um sozinho não diz nada.</p></div>
 </section>
 
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Os 5 erros">
-  <div class="olho">Parte 4</div>
-  <h2>Os 5 erros que<br><span class="vm">destroem</span> uma conta</h2>
-  <p class="sub">Todos parecem prudentes. Todos custam caro. Se você sair da aula só com isso, já valeu.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="s" data-sec="MÉTODO DE LANCE" data-t="Os dois métodos">
+  <div class="olho">Parte 5 · A escolha que mais importa</div>
+  <h2>Lance Automático<br>ou <span class="lar">Meta de ROAS</span>?</h2>
+  <p class="sub">São os dois jeitos de dizer ao algoritmo <b>como você quer que ele gaste seu dinheiro</b>. Escolher errado é o que mais trava conta de vendedor novo.</p>
+  <p class="sub">A diferença é simples: num você deixa ele explorar. No outro você impõe uma exigência.</p>
 </section>
 
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Erro 1 · Pausar">
-  <div class="olho">Erro 1</div>
-  <h3>Pausar produto porque o retorno caiu</h3>
-  <p class="sub" style="font-size:19px">Olhando produtos reais mês a mês: <b class="lar">quase metade</b> dos que estavam com retorno ruim estavam bem no mês seguinte — <b>sem ninguém mexer</b>.</p>
-  <div class="aviso erro"><div class="tg">O que isso significa</div><p>Pausar por retorno baixo é jogar moeda. Metade das vezes você está <b>matando um produto que ia se recuperar sozinho</b>.</p></div>
-  <p class="sub">Pause por <b>margem negativa</b>, <b>estoque acabando</b> ou <b>problema de qualidade</b>. Não por um mês ruim.</p>
-</section>
-
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Erro 2 · Cortar">
-  <div class="olho">Erro 2</div>
-  <h3>Cortar orçamento para "melhorar a eficiência"</h3>
+<section class="s" data-sec="MÉTODO DE LANCE" data-t="Lance Automático">
+  <div class="olho">Método 1</div>
+  <h2>Lance Automático</h2>
+  <p class="sub" style="font-size:19px;color:var(--lar)">"Shopee, descobre para quem vender. Eu te dou o orçamento."</p>
+  <p class="sub">O algoritmo tem <b>liberdade total</b> para testar públicos, horários e posições. Ele erra bastante no começo — e é exatamente assim que ele <b>aprende</b> quem compra seu produto.</p>
   <div class="fn2 full">
-    <div class="fnb nao">
-      <div class="t">✗ O que se espera</div>
-      <p style="font-size:15px;color:var(--t1);line-height:1.5">"Gasto menos, sobra mais, o retorno melhora."</p>
-    </div>
     <div class="fnb sim">
-      <div class="t">✓ O que acontece</div>
-      <p style="font-size:15px;color:var(--t1);line-height:1.5">A receita cai <b>quase na mesma proporção</b>. O retorno fica igual ou pior. Você só encolheu.</p>
+      <div class="t">✓ Use quando</div>
+      <ul>
+        <li>O produto é <b>novo</b> no anúncio</li>
+        <li>Ainda tem <b>menos de 30 vendas</b> pelo anúncio</li>
+        <li>Você <b>não sabe</b> ainda quem é o comprador dele</li>
+        <li>Quer <b>volume de dados</b> rápido</li>
+      </ul>
+    </div>
+    <div class="fnb nao">
+      <div class="t">✗ Aceite que</div>
+      <ul>
+        <li>O retorno vai <b>oscilar muito</b> nas primeiras semanas</li>
+        <li>Vai parecer que "está gastando à toa" — <b>não está</b></li>
+        <li>Os números dos <b>primeiros 7 dias não valem nada</b></li>
+      </ul>
     </div>
   </div>
-  <p class="sub">E o contrário também é verdade: <b>dobrar o investimento dobra o faturamento</b>, com o retorno praticamente igual. Escalar é mais barato do que parece.</p>
 </section>
 
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Erro 3 · Mexer demais">
-  <div class="olho">Erro 3</div>
-  <h3>Mexer no anúncio todo dia</h3>
-  <p class="sub">Todo anúncio novo passa por uma <b>fase de aprendizado</b> — o algoritmo está descobrindo para quem mostrar seu produto. Leva de <b>7 a 14 dias</b>.</p>
-  <div class="aviso erro"><div class="tg">Cada mexida reinicia</div><p>Alterou orçamento, preço ou meta? <b>O aprendizado recomeça.</b> Quem mexe todo dia mantém o produto eternamente na estaca zero.</p></div>
-  <p class="sub" style="font-size:19px"><b>Produto novo: 7 dias sem tocar.</b> Nem para olhar com carinho.</p>
+<section class="s" data-sec="MÉTODO DE LANCE" data-t="Meta de ROAS">
+  <div class="olho">Método 2</div>
+  <h2>Meta de ROAS</h2>
+  <p class="sub" style="font-size:19px;color:var(--lar)">"Shopee, só me traga venda que me dê pelo menos X de retorno."</p>
+  <p class="sub">Você impõe uma exigência. O algoritmo passa a procurar <b>só quem tem alta chance de comprar</b> — usando tudo que ele já aprendeu sobre o produto.</p>
+  <div class="fn2 full">
+    <div class="fnb sim">
+      <div class="t">✓ Use quando</div>
+      <ul>
+        <li>O produto já tem <b>histórico</b> — 30 vendas ou mais</li>
+        <li>Você já sabe <b>qual retorno ele consegue entregar</b></li>
+        <li>Quer <b>proteger a margem</b> ao escalar</li>
+        <li>O produto já está estável há algumas semanas</li>
+      </ul>
+    </div>
+    <div class="fnb nao">
+      <div class="t">✗ NÃO use quando</div>
+      <ul>
+        <li>O produto é <b>novo</b> — ele nem sabe quem é seu comprador</li>
+        <li>Você quer "forçar" um retorno que ele nunca deu</li>
+        <li>Está com pressa de resultado</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Erro 4 · Julgar cedo">
-  <div class="olho">Erro 4</div>
-  <h3>Julgar produto com poucas vendas</h3>
-  <p class="sub" style="font-size:19px">Produto com <b>menos de 30 vendas no mês</b> não tem número confiável. A maior parte do que você vê ali é <b class="lar">sorte</b> — e vai mudar sozinho no mês que vem.</p>
-  <div class="aviso"><div class="tg">A regra dos 30</div><p>Abaixo de 30 vendas: <b>não pause, não escale, não reformule</b>. Só duas ações são válidas — deixar rodar para acumular dados, ou dar mais orçamento para acelerar isso.</p></div>
+<section class="s" data-sec="MÉTODO DE LANCE" data-t="Como escolher">
+  <div class="olho">Parte 5 · A decisão na prática</div>
+  <h3>Olhe o histórico do produto e siga a tabela</h3>
+  <table class="full">
+    <thead><tr><th>Situação do produto</th><th>Método</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td>Acabou de subir · zero venda</td><td class="d">Automático</td><td>ele precisa descobrir seu comprador</td></tr>
+      <tr><td>Menos de 30 vendas</td><td class="d">Automático</td><td>ainda não tem dados para exigir nada</td></tr>
+      <tr><td>30+ vendas · retorno estável</td><td class="d">Meta de ROAS</td><td>agora dá para proteger a margem</td></tr>
+      <tr><td>Escalando um campeão</td><td class="d">Meta de ROAS</td><td>segura a eficiência enquanto cresce</td></tr>
+      <tr><td>Produto sazonal voltando</td><td class="d">Automático</td><td>o público mudou, deixe reaprender</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">Qual meta colocar?</div><p>Nunca chute para cima. Use o retorno que o produto <b>já vinha entregando</b> — ou um pouco abaixo. Pedir mais do que ele consegue faz o produto <b>sumir</b>.</p></div>
 </section>
 
-<section class="s" data-sec="ERROS QUE DESTROEM" data-t="Erro 5 · Exigir demais">
-  <div class="olho">Erro 5</div>
-  <h3>Pedir um retorno alto demais achando que vai lucrar mais</h3>
-  <p class="sub">Quando você exige um retorno muito alto, o algoritmo passa a procurar <b>só o comprador perfeito</b> — aquele que quase certamente compra.</p>
-  <p class="sub">Esse comprador é raro. Resultado: <b>seu produto quase não aparece</b>.</p>
-  <div class="aviso erro"><div class="tg">Lembra do simulador</div><p>É exatamente o que acontece quando você arrasta o ROAS alvo para cima: a força cai e o produto sai da vitrine. <b>Exigir mais entrega menos.</b></p></div>
+<section class="s" data-sec="MÉTODO DE LANCE" data-t="A Lei da Âncora">
+  <div class="olho">Parte 5 · A regra que mais custa caro quebrar</div>
+  <h2>Migrou para Meta de ROAS?<br><span class="vm">Nunca volte atrás.</span></h2>
+  <p class="sub">Quando você volta de Meta de ROAS para Lance Automático, o algoritmo <b>descarta o histórico</b> que já tinha construído. O produto volta à estaca zero — como se fosse novo.</p>
+  <div class="aviso erro"><div class="tg">Caso real da nossa operação</div><p>Um produto rodando muito bem foi revertido para Automático. O retorno <b>despencou pela metade</b> e levou semanas para se recuperar. Todo o aprendizado tinha sido jogado fora.</p></div>
+  <div class="aviso"><div class="tg">Se a Meta de ROAS não estiver funcionando</div><p>Não volte para Automático. <b>Baixe a meta</b> aos poucos até ele voltar a entregar. Você mantém o aprendizado e afrouxa a exigência.</p></div>
 </section>
 
 <section class="s" data-sec="PRIMEIROS 30 DIAS" data-t="Lançamento">
@@ -688,13 +743,14 @@ Depois de 30 vendas — aí sim você decide:
   <div class="olho">Fechamento</div>
   <h2>Se você levar<br><span class="lar">cinco coisas</span></h2>
   <div class="cards full">
-    <div class="cd"><div class="ct2">1 · SUA MARGEM</div><p>Sem saber quanto sobra, nenhum retorno significa nada.</p></div>
+    <div class="cd"><div class="ct2">1 · SUA MARGEM</div><p>Sem saber quanto sobra em cada venda, nenhum ROAS significa nada.</p></div>
     <div class="cd"><div class="ct2">2 · TRÊS NÚMEROS</div><p>CTR, conversão e ticket <b>são</b> o anúncio. O resto é consequência.</p></div>
-    <div class="cd"><div class="ct2">3 · REGRA DOS 30</div><p>Menos de 30 vendas no mês? Não julgue.</p></div>
-    <div class="cd"><div class="ct2">4 · 7 DIAS</div><p>Produto novo não se toca. Cada mexida reinicia tudo.</p></div>
-    <div class="cd"><div class="ct2">5 · NÃO PAUSE</div><p>Quase metade se recupera sozinha. Pause por margem, não por susto.</p></div>
+    <div class="cd"><div class="ct2">3 · PRODUTO NOVO</div><p>Lance Automático e <b>7 dias sem tocar</b>. Cada mexida reinicia o aprendizado.</p></div>
+    <div class="cd"><div class="ct2">4 · PRODUTO MADURO</div><p>30+ vendas e retorno estável? Aí sim <b>Meta de ROAS</b> — e nunca volte atrás.</p></div>
+    <div class="cd"><div class="ct2">5 · UMA COISA POR VEZ</div><p>Mexeu em tudo junto, não vai saber o que funcionou.</p></div>
   </div>
 </section>
+
 
 <section class="s" data-sec="FECHAMENTO" data-t="Perguntas">
   <div class="olho">Agora é com vocês</div>
