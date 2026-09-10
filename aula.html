@@ -39,11 +39,17 @@ h3{font-weight:600;font-size:clamp(18px,2.1vw,26px);line-height:1.3;letter-spaci
 b{color:#fff;font-weight:600}
 .lar{color:var(--lar)}.vd{color:var(--verde)}.am{color:var(--ama)}.rx{color:var(--rox)}.vm{color:var(--verm)}.az{color:var(--azul)}
 
-/* espaço livre de desenho */
-.espaco{flex:1;min-height:90px;margin-top:14px;border:1px dashed var(--line2);border-radius:14px;
-  background-image:radial-gradient(circle,var(--line2) 1px,transparent 1px);background-size:26px 26px;
-  display:flex;align-items:center;justify-content:center}
-.espaco::after{content:'ESPAÇO PARA DESENHAR';font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--t4)}
+/* faixa lateral de desenho — conteúdo ocupa a tela, lateral fica livre */
+.s{padding-right:0!important}
+.s > *{max-width:calc(100% - 300px)}
+.s > *.full{max-width:calc(100% - 310px)!important;width:calc(100% - 310px)}
+@media(max-width:1100px){.s > *.full{max-width:100%!important;width:100%}}
+#faixa{position:absolute;top:0;right:0;bottom:0;width:290px;pointer-events:none;z-index:5;
+  border-left:1px dashed var(--line2);
+  background-image:radial-gradient(circle,rgba(42,50,61,.55) 1px,transparent 1px);background-size:24px 24px}
+#faixa::after{content:'ÁREA DE DESENHO';position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--t4);white-space:nowrap}
+@media(max-width:1100px){#faixa{display:none} .s > *{max-width:100%}}
 
 /* tela shopee */
 .fake{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:16px;max-width:600px}
@@ -225,30 +231,28 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <div class="olho">Parte 1 · O que é Shopee Ads</div>
   <h2>Nem tudo que aparece na busca<br>chegou lá <span class="lar">de graça</span></h2>
   <p class="sub">Alguém busca "tapete de sala". Aparece uma lista. Parte dela está ali porque <b>pagou</b> — os dois primeiros, e depois um a cada três produtos.</p>
-  <div class="fake">
+  <div class="fake full">
     <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 89,90</div></div></div>
     <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 124,00</div></div></div>
     <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 76,50</div></div></div>
     <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 95,00</div></div></div>
   </div>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="ANTES DE COMEÇAR" data-t="Onde aparece">
   <div class="olho">Parte 1</div>
   <h3>Seu anúncio aparece em dois lugares — e eles são bem diferentes</h3>
-  <div class="cards">
+  <div class="cards full">
     <div class="cd"><div class="ct2">NA BUSCA</div><p>Alguém digitou exatamente o que você vende. A pessoa está <b>procurando</b>. Intenção alta, concorrência alta.</p></div>
     <div class="cd"><div class="ct2">NA DESCOBERTA</div><p>Nas áreas de "Você Também Pode Gostar". A Shopee mostra para quem tem <b>perfil parecido</b> com seu comprador. Ela não estava procurando — foi encontrada.</p></div>
   </div>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="ANTES DE COMEÇAR" data-t="Por que anunciar">
   <div class="olho">Parte 1 · Por que anunciar</div>
   <h3>"Se meu produto é bom, ele não vende sozinho?"</h3>
   <p class="sub">Raramente. E o motivo é um círculo que trava todo vendedor novo.</p>
-  <div class="ciclo">
+  <div class="ciclo full">
     <svg viewBox="0 0 400 400">
       <path d="M 200 76 A 128 128 0 0 1 312 268"/><path d="M 312 268 A 128 128 0 0 1 88 268"/><path d="M 88 268 A 128 128 0 0 1 200 76"/>
     </svg>
@@ -264,7 +268,6 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <h2>Você não compra<br>só <span class="lar">vendas</span></h2>
   <p class="sub">Compra o <b>histórico</b> que faz o algoritmo passar a confiar no seu produto. As primeiras vendas geram os dados que a Shopee usa para decidir se te mostra organicamente depois.</p>
   <p class="sub">Na maioria das lojas que acompanhamos, <b>a maior parte do faturamento vem de anúncio</b>. Não é um extra — é o motor.</p>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="ANTES DE COMEÇAR" data-t="Não conserta">
@@ -272,7 +275,6 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <h2>Anúncio não conserta<br>produto ruim.</h2>
   <h2 style="color:var(--verm);margin-top:6px">Ele acelera o prejuízo.</h2>
   <p class="sub">Se você anuncia um produto que dá prejuízo, não está investindo — está perdendo dinheiro <b>mais rápido</b>. Antes de gastar o primeiro real, cinco perguntas precisam de um "sim".</p>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="ANTES DE COMEÇAR" data-t="5 pré-requisitos">
@@ -305,7 +307,7 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <div class="olho">Parte 1</div>
   <h3>A comissão tem degraus. E um deles é uma armadilha.</h3>
   <p class="sub">Arraste o preço e veja o que acontece.</p>
-  <div class="calc" style="max-width:600px">
+  <div class="calc full" style="max-width:640px">
     <div class="sl-row"><label>Preço de venda</label><input type="range" id="sl" min="40" max="220" value="70"><span class="val" id="d-preco">R$70</span></div>
     <div class="cr">
       <div class="r"><div class="rl">Comissão</div><div class="rv" id="d-com">—</div><div class="rs" id="d-faixa"></div></div>
@@ -320,7 +322,7 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <div class="olho">Parte 1 · O número mágico</div>
   <h2>Não existe<br><span class="lar">"ROAS bom"</span> no vácuo</h2>
   <p class="sub">ROAS é quanto volta para cada R$1 investido em anúncio. Todo mundo repete que "5× é bom". <b>Depende inteiramente da sua margem.</b></p>
-  <table>
+  <table class="full">
     <thead><tr><th>Se sua margem é</th><th>Você precisa de</th><th>Só para empatar</th></tr></thead>
     <tbody>
       <tr><td>10%</td><td class="d">10,0×</td><td>cada R$1 precisa virar R$10</td></tr>
@@ -333,23 +335,14 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <div class="aviso erro"><div class="tg">A conclusão</div><p>Para margem de 30%, ROAS 5× dá lucro. Para margem de 15%, o <b>mesmo</b> 5× dá prejuízo. Quem anuncia sem saber a margem persegue um número que pode estar levando ao vermelho.</p></div>
 </section>
 
-<section class="s" data-sec="ANTES DE COMEÇAR" data-t="Calcule o seu">
+<section class="s" data-sec="ANTES DE COMEÇAR" data-t="Seu ROAS mínimo">
   <div class="olho">Parte 1 · Faça agora</div>
-  <h3>Calcule o ROAS mínimo do seu produto</h3>
-  <div class="calc destaque" style="max-width:760px">
-    <div class="cg">
-      <div class="cf"><label>Preço de venda</label><input type="number" id="c-preco" value="79.90" step="0.1"></div>
-      <div class="cf"><label>Custo do produto</label><input type="number" id="c-custo" value="32" step="0.1"></div>
-      <div class="cf"><label>Frete + embalagem</label><input type="number" id="c-frete" value="6" step="0.1"></div>
-    </div>
-    <div class="cr">
-      <div class="r"><div class="rl">Comissão Shopee</div><div class="rv" id="c-com">—</div><div class="rs" id="c-faixa"></div></div>
-      <div class="r"><div class="rl">Sua margem</div><div class="rv vd" id="c-marg">—</div><div class="rs" id="c-mpct"></div></div>
-      <div class="r"><div class="rl">ROAS mínimo</div><div class="rv lar" id="c-roas">—</div><div class="rs">abaixo disso, prejuízo</div></div>
-    </div>
-  </div>
-  <p class="sub">Esse número é <b>seu</b>. Ninguém pode dizer qual ROAS perseguir sem conhecer essa conta.</p>
+  <h2>Descubra o<br><span class="lar">seu</span> número</h2>
+  <p class="sub">Cada produto tem um ROAS mínimo diferente — depende do preço, do custo e da faixa de comissão dele.</p>
+  <div class="aviso ok" style="margin-top:20px"><div class="tg">Use a calculadora inteligente</div><p>Abra a <b>calculadora do sistema</b> e rode com os números do seu produto: preço, custo e frete. Ela devolve a margem real e o ROAS mínimo na hora.</p></div>
+  <p class="sub" style="margin-top:18px">Anota esse número. <b>Ele é o piso de tudo</b> — abaixo dele, cada venda que o anúncio traz sai do seu bolso.</p>
 </section>
+
 
 <!-- ═══════════ PARTE 2 · COMO O ALGORITMO DECIDE ═══════════ -->
 
@@ -358,13 +351,12 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <h2>O algoritmo não é leiloeiro.<br>É <span class="lar">investidor</span>.</h2>
   <p class="sub">Ele tem um recurso escasso — as vezes que pode mostrar produtos na tela — e quer investir onde o retorno é maior. Ele não entrega para quem paga mais. Entrega para <b>quem promete vender mais</b>.</p>
   <p class="sub">Por isso chamamos de <b class="lar">Leilão Reverso</b>: no leilão comum, você dá o lance. Aqui, <b>a Shopee dá o lance em você</b>.</p>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="COMO O ALGORITMO DECIDE" data-t="Os 3 sinais">
   <div class="olho">Parte 2</div>
   <h3>Ele lê três sinais do seu produto — e decide na hora</h3>
-  <div class="cards">
+  <div class="cards full">
     <div class="cd"><div class="ct2">CTR</div><p>De cada 100 pessoas que veem, quantas clicam?<br><b>Depende da foto e do preço na vitrine.</b></p></div>
     <div class="cd"><div class="ct2">CONVERSÃO</div><p>De cada 100 que clicam, quantas compram?<br><b>Depende da página: preço, avaliações, frete.</b></p></div>
     <div class="cd"><div class="ct2">TICKET</div><p>Quanto vale cada venda?<br><b>Define o tamanho da aposta que ele faz em você.</b></p></div>
@@ -375,7 +367,7 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
 <section class="s" data-sec="COMO O ALGORITMO DECIDE" data-t="SIMULADOR">
   <div class="olho">Parte 2 · Simulador do leilão</div>
   <h3>Mexa nos números e veja onde seu produto vai parar</h3>
-  <div class="leilao">
+  <div class="leilao full">
     <div class="calc">
       <div class="sl-row"><label>CTR</label><input type="range" id="s-ctr" min="5" max="60" value="27" step="1"><span class="val" id="v-ctr">2,7%</span></div>
       <div class="sl-row"><label>Conversão</label><input type="range" id="s-cv" min="5" max="80" value="25" step="1"><span class="val" id="v-cv">2,5%</span></div>
@@ -398,7 +390,7 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
 <section class="s" data-sec="COMO O ALGORITMO DECIDE" data-t="O que os números gritam">
   <div class="olho">Parte 2 · A leitura</div>
   <h3>O que esses números gritam para você</h3>
-  <table>
+  <table class="full">
     <thead><tr><th>O que você vê</th><th>O que significa</th><th>O que fazer</th></tr></thead>
     <tbody>
       <tr><td><b>CTR baixo</b></td><td>A vitrine não atrai — foto ou preço</td><td>Trocar foto principal antes de qualquer coisa</td></tr>
@@ -416,7 +408,6 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <h2>Custo por aparição subindo<br>não é <span class="vm">castigo</span>.<br>É <span class="vd">elogio</span>.</h2>
   <p class="sub">Quando a Shopee cobra mais caro para exibir seu produto, é porque ela prevê que ele converte bem — e por isso aquela vitrine vale mais.</p>
   <p class="sub"><b>Custo subindo com retorno estável = o algoritmo aumentou a aposta em você.</b> Quem vê isso e pausa está desligando exatamente o que estava funcionando.</p>
-  <div class="espaco"></div>
 </section>
 
 <!-- ═══════════ PARTE 3 · AS LEIS ═══════════ -->
@@ -426,13 +417,12 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <h2>O que os dados<br>provaram</h2>
   <p class="sub">Não é opinião de mercado. É o que aparece quando se olha o comportamento real de milhares de produtos ao longo de meses.</p>
   <p class="sub">Quatro descobertas que <b>contrariam o que quase todo mundo ensina</b>.</p>
-  <div class="espaco"></div>
 </section>
 
 <section class="s" data-sec="AS LEIS" data-t="Lei · Legibilidade">
   <div class="olho">Lei 1 · Legibilidade</div>
   <h3>Produto com pouca venda não tem número confiável — tem sorte</h3>
-  <table>
+  <table class="full">
     <thead><tr><th>Vendas no mês</th><th>Quanto do resultado se repete</th><th>Tradução</th></tr></thead>
     <tbody>
       <tr><td>menos de 10</td><td class="d">pouco mais de um terço</td><td>a maior parte é sorte</td></tr>
@@ -447,7 +437,7 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
 
 <section class="s" data-sec="AS LEIS" data-t="Lei · Escalar e cortar">
   <div class="olho">Leis 2 e 3 · Escalar e cortar</div>
-  <div class="fn2">
+  <div class="fn2 full">
     <div class="fnb sim">
       <div class="t">✓ Escalar é barato</div>
       <p style="font-size:15px;line-height:1.5;color:var(--t1)">Dobrar o investimento <b>dobra o faturamento</b>. O retorno praticamente não muda.</p>
@@ -470,36 +460,16 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   <div class="aviso ok"><div class="tg">Na prática</div><p>Escalar é a ação <b>padrão</b> para produto legível com margem saudável — não a exceção. Os limites são estoque, margem e operação. <b>Não o retorno.</b></p></div>
 </section>
 
-<section class="s" data-sec="AS LEIS" data-t="Lei · Reversão">
-  <div class="olho">Lei 4 · Reversão à média</div>
-  <h2>Quase <span class="lar">metade</span> dos produtos<br>ruins se recupera sozinha</h2>
-  <p class="sub">Produtos com retorno muito baixo em um mês estavam bem no mês seguinte — <b>sem ninguém mexer neles</b>.</p>
-  <div class="aviso erro"><div class="tg">O que isso significa</div><p>Pausar produto por retorno baixo é uma aposta com quase <b>50% de chance de estar matando um produto viável</b>. E cortar não recupera nada — só encolhe.</p></div>
-  <p class="sub">Antes de pausar qualquer coisa, use o protocolo da Parte 4.</p>
-</section>
 
-<section class="s" data-sec="AS LEIS" data-t="Lei · O campeão">
-  <div class="olho">Leis 5 e 6 · O campeão nasce grande</div>
-  <h3>Campeão não é construído por otimização. É detectado por volume inicial.</h3>
-  <p class="sub">Comparando os produtos que viraram campeões com os demais, <b>no primeiro mês</b>: os campeões já vendiam mais de dez vezes mais desde o começo.</p>
-  <table>
-    <thead><tr><th>Retorno no primeiro mês</th><th>Chance de virar campeão</th><th>Decisão</th></tr></thead>
-    <tbody>
-      <tr><td>muito baixo</td><td class="vm">quase nenhuma</td><td>o problema é a <b>oferta</b>, não a campanha</td></tr>
-      <tr><td>mediano</td><td>pequena</td><td>manter, trabalhar conversão</td></tr>
-      <tr><td>bom</td><td>razoável</td><td>escalar com cuidado</td></tr>
-      <tr><td>muito bom</td><td class="vd">alta</td><td class="d">escalar já</td></tr>
-    </tbody>
-  </table>
-  <div class="aviso"><div class="tg">O que muda na rotina</div><p>Produto que abre mal não precisa de "otimização de campanha". Precisa de <b>oferta nova</b>: preço, foto, proposta. Insistir em otimizar anúncio de produto ruim é a alocação de esforço mais cara da operação.</p></div>
-</section>
+
+
 
 <!-- ═══════════ PARTE 4 · OPERAR ═══════════ -->
 
 <section class="s" data-sec="OPERAR" data-t="Armadilhas">
   <div class="olho">Parte 4 · Ler sem se enganar</div>
   <h3>As sete armadilhas de leitura</h3>
-  <table>
+  <table class="full">
     <thead><tr><th>A leitura errada</th><th>A leitura certa</th></tr></thead>
     <tbody>
       <tr><td>"O custo subiu, está caro, vou pausar"</td><td>Custo alto com retorno estável = confiança do algoritmo. <b>Escalar</b></td></tr>
@@ -513,22 +483,12 @@ body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
   </table>
 </section>
 
-<section class="s" data-sec="OPERAR" data-t="Classificar">
-  <div class="olho">Parte 4 · Classificar a carteira</div>
-  <h3>Todo produto está em um destes quatro lugares</h3>
-  <div class="quad">
-    <div class="qd ouro"><div class="qn">OURO</div><div class="qc">retorno alto · volume alto</div><div class="qa">Manter, escalar e <b>replicar o padrão</b> em outros produtos</div></div>
-    <div class="qd esc"><div class="qn">ESCALA</div><div class="qc">retorno baixo · volume alto</div><div class="qa">Atacar conversão. <b>Maior oportunidade da carteira</b> — o volume já existe</div></div>
-    <div class="qd nic"><div class="qn">NICHO</div><div class="qc">retorno alto · volume baixo</div><div class="qa">Ampliar orçamento. Já provou que funciona, falta alcance</div></div>
-    <div class="qd fra"><div class="qn">FRACO</div><div class="qc">retorno baixo · volume baixo</div><div class="qa">Verificar se tem volume suficiente para julgar <b>antes de agir</b></div></div>
-  </div>
-  <div class="aviso"><div class="tg">Regra que vem antes de tudo</div><p>Produto com menos de 30 vendas no mês recebe o selo <b>ILEGÍVEL</b> e fica fora das listas de ação — independente do retorno que mostrar.</p></div>
-</section>
+
 
 <section class="s" data-sec="OPERAR" data-t="Lançamento">
   <div class="olho">Parte 4 · Protocolo de lançamento</div>
   <h3>Os primeiros 30 dias de um produto</h3>
-  <div class="proto">Dias 0-7    Lance Automático. NÃO TOCAR.
+  <div class="proto full">Dias 0-7    Lance Automático. NÃO TOCAR.
             Ignorar completamente os números deste período.
 
 Dias 8-30   Observar acúmulo de vendas.
@@ -545,94 +505,16 @@ Produto maduro → migrar para Meta de ROAS.
   <div class="aviso erro"><div class="tg">A Lei da Âncora</div><p>Nunca voltar de Meta de ROAS para Lance Automático. Caso registrado: um produto que rodava muito bem <b>despencou pela metade</b> após a reversão. O histórico de aprendizado é descartado e o produto volta do zero.</p></div>
 </section>
 
-<section class="s" data-sec="OPERAR" data-t="Escala">
-  <div class="olho">Parte 4 · Protocolo de escala</div>
-  <h3>Quando e como escalar</h3>
-  <div class="fn2">
-    <div class="fnb sim">
-      <div class="t">✓ Pré-requisitos (todos)</div>
-      <ul>
-        <li>Produto legível — 30 ou mais vendas no mês</li>
-        <li>Retorno acima do mínimo da sua margem</li>
-        <li>Estoque para o volume projetado</li>
-        <li>Fora da fase de aprendizado</li>
-      </ul>
-    </div>
-    <div class="fnb nao">
-      <div class="t">✗ Quando parar</div>
-      <ul>
-        <li>Estoque acabando</li>
-        <li>Margem comprometida</li>
-        <li>Capacidade operacional no limite</li>
-        <li><b>Não parar por queda de até 5% no retorno</b> — é o esperado</li>
-      </ul>
-    </div>
-  </div>
-  <div class="proto">Execução:  +20% de orçamento por semana
-           7 dias entre incrementos
-           sem nenhuma outra alteração no período</div>
-</section>
 
-<section class="s" data-sec="OPERAR" data-t="Pausa">
-  <div class="olho">Parte 4 · Protocolo de pausa</div>
-  <h3>O protocolo que evita a decisão mais cara da operação</h3>
-  <div class="fn2">
-    <div class="fnb nao">
-      <div class="t">✗ NÃO justifica pausar</div>
-      <ul>
-        <li>Retorno baixo isoladamente — quase metade se recupera</li>
-        <li>Custo por aparição alto</li>
-        <li>Desempenho ruim nos últimos dias</li>
-        <li>Produto com menos de 30 vendas</li>
-        <li>Querer "melhorar o retorno da conta"</li>
-      </ul>
-    </div>
-    <div class="fnb sim">
-      <div class="t">✓ Justifica pausar</div>
-      <ul>
-        <li>Margem comprovadamente negativa</li>
-        <li>Ruptura de estoque</li>
-        <li>Problema de qualidade ou risco de reputação</li>
-        <li>Produto legível, abaixo do mínimo da margem, por 3 meses seguidos</li>
-      </ul>
-    </div>
-  </div>
-  <div class="aviso erro"><div class="tg">Regra absoluta</div><p><b>Pausar, nunca apagar.</b> Apagar destrói o histórico de aprendizado permanentemente e o produto volta do zero.</p></div>
-</section>
 
-<section class="s" data-sec="OPERAR" data-t="Rotina semanal">
-  <div class="olho">Parte 4 · A rotina</div>
-  <h3>O que fazer toda semana, nesta ordem</h3>
-  <div class="proto">1.  Exportar o relatório do último período fechado
-2.  Marcar os ILEGÍVEIS — menos de 30 vendas saem da lista
-3.  Classificar os legíveis em OURO / ESCALA / NICHO / FRACO
-4.  Conferir quem já é maduro e ainda está em Lance Automático
-5.  Escalar OURO e NICHO em +20%, respeitando os pré-requisitos
-6.  Atacar a conversão dos ESCALA — foto, preço, avaliações, cupom
-7.  NÃO pausar nada sem passar pelo protocolo de pausa</div>
-  <div class="aviso ok"><div class="tg">O que muda</div><p>A maior parte do tempo do time hoje vai para produtos que <b>não têm dados suficientes</b> para serem analisados. Cortar isso libera horas para o que realmente move o resultado.</p></div>
-</section>
 
-<section class="s" data-sec="OPERAR" data-t="A tese">
-  <div class="olho">Fechamento</div>
-  <blockquote>
-    <p>O retorno não é o objetivo. É o <b>pedágio</b>.</p>
-    <p>O que é escasso é <b>volume de vendas por anúncio</b> — porque é ele que torna o produto legível para você e é ele que o algoritmo usa para aprender.</p>
-    <p>A operação média faz o contrário: espalha orçamento em muitos produtos (mantendo todos ilegíveis), corta os que parecem ruins (destruindo receita sem ganhar eficiência), e persegue retorno alto — que é <b>consequência, não causa</b>.</p>
-  </blockquote>
-  <table style="margin-top:18px">
-    <thead><tr><th>O mercado ensina</th><th>Os dados mostram</th></tr></thead>
-    <tbody>
-      <tr><td>Escalar derruba o retorno</td><td>Não derruba</td></tr>
-      <tr><td>Pause o que está ruim</td><td>Quase metade se recupera sozinha</td></tr>
-      <tr><td>Custo alto é problema</td><td>É sinal de confiança do algoritmo</td></tr>
-      <tr><td>Otimize cada anúncio</td><td>Abaixo de 30 vendas não há o que otimizar</td></tr>
-      <tr><td>Persiga retorno alto</td><td>Retorno é pedágio. O ativo é volume legível</td></tr>
-    </tbody>
-  </table>
-</section>
+
+
+
+
 
   </div>
+  <div id="faixa"></div>
   <canvas id="tela"></canvas>
 </div>
 
@@ -744,24 +626,6 @@ Produto maduro → migrar para Meta de ROAS.
     document.getElementById('alerta-d').style.display=(p>=80&&p<=88)?'':'none';
   }
   sl.addEventListener('input',attSl); attSl();
-
-  // ═══ MARGEM ═══
-  function calcM(){
-    const p=+document.getElementById('c-preco').value||0;
-    const cu=+document.getElementById('c-custo').value||0;
-    const fr=+document.getElementById('c-frete').value||0;
-    const c=comissao(p), m=p-cu-fr-c, mp=p?m/p*100:0;
-    document.getElementById('c-com').textContent='R$'+c.toFixed(2);
-    document.getElementById('c-faixa').textContent=faixaTxt(p);
-    const em=document.getElementById('c-marg');
-    em.textContent='R$'+m.toFixed(2); em.className='rv '+(mp>0?'vd':'vm');
-    document.getElementById('c-mpct').textContent=mp.toFixed(1)+'% do preço';
-    const er=document.getElementById('c-roas');
-    if(mp>0){er.textContent=(100/mp).toFixed(1)+'×'; er.className='rv lar';}
-    else {er.textContent='∞'; er.className='rv vm';}
-  }
-  ['c-preco','c-custo','c-frete'].forEach(id=>document.getElementById(id).addEventListener('input',calcM));
-  calcM();
 
   // ═══ SIMULADOR DE LEILÃO ═══
   const CONC=[
