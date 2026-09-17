@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shopee Ads — Parte 2</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg:#07080a; --panel:#0e1116; --panel2:#141922; --line:#1c222b; --line2:#2a323d;
+  --lar:#ff4d1c; --lar2:#ff7a52; --rox:#7B2FFF; --verde:#2fd672; --ama:#ffc233; --azul:#3d9bff; --verm:#ff3b3b;
+  --t1:#f4f6f9; --t2:#9aa2b1; --t3:#5b6472; --t4:#39414d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+
+#palco{position:fixed;inset:0;display:flex;flex-direction:column}
+#topo{display:flex;align-items:center;gap:14px;padding:12px 30px;flex-shrink:0;z-index:20;transition:opacity .4s}
+#topo .sec{font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--lar)}
+#topo .tit{font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--t4)}
+#topo .gap{flex:1}
+#trilha{display:flex;gap:3px;align-items:center}
+#trilha i{height:3px;border-radius:2px;background:var(--line2);transition:.3s;cursor:pointer}
+#trilha i.on{background:var(--lar)} #trilha i.foi{background:var(--t4)}
+
+#slides{flex:1;position:relative;overflow:hidden}
+.s{position:absolute;inset:0;padding:30px 62px 78px;display:none;flex-direction:column;justify-content:center;overflow-y:auto}
+.s.on{display:flex;animation:e .35s cubic-bezier(.2,.8,.25,1)}
+@keyframes e{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.olho{font-family:'Space Mono';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lar);margin-bottom:14px}
+h1{font-family:'Bebas Neue';font-size:clamp(52px,8.5vw,108px);line-height:.88;letter-spacing:1.5px}
+h2{font-family:'Bebas Neue';font-size:clamp(32px,4.6vw,56px);line-height:.98;letter-spacing:1.2px}
+h3{font-weight:600;font-size:clamp(18px,2.1vw,26px);line-height:1.3;letter-spacing:-.2px}
+.sub{font-size:clamp(14.5px,1.55vw,18px);color:var(--t2);line-height:1.55;max-width:760px;margin-top:12px}
+.mini{font-family:'Space Mono';font-size:11px;color:var(--t4);letter-spacing:1px}
+b{color:#fff;font-weight:600}
+.lar{color:var(--lar)}.vd{color:var(--verde)}.am{color:var(--ama)}.rx{color:var(--rox)}.vm{color:var(--verm)}.az{color:var(--azul)}
+
+/* faixa lateral de desenho — conteúdo ocupa a tela, lateral fica livre */
+.s{padding-right:0!important}
+.s > *{max-width:calc(100% - 420px)}
+.s > *.full{max-width:calc(100% - 430px)!important;width:calc(100% - 430px)}
+@media(max-width:1100px){.s > *.full{max-width:100%!important;width:100%}}
+#faixa{position:absolute;top:0;right:0;bottom:0;width:400px;pointer-events:none;z-index:5;
+  border-left:1px dashed var(--line2);
+  background-image:radial-gradient(circle,rgba(42,50,61,.55) 1px,transparent 1px);background-size:24px 24px}
+#faixa::after{content:'ÁREA DE DESENHO';position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--t4);white-space:nowrap}
+@media(max-width:1100px){#faixa{display:none} .s > *{max-width:100%}}
+
+/* tela shopee */
+.fake{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:16px;max-width:600px}
+.fp{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative}
+.fp .img{height:62px;background:linear-gradient(135deg,#1a2029,#141920)}
+.fp .txt{padding:8px 9px}
+.fp .l1{height:5px;background:var(--line2);border-radius:3px;margin-bottom:4px}
+.fp .l2{height:5px;width:60%;background:var(--line2);border-radius:3px}
+.fp .pr{font-family:'Space Mono';font-size:11px;color:var(--verde);margin-top:6px}
+.fp.ad{border-color:var(--lar)}
+.fp.ad .selo{position:absolute;top:5px;left:5px;background:var(--lar);color:#fff;font-family:'Space Mono';font-size:7.5px;padding:2px 5px;border-radius:3px}
+.fp:not(.ad){opacity:.4}
+
+/* ficha do caso */
+.ficha{margin-top:12px;max-width:660px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:6px 18px}
+.ficha .fl{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ficha .fl:last-child{border-bottom:none}
+.ficha .fk{font-family:'Space Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);width:150px;flex-shrink:0;padding-top:2px}
+.ficha .fv{color:#fff}
+/* ciclo linear */
+.circ{margin-top:12px;max-width:640px}
+.ce{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:13px 17px;font-size:15.5px}
+.ce .cn{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--lar);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:16px}
+.cseta{font-family:'Space Mono';font-size:11.5px;color:var(--t3);padding:5px 0 5px 12px;letter-spacing:1px}
+.cseta.volta{color:var(--verm)}
+/* ciclo antigo */
+.ciclo{position:relative;width:min(400px,90%);margin:14px auto 0;aspect-ratio:1.1}
+.ciclo .no{position:absolute;width:145px;text-align:center;font-size:13.5px;line-height:1.35;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:12px}
+.ciclo .no b{color:var(--lar);display:block;font-size:15px}
+.ciclo .n1{top:0;left:50%;transform:translateX(-50%)}
+.ciclo .n2{bottom:6%;right:0} .ciclo .n3{bottom:6%;left:0}
+.ciclo svg{position:absolute;inset:0;width:100%;height:100%}
+.ciclo svg path{stroke:var(--line2);stroke-width:2;fill:none}
+.ciclo .qb{position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);background:var(--lar);color:#fff;
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:1.5px;padding:10px 20px;border-radius:10px;white-space:nowrap;
+  box-shadow:0 0 36px rgba(255,77,28,.45)}
+
+/* checklist */
+.chk{display:flex;flex-direction:column;gap:6px;margin-top:14px;max-width:760px}
+.ci{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 15px;cursor:pointer;transition:.15s}
+.ci:hover{border-color:var(--line2)}
+.ci .cx{flex-shrink:0;width:21px;height:21px;border-radius:6px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;transition:.15s}
+.ci .cx svg{width:12px;height:12px;opacity:0;transition:.15s}
+.ci.ok{border-color:rgba(47,214,114,.4)} .ci.ok .cx{background:var(--verde);border-color:var(--verde)} .ci.ok .cx svg{opacity:1}
+.ci .ct{font-size:14.5px;color:#fff} .ci .cdd{font-size:12.5px;color:var(--t2);margin-top:1px}
+.vered{margin-top:11px;font-family:'Space Mono';font-size:12.5px;letter-spacing:1px;padding:11px;border-radius:10px;text-align:center}
+.vered.nao{background:rgba(255,59,59,.09);color:var(--verm)} .vered.sim{background:rgba(47,214,114,.11);color:var(--verde)}
+
+/* quebra preço */
+.qp{max-width:480px;margin-top:14px;font-family:'Space Mono'}
+.qp .l{display:flex;justify-content:space-between;padding:10px 15px;border-bottom:1px solid var(--line);font-size:14px}
+.qp .l .a{color:var(--t2)} .qp .l .b2{color:var(--verm);font-weight:700}
+.qp .l.top .a,.qp .l.top .b2{color:#fff;font-size:16px;font-weight:700}
+.qp .l.fim{border-bottom:none;border-top:2px solid var(--verde);margin-top:3px;padding-top:13px}
+.qp .l.fim .a{color:#fff;font-size:15px;font-weight:700} .qp .l.fim .b2{color:var(--verde);font-size:20px;font-weight:700}
+
+/* sliders / calculadoras */
+.calc{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:20px 22px;margin-top:14px}
+.calc.destaque{border-color:var(--lar)}
+.sl-row{display:grid;grid-template-columns:120px 1fr 72px;align-items:center;gap:14px;margin-bottom:11px}
+.sl-row label{font-family:'Space Mono';font-size:10.5px;letter-spacing:1px;color:var(--t3);text-transform:uppercase}
+.sl-row .val{font-family:'Bebas Neue';font-size:23px;text-align:right;color:var(--lar)}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:var(--line2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--lar);cursor:pointer;box-shadow:0 0 12px rgba(255,77,28,.5)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--lar);cursor:pointer;border:none}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.cf label{display:block;font-family:'Space Mono';font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.cf input[type=number]{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:10px 12px;color:#fff;font-family:'Space Mono';font-size:15px;font-weight:700;outline:none}
+.cf input:focus{border-color:var(--lar)}
+.cr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cr .r{background:var(--bg);border-radius:10px;padding:13px;text-align:center}
+.cr .rl{font-family:'Space Mono';font-size:9px;color:var(--t4);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.cr .rv{font-family:'Bebas Neue';font-size:29px;line-height:1}
+.cr .rs{font-size:10.5px;color:var(--t3);margin-top:2px}
+
+/* SIMULADOR DE LEILÃO */
+.leilao{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+.disputa{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+.disputa .tt{font-family:'Space Mono';font-size:10px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.vaga{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:9px;margin-bottom:6px;background:var(--panel2);border:1px solid transparent;transition:.4s}
+.vaga .pos{font-family:'Bebas Neue';font-size:19px;width:22px;color:var(--t4)}
+.vaga .nm{flex:1;font-size:13.5px;color:var(--t2)}
+.vaga .fc{font-family:'Space Mono';font-size:12px;color:var(--t3)}
+.vaga.eu{background:rgba(255,77,28,.13);border-color:var(--lar)}
+.vaga.eu .nm{color:#fff;font-weight:600} .vaga.eu .pos{color:var(--lar)} .vaga.eu .fc{color:var(--lar);font-weight:700}
+.vaga.fora{opacity:.35}
+.veredito{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);text-align:center}
+.veredito .vt{font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;line-height:1}
+.veredito .vs{font-size:12.5px;color:var(--t2);margin-top:5px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-top:14px;max-width:900px}
+.cd{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px}
+.cd .ct2{font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;color:var(--lar);margin-bottom:6px}
+.cd p{font-size:13.5px;color:var(--t2);line-height:1.45}
+
+.aviso{border-left:3px solid var(--ama);padding:14px 19px;margin-top:14px;background:rgba(255,194,51,.06);border-radius:0 11px 11px 0;max-width:820px}
+.aviso .tg{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ama);margin-bottom:5px}
+.aviso p{font-size:14.5px;line-height:1.5}
+.aviso.erro{border-color:var(--verm);background:rgba(255,59,59,.06)} .aviso.erro .tg{color:var(--verm)}
+.aviso.ok{border-color:var(--verde);background:rgba(47,214,114,.06)} .aviso.ok .tg{color:var(--verde)}
+.aviso.az{border-color:var(--azul);background:rgba(61,155,255,.06)} .aviso.az .tg{color:var(--azul)}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:12px;max-width:760px}
+th{color:var(--t4);padding:8px 12px;text-align:left;font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#e2e6ed}
+td.d{color:var(--lar);font-weight:700}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:14px;max-width:780px}
+.qd{border-radius:12px;padding:16px 18px;border:1px solid}
+.qd .qn{font-family:'Bebas Neue';font-size:21px;letter-spacing:1px}
+.qd .qc{font-size:12px;color:var(--t3);margin:2px 0 7px;font-family:'Space Mono'}
+.qd .qa{font-size:13.5px;color:var(--t1)}
+.qd.ouro{border-color:var(--verde);background:rgba(47,214,114,.05)} .qd.ouro .qn{color:var(--verde)}
+.qd.esc{border-color:var(--ama);background:rgba(255,194,51,.05)} .qd.esc .qn{color:var(--ama)}
+.qd.nic{border-color:var(--azul);background:rgba(61,155,255,.05)} .qd.nic .qn{color:var(--azul)}
+.qd.fra{border-color:var(--t4);background:rgba(90,100,114,.06)} .qd.fra .qn{color:var(--t3)}
+
+.proto{font-family:'Space Mono';font-size:13px;line-height:1.85;background:linear-gradient(135deg,#0f1318,#0a0c0f);border:1px solid var(--line2);border-radius:13px;padding:20px 24px;margin-top:12px;max-width:780px;white-space:pre-wrap;position:relative;overflow-x:auto}
+.proto::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lar)}
+
+.fn2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;max-width:860px}
+.fnb{border:1px solid var(--line2);border-radius:12px;padding:16px 18px}
+.fnb .t{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+.fnb.sim{border-color:rgba(47,214,114,.3)} .fnb.sim .t{color:var(--verde)}
+.fnb.nao{border-color:rgba(255,59,59,.3)} .fnb.nao .t{color:var(--verm)}
+.fnb ul{list-style:none} .fnb li{font-size:13px;margin:6px 0;color:var(--t2);padding-left:14px;position:relative}
+.fnb li::before{content:'·';position:absolute;left:2px;color:var(--t4)}
+
+blockquote{border-left:3px solid var(--rox);padding:14px 0 14px 22px;margin-top:14px;background:rgba(123,47,255,.06);border-radius:0 11px 11px 0;max-width:820px}
+blockquote p{font-size:17px;color:#fff;font-weight:500;line-height:1.45;margin:6px 0}
+
+#tela{position:absolute;inset:0;z-index:15;pointer-events:none;touch-action:none}
+body.desenha #tela{pointer-events:auto;cursor:crosshair}
+
+#barra{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:10px;padding:11px 30px;
+  background:rgba(7,8,10,.93);backdrop-filter:blur(14px);border-top:1px solid var(--line);transition:opacity .4s,transform .4s}
+body.limpo #barra{opacity:0;transform:translateY(100%);pointer-events:none}
+body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
+.bt{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:transparent;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.bt:hover{border-color:var(--t3);color:var(--t1)} .bt.on{background:var(--lar);border-color:var(--lar);color:#fff}
+#cores{display:flex;gap:5px}
+#cores b{width:19px;height:19px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}
+#cores b.on{border-color:#fff;transform:scale(1.15)}
+#barra .gap{flex:1}
+#atalhos{font-family:'Space Mono';font-size:9.5px;color:var(--t4)}
+#cont{font-family:'Space Mono';font-size:11.5px;color:var(--t3)}
+
+#grade{position:fixed;inset:0;z-index:50;background:rgba(7,8,10,.97);display:none;padding:34px;overflow-y:auto}
+#grade.on{display:block}
+#grade h4{font-family:'Bebas Neue';font-size:23px;letter-spacing:2px;margin-bottom:16px}
+#grade .gsec{font-family:'Space Mono';font-size:10px;letter-spacing:2px;color:var(--lar);margin:18px 0 8px}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.ms{border:1px solid var(--line2);border-radius:10px;padding:13px;cursor:pointer;transition:.15s;min-height:74px}
+.ms:hover{border-color:var(--lar)} .ms.at{border-color:var(--lar);background:rgba(255,77,28,.07)}
+.ms .mn{font-family:'Space Mono';font-size:9.5px;color:var(--lar)}
+.ms .mt{font-weight:600;font-size:13px;margin-top:5px;line-height:1.25}
+
+@media(max-width:900px){
+  .s{padding:22px 18px 76px}
+  .cg,.cr,.leilao,.quad,.fn2{grid-template-columns:1fr}
+  .fake{grid-template-columns:repeat(2,1fr)}
+  .sl-row{grid-template-columns:88px 1fr 58px;gap:9px}
+  #atalhos{display:none} #topo{padding:10px 16px} #barra{padding:10px 14px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ═══ NÚMEROS DO CENÁRIO (parte 2) ═══ */
+.grid6{display:grid!important;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}
+.grid6 .nn{background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:14px 8px;text-align:center}
+.grid6 .nv{font-family:'Bebas Neue';font-size:clamp(20px,2.4vw,30px);line-height:1;color:var(--t1);display:block}
+.grid6 .nl{font-family:'Space Mono';font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--t4);margin-top:5px;display:block}
+.grid6 .nv.vd{color:var(--verde)} .grid6 .nv.vm{color:var(--verm)} .grid6 .nv.am{color:var(--ama)}
+.espaco2{min-height:70px}
+.aviso.alerta{border-left-color:var(--ama);background:rgba(255,194,51,.07)}
+.aviso.alerta .tg{color:var(--ama)}
+@media(max-width:1100px){.grid6{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<div id="palco">
+  <div id="topo">
+    <span class="sec" id="t-sec">PARTE 2</span>
+    <span class="tit" id="t-tit"></span><span class="tit" id="t-tempo" style="color:var(--t3)"></span>
+    <span class="gap"></span>
+    <div id="trilha"></div>
+  </div>
+
+  <div id="slides">
+
+<!-- ═══════════ PARTE 1 · ANTES DE COMEÇAR ═══════════ -->
+
+<section class="s" data-sec="PARTE 2" data-t="Capa">
+  <div class="olho">Trilha Shopee Ads · Parte 2</div>
+  <h1>Agora que você<br>sabe <span class="lar">ler</span></h1>
+  <p class="sub">O que fazer em cada anúncio, como o algoritmo reage quando você mexe, quando pode e quando não pode tocar — e como escalar sem quebrar.</p>
+  <p class="mini" style="margin-top:24px">8 blocos · casos reais de contas que atendemos</p>
+</section>
+
+<section class="s" data-sec="PARTE 2" data-t="O que muda">
+  <div class="olho">Abertura</div>
+  <h3>Na Parte 1 você aprendeu a ler quatro números</h3>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">CTR</div><p>quantos clicam</p></div>
+    <div class="cd"><div class="ct2">CONVERSÃO</div><p>quantos compram</p></div>
+    <div class="cd"><div class="ct2">TICKET</div><p>quanto vale cada venda</p></div>
+    <div class="cd"><div class="ct2">ROAS</div><p>quanto volta por real</p></div>
+  </div>
+  <p class="sub" style="font-size:20px;margin-top:20px">Hoje a pergunta é outra: <b class="lar">o número está ruim — e agora?</b></p>
+</section>
+
+<!-- ═══ BLOCO 1 · CENÁRIOS REAIS ═══ -->
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="Os 6 cenários">
+  <div class="olho">Bloco 1 · O jogo dos cenários</div>
+  <h2>Seis lojas.<br>Seis situações <span class="lar">reais</span>.</h2>
+  <p class="sub">Todos os números a seguir são de contas que atendemos. Os nomes são fictícios, os números não.</p>
+  <p class="sub">Em cada um: <b>o que você faria?</b> Decide antes de eu mostrar a resposta.</p>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="① A Campeã">
+  <div class="olho">Cenário 1 · Loja Aurora · moda feminina</div>
+  <h3>Um vestido que virou máquina</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv vd">2,82%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv">2,20%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv">R$50</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv vd">44,9×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv">329</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv">R$0,70</div><div class="nl">CPM</div></div>
+  </div>
+  <div class="aviso ok"><div class="tg">O que fazer</div><p><b>Escalar. Só isso.</b> Nenhum número aqui está ruim — são todos medianos ou bons, e o conjunto entrega 44× de retorno. E repare no CPM: <b>R$0,70</b>, sete vezes mais barato que a média. O algoritmo adora esse anúncio.</p></div>
+  <div class="aviso erro"><div class="tg">O erro clássico aqui</div><p>Querer "melhorar" um produto que já funciona. Mexer em Curva A é o jeito mais rápido de matar uma galinha dos ovos de ouro.</p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="② A Armadilha">
+  <div class="olho">Cenário 2 · Loja Gaia · colecionáveis</div>
+  <h3>ROAS 32× — o melhor da loja?</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv vd">5,42%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv">2,24%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv">R$153</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv vd">32,5×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv vm">17</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv">R$2,6k</div><div class="nl">faturamento</div></div>
+  </div>
+  <div class="aviso alerta"><div class="tg">Olhe de novo</div><p>ROAS 32× parece o sonho. Mas são <b>17 vendas</b> e <b>R$2,6 mil</b> no mês inteiro. Esse produto não paga o aluguel.</p></div>
+  <div class="aviso"><div class="tg">O que fazer</div><p><b>Escalar com cuidado e observar.</b> Um produto assim tem ROAS alto porque compra pouca impressão — e das mais baratas. Quando você aumenta o orçamento, o ROAS vai cair. <b>Isso é normal e esperado</b>, não é sinal de que piorou.</p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="③ A Vitrine Mentirosa">
+  <div class="olho">Cenário 3 · Loja Bem Querer · moda plus size</div>
+  <h3>Todo mundo clica. Quase ninguém compra.</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv vd">4,94%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv vm">0,37%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv">R$80</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv am">6,4×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv">197</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv">R$15,8k</div><div class="nl">faturamento</div></div>
+  </div>
+  <div class="aviso erro"><div class="tg">O diagnóstico</div><p>CTR de <b>4,94%</b> é excelente — quase o dobro da média. Mas conversão de <b>0,37%</b>: de cada 270 pessoas que entram, <b>uma</b> compra. A foto promete algo que a página não entrega.</p></div>
+  <div class="aviso"><div class="tg">O que fazer</div><p><b>Não toque no anúncio.</b> O anúncio está ótimo. O problema está na <b>página</b>: preço, avaliações, frete, descrição, tabela de medidas. Conserta a página e esse produto dobra.</p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="④ A Invisível">
+  <div class="olho">Cenário 4 · Loja Nascente · cuidados pessoais</div>
+  <h3>Converte muito bem. Ninguém vê.</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv vm">0,96%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv vd">9,27%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv">R$52</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv am">6,4×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv vm">28</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv">R$1,5k</div><div class="nl">faturamento</div></div>
+  </div>
+  <div class="aviso ok"><div class="tg">O tesouro escondido</div><p>Conversão de <b>9,27%</b> é extraordinária — quase quatro vezes a média. <b>Quem entra, compra.</b> Mas o CTR de 0,96% significa que quase ninguém entra.</p></div>
+  <div class="aviso"><div class="tg">O que fazer</div><p><b>Foto principal.</b> É o único trabalho aqui. Se o CTR for de 0,96% para 2,5%, esse produto passa de R$1,5 mil para mais de R$4 mil — <b>sem mexer em mais nada</b>.</p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="⑤ O Ticket Salvador">
+  <div class="olho">Cenário 5 · Loja Meridian · equipamentos profissionais</div>
+  <h3>Conversão de 0,4% e ROAS de 10×</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv">2,75%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv vm">0,40%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv vd">R$1.434</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv vd">10,3×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv">6</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv">R$8,6k</div><div class="nl">faturamento</div></div>
+  </div>
+  <div class="aviso az"><div class="tg">Por que isso funciona</div><p>Seis vendas no mês. Conversão baixíssima. E mesmo assim <b>ROAS 10×</b> e R$8,6 mil de faturamento — porque cada venda vale <b>R$1.434</b>.</p></div>
+  <div class="aviso"><div class="tg">A lição</div><p>Produto de ticket alto <b>converte menos por natureza</b> — a decisão de compra é mais pensada. Não se assuste com conversão baixa aqui. <b>Julgue pelo faturamento, não pela taxa.</b></p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="⑥ O Ralo">
+  <div class="olho">Cenário 6 · Loja Verdejar · cosméticos</div>
+  <h3>Quando o problema não é o anúncio</h3>
+  <div class="grid6 full">
+    <div class="nn"><div class="nv vm">0,86%</div><div class="nl">CTR</div></div>
+    <div class="nn"><div class="nv vd">8,64%</div><div class="nl">conversão</div></div>
+    <div class="nn"><div class="nv vm">R$9</div><div class="nl">ticket</div></div>
+    <div class="nn"><div class="nv vm">0,3×</div><div class="nl">ROAS</div></div>
+    <div class="nn"><div class="nv">19</div><div class="nl">vendas/mês</div></div>
+    <div class="nn"><div class="nv vm">R$20,67</div><div class="nl">CPM</div></div>
+  </div>
+  <div class="aviso erro"><div class="tg">A conta que não fecha</div><p>Ticket de <b>R$9</b> com CPM de <b>R$20,67</b>. Cada mil aparições custam mais que duas vendas inteiras. <b>Não existe otimização que salve essa matemática.</b></p></div>
+  <div class="aviso"><div class="tg">O que fazer</div><p>Tirar do Ads e <b>transformar em kit</b>. Cinco unidades a R$45 muda tudo — o custo de anunciar é o mesmo, o retorno é cinco vezes maior.</p></div>
+</section>
+
+<section class="s" data-sec="OS 6 CENÁRIOS" data-t="A régua">
+  <div class="olho">Bloco 1 · Fechando</div>
+  <h3>A régua que resolve qualquer produto</h3>
+  <table class="full">
+    <thead><tr><th>Se o pior número for</th><th>O problema está</th><th>Onde você mexe</th></tr></thead>
+    <tbody>
+      <tr><td><b>CTR</b></td><td>na <b>vitrine</b> — foto e preço que aparecem na lista</td><td class="d">Foto principal. Só isso.</td></tr>
+      <tr><td><b>Conversão</b></td><td>na <b>página</b> — preço, avaliações, frete, descrição</td><td class="d">Cupom, avaliação, frete, tabela de medidas</td></tr>
+      <tr><td><b>Ticket</b></td><td>na <b>oferta</b> — você vende pouco por venda</td><td class="d">Kit, combo, variação de maior valor</td></tr>
+      <tr><td><b>Nenhum</b> está ruim</td><td>em lugar nenhum</td><td class="d">Escalar</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">Regra de ouro</div><p><b>Uma coisa por vez.</b> Mexeu em foto, preço e cupom no mesmo dia? Não vai saber o que funcionou — e o algoritmo vai reiniciar o aprendizado três vezes.</p></div>
+</section>
+
+<!-- ═══ BLOCO 2 · COMO O ALGORITMO REAGE ═══ -->
+
+<section class="s" data-sec="O ALGORITMO REAGE" data-t="Você mexeu. E agora?">
+  <div class="olho">Bloco 2 · O que acontece depois</div>
+  <h2>Você mexeu.<br>O que acontece <span class="lar">agora</span>?</h2>
+  <p class="sub">Essa é a parte que quase ninguém ensina — e é onde a maioria dos sellers perde dinheiro sem perceber.</p>
+  <p class="sub">Toda alteração dispara uma reação em cadeia. Entender essa reação é o que separa quem gerencia de quem aperta botão.</p>
+</section>
+
+<section class="s" data-sec="O ALGORITMO REAGE" data-t="O que o CPM revela">
+  <div class="olho">Bloco 2 · O termômetro</div>
+  <h3>O CPM é o termômetro da confiança</h3>
+  <p class="sub">O custo por mil aparições não é você que escolhe. É o algoritmo que calcula — e ele revela <b>o quanto acredita no seu produto</b>.</p>
+  <table class="full">
+    <thead><tr><th>Cenário real</th><th>CPM</th><th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td>Loja Aurora · vestido campeão</td><td class="vd">R$0,70</td><td>o algoritmo entrega barato porque tem certeza que converte</td></tr>
+      <tr><td>Média da carteira</td><td>R$4,60</td><td>normal</td></tr>
+      <tr><td>Loja Meridian · ticket R$1.434</td><td class="am">R$15,39</td><td>caro, mas cada venda paga muito</td></tr>
+      <tr><td>Loja Verdejar · ticket R$9</td><td class="vm">R$20,67</td><td>caro E o ticket não sustenta — ralo</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">A leitura correta</div><p>CPM alto <b>sozinho</b> não diz nada. CPM alto <b>com ROAS bom</b> = o algoritmo está apostando em você, escale. CPM alto <b>com ROAS ruim</b> = a conta não fecha, mexa na oferta.</p></div>
+</section>
+
+<section class="s" data-sec="O ALGORITMO REAGE" data-t="Quando paga caro">
+  <div class="olho">Bloco 2</div>
+  <h3>Quando você paga mais caro — e quando paga mais barato</h3>
+  <div class="fn2 full">
+    <div class="fnb nao">
+      <div class="t">↑ O custo SOBE quando</div>
+      <ul>
+        <li>Seu produto começa a converter melhor <span class="mini">(o algoritmo te disputa mais)</span></li>
+        <li>Você entra numa categoria mais concorrida</li>
+        <li>Chega data promocional — todo mundo aumenta lance</li>
+        <li>Você aumenta a meta de ROAS <span class="mini">(mira público mais raro)</span></li>
+        <li>Seu produto ganha avaliações e histórico</li>
+      </ul>
+    </div>
+    <div class="fnb sim">
+      <div class="t">↓ O custo CAI quando</div>
+      <ul>
+        <li>Seu produto para de converter <span class="mini">(o algoritmo desiste)</span></li>
+        <li>Você compra sobras de impressão — as baratas</li>
+        <li>Passou a data promocional</li>
+        <li>Seu anúncio ficou irrelevante para as buscas</li>
+        <li>Você baixou tanto a exigência que pega qualquer um</li>
+      </ul>
+    </div>
+  </div>
+  <div class="aviso erro"><div class="tg">O contrassenso que engana todo mundo</div><p>Custo <b>caindo</b> parece economia. Muitas vezes é o algoritmo <b>desistindo</b> do seu produto. Custo caindo com faturamento caindo junto é <b>sinal de alerta</b>, não de eficiência.</p></div>
+</section>
+
+<section class="s" data-sec="O ALGORITMO REAGE" data-t="A fase de aprendizado">
+  <div class="olho">Bloco 2 · O mais importante desta aula</div>
+  <h2>Toda alteração<br><span class="lar">reinicia</span> o aprendizado</h2>
+  <p class="sub">Quando você sobe um anúncio ou muda algo relevante, o algoritmo entra em <b>fase de aprendizado</b>: ele está descobrindo para quem mostrar seu produto. Leva de <b>7 a 14 dias</b>.</p>
+  <div class="proto full">O que acontece na fase de aprendizado:
+
+  Dias 1-2     Gasta e quase não vende. Parece um desastre.
+  Dias 3-5     Começa a acertar o público. Resultado oscila muito.
+  Dias 6-10    Estabiliza. AQUI os números começam a valer.
+  Dias 11-14   Calibrado. Agora você pode julgar.</div>
+  <div class="aviso erro"><div class="tg">Quem mexe todo dia</div><p>Mantém o produto <b>eternamente no dia 1</b>. Nunca sai da fase mais cara e menos eficiente. É o erro mais caro e mais comum do Shopee Ads.</p></div>
+</section>
+
+<section class="s" data-sec="O ALGORITMO REAGE" data-t="O que reinicia">
+  <div class="olho">Bloco 2</div>
+  <h3>O que reinicia o aprendizado — e o que não reinicia</h3>
+  <div class="fn2 full">
+    <div class="fnb nao">
+      <div class="t">⚠ REINICIA · espere 7 dias</div>
+      <ul>
+        <li>Mudar o método de lance</li>
+        <li>Alterar a meta de ROAS</li>
+        <li>Mudar o preço do produto</li>
+        <li>Trocar a foto principal</li>
+        <li>Editar o título</li>
+        <li>Pausar e religar</li>
+      </ul>
+    </div>
+    <div class="fnb sim">
+      <div class="t">✓ NÃO reinicia · pode fazer</div>
+      <ul>
+        <li>Aumentar o orçamento diário</li>
+        <li>Recarregar saldo</li>
+        <li>Ativar cupom ou frete grátis</li>
+        <li>Responder avaliações</li>
+        <li>Entrar em oferta relâmpago</li>
+        <li>Adicionar fotos secundárias</li>
+      </ul>
+    </div>
+  </div>
+  <div class="aviso ok"><div class="tg">Por isso escalar é seguro</div><p>Aumentar orçamento é uma das poucas ações que <b>não reinicia nada</b>. Você cresce sem pagar o pedágio do aprendizado.</p></div>
+</section>
+
+<!-- ═══ BLOCO 3 · PODE × NÃO PODE ═══ -->
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="O jogo">
+  <div class="olho">Bloco 3 · O jogo do mexe ou não mexe</div>
+  <h2>Mexe<br>ou <span class="lar">não mexe</span>?</h2>
+  <p class="sub">Seis situações. Responde antes de eu mostrar. Vale ponto.</p>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 1">
+  <div class="olho">Situação 1</div>
+  <h3>"Subi o anúncio há 4 dias. Gastou R$60 e não vendeu nada."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE</div><p>Está no <b>dia 4 do aprendizado</b>. Os números desse período não valem nada. Mexer agora reinicia tudo e você vai pagar o dia 1 de novo. <b>Espere até o dia 7, no mínimo.</b></p></div>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 2">
+  <div class="olho">Situação 2</div>
+  <h3>"Meu campeão rodava 12× e ontem caiu para 8×."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE</div><p>Um dia ruim não é tendência. Pode ser dia da semana, pode ser concorrente em promoção, pode ser só oscilação. <b>Olhe a semana, não o dia.</b> E lembre: as vendas dos últimos dias ainda estão sendo contabilizadas — o número que você vê está subestimado.</p></div>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 3">
+  <div class="olho">Situação 3</div>
+  <h3>"Produto com 40 vendas/mês, ROAS estável em 9× há 6 semanas. Quero crescer."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso ok"><div class="tg">PODE MEXER — e deve</div><p>Tem volume, tem estabilidade, tem histórico. <b>Aumente o orçamento em 20%</b> e espere 7 dias. Aumentar orçamento não reinicia aprendizado.</p></div>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 4">
+  <div class="olho">Situação 4</div>
+  <h3>"Produto com 6 vendas no mês e ROAS de 2×."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso alerta"><div class="tg">NÃO DÁ PARA JULGAR AINDA</div><p>Seis vendas não formam estatística. Esse ROAS de 2× pode virar 8× no mês que vem sozinho. <b>Abaixo de 30 vendas no mês, você não tem informação suficiente para decidir nada.</b></p></div>
+  <p class="sub">A única ação válida: deixar rodar para acumular dados, ou dar mais orçamento para acelerar isso.</p>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 5">
+  <div class="olho">Situação 5</div>
+  <h3>"Quero testar um preço novo no meu produto que mais vende."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE no campeão</div><p>Mudar preço <b>reinicia o aprendizado</b>. Você vai jogar fora meses de calibração do seu melhor produto para testar uma hipótese. <b>Teste em outro produto</b> — e se der certo, aí sim considere.</p></div>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="Situação 6">
+  <div class="olho">Situação 6</div>
+  <h3>"Meu CTR está em 0,9% há três semanas."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso ok"><div class="tg">PODE MEXER</div><p>Três semanas é tendência, não oscilação. CTR abaixo de 1,5% é problema de vitrine. <b>Troque a foto principal</b> — e só ela. Depois espere 7 dias antes de avaliar ou mexer em qualquer outra coisa.</p></div>
+</section>
+
+<section class="s" data-sec="PODE OU NÃO PODE" data-t="A tabela final">
+  <div class="olho">Bloco 3 · Fechando</div>
+  <h3>A tabela do mexe ou não mexe</h3>
+  <table class="full">
+    <thead><tr><th>Situação</th><th>Decisão</th></tr></thead>
+    <tbody>
+      <tr><td>Anúncio com menos de 7 dias</td><td class="vm">Não mexe</td></tr>
+      <tr><td>Menos de 30 vendas no mês</td><td class="vm">Não mexe — não há leitura</td></tr>
+      <tr><td>Um dia ruim isolado</td><td class="vm">Não mexe</td></tr>
+      <tr><td>Produto campeão indo bem</td><td class="vm">Não mexe — só escala</td></tr>
+      <tr><td>Últimos 7 dias</td><td class="vm">Não avalia — atribuição incompleta</td></tr>
+      <tr><td>Tendência de 3+ semanas</td><td class="vd">Pode mexer — uma coisa só</td></tr>
+      <tr><td>30+ vendas e ROAS estável</td><td class="vd">Pode escalar</td></tr>
+      <tr><td>Margem comprovadamente negativa</td><td class="vd">Pode pausar</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══ BLOCO 4 · RITMO ═══ -->
+
+<section class="s" data-sec="RITMO DE ANÁLISE" data-t="O calendário">
+  <div class="olho">Bloco 4 · De quanto em quanto tempo</div>
+  <h3>O calendário de quem gerencia bem</h3>
+  <div class="proto full">TODO DIA          Só duas coisas:
+                  · o orçamento travou ou zerou?
+                  · algum produto rompeu estoque?
+                  Nada além disso. Não é hora de analisar.
+
+TODA SEMANA       Análise de desempenho:
+                  · CTR, conversão, ticket e ROAS por produto
+                  · comparar com a semana anterior fechada
+                  · escolher UMA alteração por produto
+
+A CADA 7 DIAS     Depois de qualquer alteração:
+                  · não mexer em mais nada
+                  · não julgar o resultado antes disso
+
+TODO MÊS          Visão de loja:
+                  · quais produtos carregam o faturamento
+                  · onde está indo o orçamento
+                  · o que virou kit, o que saiu do Ads
+
+NUNCA             · julgar os últimos 7 dias
+                  · comparar mês em curso com mês fechado
+                  · mexer em produto na fase de aprendizado</div>
+</section>
+
+<section class="s" data-sec="RITMO DE ANÁLISE" data-t="Onde olhar">
+  <div class="olho">Bloco 4 · Ferramentas</div>
+  <h3>Onde olhar cada coisa</h3>
+  <table class="full">
+    <thead><tr><th>O que você precisa ver</th><th>Onde está</th></tr></thead>
+    <tbody>
+      <tr><td>CTR, conversão, ROAS por anúncio</td><td>Central do Vendedor → Marketing → Shopee Ads</td></tr>
+      <tr><td>Visitantes, carrinho, pedidos da loja</td><td>Central do Vendedor → Dados do Negócio</td></tr>
+      <tr><td>Quais produtos carregam o faturamento</td><td>Dados do Negócio → Produtos</td></tr>
+      <tr><td>De onde vem o tráfego</td><td>Dados do Negócio → Tráfego</td></tr>
+      <tr><td>Preço do mercado e concorrência</td><td class="d">Radar 360</td></tr>
+      <tr><td>Margem e ROAS mínimo</td><td class="d">Calculadora Seller.IA</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">O erro de ferramenta mais comum</div><p>Olhar só o painel do Ads. Ele mostra o que o <b>anúncio</b> fez — não mostra o que aconteceu na <b>página</b>. Conversão ruim quase sempre se diagnostica em Dados do Negócio, não no Ads.</p></div>
+</section>
+
+<!-- ═══ BLOCO 5 · ESCALA ═══ -->
+
+<section class="s" data-sec="ESCALA" data-t="Os sinais">
+  <div class="olho">Bloco 5 · Escala</div>
+  <h3>Os cinco sinais que autorizam escalar</h3>
+  <div class="check full" id="chk">
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">30 ou mais vendas no mês</div><div class="cdd">abaixo disso não há leitura confiável</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">ROAS acima do mínimo da sua margem</div><div class="cdd">e estável por pelo menos 2 semanas</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Fora da fase de aprendizado</div><div class="cdd">mais de 14 dias sem alteração relevante</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Estoque para dez vezes mais venda</div><div class="cdd">escalar e romper estoque é o pior cenário</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Capacidade de atender o volume</div><div class="cdd">envio, atendimento, embalagem</div></div></div>
+  </div>
+  <div class="vered nao" id="vered">0 de 5 · ainda não é hora de escalar</div>
+</section>
+
+<section class="s" data-sec="ESCALA" data-t="Como escalar">
+  <div class="olho">Bloco 5 · O protocolo</div>
+  <h3>Como escalar sem quebrar</h3>
+  <div class="proto full">+20% de orçamento por semana
+7 dias entre cada aumento
+nenhuma outra alteração no período
+
+Semana 1   R$ 30/dia  →  R$ 36/dia   espera
+Semana 2   R$ 36/dia  →  R$ 43/dia   espera
+Semana 3   R$ 43/dia  →  R$ 52/dia   espera
+Semana 4   R$ 52/dia  →  R$ 62/dia
+
+Em um mês: o dobro do investimento, sem sobressalto.</div>
+  <div class="aviso ok"><div class="tg">O que esperar do ROAS</div><p>Ele vai cair um pouco — <b>até 5% é normal e esperado</b>. Você está alcançando gente menos qualificada, é o custo de crescer. <b>Não pare por isso.</b></p></div>
+  <div class="aviso erro"><div class="tg">Quando parar de verdade</div><p>Estoque acabando · margem comprometida · você não dá conta de enviar. <b>Nunca por queda pequena de ROAS.</b></p></div>
+</section>
+
+<!-- ═══ BLOCO 6 · PALAVRAS-CHAVE ═══ -->
+
+<section class="s" data-sec="PALAVRAS-CHAVE" data-t="Dois mundos">
+  <div class="olho">Bloco 6 · Anúncios de busca</div>
+  <h3>Existem dois mundos de anúncio na Shopee</h3>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">GMV MAX</div><p>Automático. <b>Você não escolhe palavra-chave.</b> O algoritmo decide tudo a partir do seu título e do histórico.</p><p style="margin-top:8px;color:var(--t1)">É o que a maioria usa hoje.</p></div>
+    <div class="cd"><div class="ct2">ANÚNCIO DE BUSCA</div><p>Manual. <b>Você escolhe as palavras</b> e dá lance em cada uma. Controle total, trabalho maior.</p><p style="margin-top:8px;color:var(--t1)">Para quem quer disputar termos específicos.</p></div>
+  </div>
+  <div class="aviso az"><div class="tg">A consequência do GMV Max</div><p>Se você não escolhe palavra-chave, <b>o título passa a ser a sua palavra-chave</b>. Título fraco limita os leilões em que o produto sequer entra — e nenhum ajuste de lance conserta isso.</p></div>
+</section>
+
+<section class="s" data-sec="PALAVRAS-CHAVE" data-t="Como escolher">
+  <div class="olho">Bloco 6</div>
+  <h3>Se você vai usar Anúncio de Busca</h3>
+  <table class="full">
+    <thead><tr><th>Regra</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td><b>10 a 15 palavras</b> por anúncio</td><td>é a recomendação da Shopee — dá para até 200, mas dilui</td></tr>
+      <tr><td>Prefira <b>fundo de funil</b></td><td>"vestido longo plus size" converte muito mais que "vestido"</td></tr>
+      <tr><td>Comece com <b>lance baixo</b></td><td>suba só depois de ver o desempenho</td></tr>
+      <tr><td><b>Um produto</b> por campanha</td><td>facilita entender o que funcionou</td></tr>
+      <tr><td>Revise em <b>2 semanas</b></td><td>pause as que gastam sem vender</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso"><div class="tg">Taxa premium</div><p>Você pode aumentar o lance para posições específicas em até <b>300%</b>. Se não tiver certeza, <b>deixe em 0%</b> — revise o desempenho depois de 2 semanas e só então considere aumentar.</p></div>
+</section>
+
+<section class="s" data-sec="PALAVRAS-CHAVE" data-t="O título">
+  <div class="olho">Bloco 6 · O que mais importa</div>
+  <h2>Seu título é<br>seu <span class="lar">anúncio</span></h2>
+  <p class="sub">No GMV Max não existe seleção manual de palavra-chave. A Shopee monta a correspondência a partir de três coisas:</p>
+  <div class="circ full">
+    <div class="ce"><span class="cn">1</span><div><b>O título do produto</b> — a fonte principal das palavras</div></div>
+    <div class="cseta">+</div>
+    <div class="ce"><span class="cn">2</span><div><b>A intenção de quem busca</b> — o que a pessoa realmente quer</div></div>
+    <div class="cseta">+</div>
+    <div class="ce"><span class="cn">3</span><div><b>O histórico do seu anúncio</b> — o que já funcionou antes</div></div>
+  </div>
+  <div class="aviso erro"><div class="tg">O gargalo invisível</div><p>Título ruim não aparece em métrica nenhuma. Seu CTR pode estar ótimo — <b>nas poucas buscas em que você entra</b>. Você nunca vê o que perdeu.</p></div>
+</section>
+
+<!-- ═══ FECHAMENTO ═══ -->
+
+<section class="s" data-sec="FECHAMENTO" data-t="⏱ EXERCÍCIO">
+  <div class="olho">Pare aqui · exercício ao vivo</div>
+  <h2>Seu plano das<br>próximas <span class="lar">4 semanas</span></h2>
+  <div class="proto full" style="max-width:700px">Escolha UM produto e preencha:
+
+  1. Qual dos quatro números está pior?  ______________
+
+  2. Então o problema está na:
+     (  ) vitrine — foto e preço
+     (  ) página — avaliações, frete, descrição
+     (  ) oferta — ticket baixo demais
+
+  3. A UMA alteração que vou fazer:  __________________
+
+  4. Data em que vou avaliar (hoje + 7 dias): _________
+
+  5. O que NÃO vou fazer até lá:
+     mexer em mais nada · olhar todo dia · me assustar
+     com os primeiros 3 dias</div>
+</section>
+
+<section class="s" data-sec="FECHAMENTO" data-t="Leve isto">
+  <div class="olho">Fechamento da Parte 2</div>
+  <h2>Cinco frases<br>para levar</h2>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">1 · UMA COISA POR VEZ</div><p>Mexeu em três, não vai saber o que funcionou — e reiniciou o aprendizado três vezes.</p></div>
+    <div class="cd"><div class="ct2">2 · SETE DIAS</div><p>Toda alteração pede 7 dias de silêncio. Sem olhar, sem mexer, sem julgar.</p></div>
+    <div class="cd"><div class="ct2">3 · CPM É TERMÔMETRO</div><p>Custo alto com retorno bom é confiança. Custo caindo com venda caindo é abandono.</p></div>
+    <div class="cd"><div class="ct2">4 · 30 VENDAS</div><p>Abaixo disso você não tem dado, tem palpite.</p></div>
+    <div class="cd"><div class="ct2">5 · ESCALAR É SEGURO</div><p>Aumentar orçamento não reinicia nada. É a única alavanca sem pedágio.</p></div>
+  </div>
+</section>
+
+<section class="s" data-sec="FECHAMENTO" data-t="Perguntas">
+  <div class="olho">Agora é com vocês</div>
+  <h1>Perguntas</h1>
+  <p class="sub">Traga o número do seu produto que a gente diagnostica junto — ao vivo.</p>
+</section>
+
+
+
+  </div>
+  <div id="faixa"></div>
+  <canvas id="tela"></canvas>
+</div>
+
+<div id="barra">
+  <button class="bt" id="ant" title="Anterior"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="bt" id="prox" title="Próximo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <button class="bt" id="pena" title="Desenhar (D)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></button>
+  <div id="cores">
+    <b data-c="#ff4d1c" class="on" style="background:#ff4d1c"></b>
+    <b data-c="#ffffff" style="background:#fff"></b>
+    <b data-c="#2fd672" style="background:#2fd672"></b>
+    <b data-c="#3d9bff" style="background:#3d9bff"></b>
+  </div>
+  <button class="bt" id="limpa" title="Apagar (L)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+  <span class="gap"></span>
+  <span id="atalhos">← → NAVEGA · D DESENHA · L LIMPA · G GRADE · H ESCONDE · F TELA CHEIA</span>
+  <button class="bt" id="bgrade" title="Grade (G)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+  <button class="bt" id="btela" title="Tela cheia (F)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+  <span id="cont">01 / 24</span>
+</div>
+
+<div id="grade"><h4>TODOS OS SLIDES</h4><div id="mg"></div></div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.s')], total=slides.length;
+  let atual=0, desenhando=false, pintando=false, cor='#ff4d1c';
+  const desenhos={};
+
+  // trilha
+  const tr=document.getElementById('trilha');
+  tr.innerHTML=slides.map((s,i)=>`<i data-i="${i}" style="width:${Math.max(8,Math.floor(260/total))}px"></i>`).join('');
+  const marcas=[...tr.children];
+  tr.onclick=e=>{ if(e.target.dataset.i!==undefined) mostra(+e.target.dataset.i); };
+
+  // ═══ CANVAS ═══
+  const tela=document.getElementById('tela'), ctx=tela.getContext('2d');
+  function dim(){
+    const r=devicePixelRatio||1;
+    tela.width=innerWidth*r; tela.height=innerHeight*r;
+    tela.style.width=innerWidth+'px'; tela.style.height=innerHeight+'px';
+    ctx.setTransform(r,0,0,r,0,0); ctx.lineCap='round'; ctx.lineJoin='round';
+    restaura();
+  }
+  function restaura(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    const d=desenhos[atual];
+    if(d){const i=new Image(); i.onload=()=>ctx.drawImage(i,0,0,innerWidth,innerHeight); i.src=d;}
+  }
+  const pos=e=>{const r=tela.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+  tela.addEventListener('pointerdown',e=>{
+    if(!desenhando && e.pointerType!=='pen') return;
+    pintando=true; tela.setPointerCapture(e.pointerId);
+    const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y);
+    ctx.strokeStyle=cor; ctx.lineWidth=e.pointerType==='pen'?Math.max(1.8,(e.pressure||.5)*7):3.2;
+  });
+  tela.addEventListener('pointermove',e=>{
+    if(!pintando)return; const p=pos(e);
+    if(e.pointerType==='pen') ctx.lineWidth=Math.max(1.8,(e.pressure||.5)*7);
+    ctx.lineTo(p.x,p.y); ctx.stroke();
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>tela.addEventListener(ev,()=>{
+    if(pintando){pintando=false; desenhos[atual]=tela.toDataURL();}
+  }));
+  document.addEventListener('pointerdown',e=>{if(e.pointerType==='pen')tela.style.pointerEvents='auto'},true);
+
+  // ═══ NAVEGAÇÃO — sem revelação progressiva ═══
+  function mostra(i){
+    slides[atual].classList.remove('on');
+    atual=(i+total)%total;
+    slides[atual].classList.add('on');
+    marcas.forEach((m,k)=>m.className=k===atual?'on':(k<atual?'foi':''));
+    document.getElementById('t-sec').textContent=slides[atual].dataset.sec||'';
+    document.getElementById('t-tit').textContent=slides[atual].dataset.t||'';
+    const tt=document.getElementById('t-tempo');
+    if(tt){const m=Math.round((atual+1)/total*95);tt.textContent='· ~'+m+' min';}
+    document.getElementById('cont').textContent=String(atual+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    restaura(); marcaGrade();
+  }
+  const avanca=()=>{ if(atual<total-1) mostra(atual+1); };
+  const volta=()=>{ if(atual>0) mostra(atual-1); };
+
+  // ═══ CHECKLIST ═══
+  const chk=document.getElementById('chk'), vd=document.getElementById('vered');
+  chk.addEventListener('click',e=>{
+    const ci=e.target.closest('.ci'); if(!ci)return;
+    ci.classList.toggle('ok');
+    const n=chk.querySelectorAll('.ci.ok').length;
+    vd.textContent = n===5?'5 de 5 · pode escalar com segurança':n+' de 5 · ainda não é hora de escalar';
+    vd.className='vered '+(n===5?'sim':'nao');
+  });
+
+  // ═══ BOTÕES ═══
+  document.getElementById('prox').onclick=avanca;
+  document.getElementById('ant').onclick=volta;
+  const pena=document.getElementById('pena');
+  pena.onclick=()=>{desenhando=!desenhando;document.body.classList.toggle('desenha',desenhando);pena.classList.toggle('on',desenhando)};
+  document.getElementById('limpa').onclick=()=>{ctx.clearRect(0,0,innerWidth,innerHeight);delete desenhos[atual]};
+  document.querySelectorAll('#cores b').forEach(b=>b.onclick=()=>{
+    cor=b.dataset.c;
+    document.querySelectorAll('#cores b').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); if(!desenhando) pena.click();
+  });
+  document.getElementById('btela').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+  // ═══ GRADE ═══
+  const grade=document.getElementById('grade'), mg=document.getElementById('mg');
+  let html='', secAtual='';
+  slides.forEach((s,i)=>{
+    if(s.dataset.sec!==secAtual){
+      if(secAtual) html+='</div>';
+      secAtual=s.dataset.sec;
+      html+=`<div class="gsec">◈ ${secAtual}</div><div class="mg">`;
+    }
+    html+=`<div class="ms" data-i="${i}"><div class="mn">${String(i+1).padStart(2,'0')}</div><div class="mt">${s.dataset.t}</div></div>`;
+  });
+  html+='</div>';
+  mg.outerHTML='<div id="mg">'+html+'</div>';
+  const mgEl=document.getElementById('mg');
+  const marcaGrade=()=>mgEl.querySelectorAll('.ms').forEach(c=>c.classList.toggle('at',+c.dataset.i===atual));
+  mgEl.onclick=e=>{const c=e.target.closest('.ms'); if(c){mostra(+c.dataset.i);grade.classList.remove('on')}};
+  document.getElementById('bgrade').onclick=()=>grade.classList.toggle('on');
+
+  // ═══ MODO GRAVAÇÃO ═══
+  let ocio, travado=false;
+  function acorda(){
+    if(travado)return;
+    document.body.classList.remove('limpo');
+    clearTimeout(ocio); ocio=setTimeout(()=>document.body.classList.add('limpo'),3000);
+  }
+  ['mousemove','keydown','pointerdown'].forEach(ev=>addEventListener(ev,acorda));
+
+  addEventListener('keydown',e=>{
+    if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+    const k=e.key.toLowerCase();
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();avanca()}
+    else if(e.key==='ArrowLeft'){e.preventDefault();volta()}
+    else if(k==='d')pena.click();
+    else if(k==='l')document.getElementById('limpa').click();
+    else if(k==='g')grade.classList.toggle('on');
+    else if(k==='f')document.getElementById('btela').click();
+    else if(k==='h'){travado=!travado;document.body.classList.toggle('limpo',travado);clearTimeout(ocio)}
+    else if(e.key==='Escape')grade.classList.remove('on');
+    else if(e.key==='Home')mostra(0);
+    else if(e.key==='End')mostra(total-1);
+  });
+
+  document.getElementById('slides').addEventListener('click',e=>{
+    if(desenhando||e.target.closest('.ci,input,.calc,.disputa'))return;
+    (e.clientX>innerWidth*0.3)?avanca():volta();
+  });
+
+  addEventListener('resize',dim);
+  dim(); mostra(0); acorda();
+})();
+</script>
+</body>
+</html>
