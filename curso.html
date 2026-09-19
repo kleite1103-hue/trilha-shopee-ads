@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Shopee Ads — Curso Completo</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --bg:#07080a; --panel:#0e1116; --panel2:#141922; --line:#1c222b; --line2:#2a323d;
+  --lar:#ff4d1c; --lar2:#ff7a52; --rox:#7B2FFF; --verde:#2fd672; --ama:#ffc233; --azul:#3d9bff; --verm:#ff3b3b;
+  --t1:#f4f6f9; --t2:#9aa2b1; --t3:#5b6472; --t4:#39414d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;touch-action:manipulation}
+
+#palco{position:fixed;inset:0;display:flex;flex-direction:column}
+#topo{display:flex;align-items:center;gap:14px;padding:12px 30px;flex-shrink:0;z-index:20;transition:opacity .4s}
+#topo .sec{font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--lar)}
+#topo .tit{font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--t4)}
+#topo .gap{flex:1}
+#trilha{display:flex;gap:3px;align-items:center}
+#trilha i{height:3px;border-radius:2px;background:var(--line2);transition:.3s;cursor:pointer}
+#trilha i.on{background:var(--lar)} #trilha i.foi{background:var(--t4)}
+
+#slides{flex:1;position:relative;overflow:hidden}
+.s{position:absolute;inset:0;padding:30px 62px 78px;display:none;flex-direction:column;justify-content:center;overflow-y:auto}
+.s.on{display:flex;animation:e .35s cubic-bezier(.2,.8,.25,1)}
+@keyframes e{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.olho{font-family:'Space Mono';font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--lar);margin-bottom:14px}
+h1{font-family:'Bebas Neue';font-size:clamp(52px,8.5vw,108px);line-height:.88;letter-spacing:1.5px}
+h2{font-family:'Bebas Neue';font-size:clamp(32px,4.6vw,56px);line-height:.98;letter-spacing:1.2px}
+h3{font-weight:600;font-size:clamp(18px,2.1vw,26px);line-height:1.3;letter-spacing:-.2px}
+.sub{font-size:clamp(14.5px,1.55vw,18px);color:var(--t2);line-height:1.55;max-width:760px;margin-top:12px}
+.mini{font-family:'Space Mono';font-size:11px;color:var(--t4);letter-spacing:1px}
+b{color:#fff;font-weight:600}
+.lar{color:var(--lar)}.vd{color:var(--verde)}.am{color:var(--ama)}.rx{color:var(--rox)}.vm{color:var(--verm)}.az{color:var(--azul)}
+
+/* faixa lateral de desenho — conteúdo ocupa a tela, lateral fica livre */
+.s{padding-right:0!important}
+.s > *{max-width:calc(100% - 420px)}
+.s > *.full{max-width:calc(100% - 430px)!important;width:calc(100% - 430px)}
+@media(max-width:1100px){.s > *.full{max-width:100%!important;width:100%}}
+#faixa{position:absolute;top:0;right:0;bottom:0;width:400px;pointer-events:none;z-index:5;
+  border-left:1px dashed var(--line2);
+  background-image:radial-gradient(circle,rgba(42,50,61,.55) 1px,transparent 1px);background-size:24px 24px}
+#faixa::after{content:'ÁREA DE DESENHO';position:absolute;top:16px;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--t4);white-space:nowrap}
+@media(max-width:1100px){#faixa{display:none} .s > *{max-width:100%}}
+
+/* tela shopee */
+.fake{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:16px;max-width:600px}
+.fp{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative}
+.fp .img{height:62px;background:linear-gradient(135deg,#1a2029,#141920)}
+.fp .txt{padding:8px 9px}
+.fp .l1{height:5px;background:var(--line2);border-radius:3px;margin-bottom:4px}
+.fp .l2{height:5px;width:60%;background:var(--line2);border-radius:3px}
+.fp .pr{font-family:'Space Mono';font-size:11px;color:var(--verde);margin-top:6px}
+.fp.ad{border-color:var(--lar)}
+.fp.ad .selo{position:absolute;top:5px;left:5px;background:var(--lar);color:#fff;font-family:'Space Mono';font-size:7.5px;padding:2px 5px;border-radius:3px}
+.fp:not(.ad){opacity:.4}
+
+/* ficha do caso */
+.ficha{margin-top:12px;max-width:660px;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:6px 18px}
+.ficha .fl{display:flex;gap:14px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ficha .fl:last-child{border-bottom:none}
+.ficha .fk{font-family:'Space Mono';font-size:10px;letter-spacing:1.2px;text-transform:uppercase;color:var(--t3);width:150px;flex-shrink:0;padding-top:2px}
+.ficha .fv{color:#fff}
+/* ciclo linear */
+.circ{margin-top:12px;max-width:640px}
+.ce{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:13px 17px;font-size:15.5px}
+.ce .cn{flex-shrink:0;width:26px;height:26px;border-radius:8px;background:var(--lar);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue';font-size:16px}
+.cseta{font-family:'Space Mono';font-size:11.5px;color:var(--t3);padding:5px 0 5px 12px;letter-spacing:1px}
+.cseta.volta{color:var(--verm)}
+/* ciclo antigo */
+.ciclo{position:relative;width:min(400px,90%);margin:14px auto 0;aspect-ratio:1.1}
+.ciclo .no{position:absolute;width:145px;text-align:center;font-size:13.5px;line-height:1.35;background:var(--panel);border:1px solid var(--line2);border-radius:12px;padding:12px}
+.ciclo .no b{color:var(--lar);display:block;font-size:15px}
+.ciclo .n1{top:0;left:50%;transform:translateX(-50%)}
+.ciclo .n2{bottom:6%;right:0} .ciclo .n3{bottom:6%;left:0}
+.ciclo svg{position:absolute;inset:0;width:100%;height:100%}
+.ciclo svg path{stroke:var(--line2);stroke-width:2;fill:none}
+.ciclo .qb{position:absolute;top:52%;left:50%;transform:translate(-50%,-50%);background:var(--lar);color:#fff;
+  font-family:'Bebas Neue';font-size:20px;letter-spacing:1.5px;padding:10px 20px;border-radius:10px;white-space:nowrap;
+  box-shadow:0 0 36px rgba(255,77,28,.45)}
+
+/* checklist */
+.chk{display:flex;flex-direction:column;gap:6px;margin-top:14px;max-width:760px}
+.ci{display:flex;align-items:center;gap:13px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 15px;cursor:pointer;transition:.15s}
+.ci:hover{border-color:var(--line2)}
+.ci .cx{flex-shrink:0;width:21px;height:21px;border-radius:6px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;transition:.15s}
+.ci .cx svg{width:12px;height:12px;opacity:0;transition:.15s}
+.ci.ok{border-color:rgba(47,214,114,.4)} .ci.ok .cx{background:var(--verde);border-color:var(--verde)} .ci.ok .cx svg{opacity:1}
+.ci .ct{font-size:14.5px;color:#fff} .ci .cdd{font-size:12.5px;color:var(--t2);margin-top:1px}
+.vered{margin-top:11px;font-family:'Space Mono';font-size:12.5px;letter-spacing:1px;padding:11px;border-radius:10px;text-align:center}
+.vered.nao{background:rgba(255,59,59,.09);color:var(--verm)} .vered.sim{background:rgba(47,214,114,.11);color:var(--verde)}
+
+/* quebra preço */
+.qp{max-width:480px;margin-top:14px;font-family:'Space Mono'}
+.qp .l{display:flex;justify-content:space-between;padding:10px 15px;border-bottom:1px solid var(--line);font-size:14px}
+.qp .l .a{color:var(--t2)} .qp .l .b2{color:var(--verm);font-weight:700}
+.qp .l.top .a,.qp .l.top .b2{color:#fff;font-size:16px;font-weight:700}
+.qp .l.fim{border-bottom:none;border-top:2px solid var(--verde);margin-top:3px;padding-top:13px}
+.qp .l.fim .a{color:#fff;font-size:15px;font-weight:700} .qp .l.fim .b2{color:var(--verde);font-size:20px;font-weight:700}
+
+/* sliders / calculadoras */
+.calc{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:20px 22px;margin-top:14px}
+.calc.destaque{border-color:var(--lar)}
+.sl-row{display:grid;grid-template-columns:120px 1fr 72px;align-items:center;gap:14px;margin-bottom:11px}
+.sl-row label{font-family:'Space Mono';font-size:10.5px;letter-spacing:1px;color:var(--t3);text-transform:uppercase}
+.sl-row .val{font-family:'Bebas Neue';font-size:23px;text-align:right;color:var(--lar)}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:var(--line2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--lar);cursor:pointer;box-shadow:0 0 12px rgba(255,77,28,.5)}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--lar);cursor:pointer;border:none}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+.cf label{display:block;font-family:'Space Mono';font-size:10px;color:var(--t3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px}
+.cf input[type=number]{width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:10px 12px;color:#fff;font-family:'Space Mono';font-size:15px;font-weight:700;outline:none}
+.cf input:focus{border-color:var(--lar)}
+.cr{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.cr .r{background:var(--bg);border-radius:10px;padding:13px;text-align:center}
+.cr .rl{font-family:'Space Mono';font-size:9px;color:var(--t4);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.cr .rv{font-family:'Bebas Neue';font-size:29px;line-height:1}
+.cr .rs{font-size:10.5px;color:var(--t3);margin-top:2px}
+
+/* SIMULADOR DE LEILÃO */
+.leilao{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:12px}
+.disputa{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column}
+.disputa .tt{font-family:'Space Mono';font-size:10px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:14px}
+.vaga{display:flex;align-items:center;gap:11px;padding:9px 12px;border-radius:9px;margin-bottom:6px;background:var(--panel2);border:1px solid transparent;transition:.4s}
+.vaga .pos{font-family:'Bebas Neue';font-size:19px;width:22px;color:var(--t4)}
+.vaga .nm{flex:1;font-size:13.5px;color:var(--t2)}
+.vaga .fc{font-family:'Space Mono';font-size:12px;color:var(--t3)}
+.vaga.eu{background:rgba(255,77,28,.13);border-color:var(--lar)}
+.vaga.eu .nm{color:#fff;font-weight:600} .vaga.eu .pos{color:var(--lar)} .vaga.eu .fc{color:var(--lar);font-weight:700}
+.vaga.fora{opacity:.35}
+.veredito{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);text-align:center}
+.veredito .vt{font-family:'Bebas Neue';font-size:30px;letter-spacing:1px;line-height:1}
+.veredito .vs{font-size:12.5px;color:var(--t2);margin-top:5px}
+
+/* cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:12px;margin-top:14px;max-width:900px}
+.cd{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px}
+.cd .ct2{font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;color:var(--lar);margin-bottom:6px}
+.cd p{font-size:13.5px;color:var(--t2);line-height:1.45}
+
+.aviso{border-left:3px solid var(--ama);padding:14px 19px;margin-top:14px;background:rgba(255,194,51,.06);border-radius:0 11px 11px 0;max-width:820px}
+.aviso .tg{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ama);margin-bottom:5px}
+.aviso p{font-size:14.5px;line-height:1.5}
+.aviso.erro{border-color:var(--verm);background:rgba(255,59,59,.06)} .aviso.erro .tg{color:var(--verm)}
+.aviso.ok{border-color:var(--verde);background:rgba(47,214,114,.06)} .aviso.ok .tg{color:var(--verde)}
+.aviso.az{border-color:var(--azul);background:rgba(61,155,255,.06)} .aviso.az .tg{color:var(--azul)}
+
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:12px;max-width:760px}
+th{color:var(--t4);padding:8px 12px;text-align:left;font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2)}
+td{padding:9px 12px;border-bottom:1px solid var(--line);color:#e2e6ed}
+td.d{color:var(--lar);font-weight:700}
+
+.quad{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:14px;max-width:780px}
+.qd{border-radius:12px;padding:16px 18px;border:1px solid}
+.qd .qn{font-family:'Bebas Neue';font-size:21px;letter-spacing:1px}
+.qd .qc{font-size:12px;color:var(--t3);margin:2px 0 7px;font-family:'Space Mono'}
+.qd .qa{font-size:13.5px;color:var(--t1)}
+.qd.ouro{border-color:var(--verde);background:rgba(47,214,114,.05)} .qd.ouro .qn{color:var(--verde)}
+.qd.esc{border-color:var(--ama);background:rgba(255,194,51,.05)} .qd.esc .qn{color:var(--ama)}
+.qd.nic{border-color:var(--azul);background:rgba(61,155,255,.05)} .qd.nic .qn{color:var(--azul)}
+.qd.fra{border-color:var(--t4);background:rgba(90,100,114,.06)} .qd.fra .qn{color:var(--t3)}
+
+.proto{font-family:'Space Mono';font-size:13px;line-height:1.85;background:linear-gradient(135deg,#0f1318,#0a0c0f);border:1px solid var(--line2);border-radius:13px;padding:20px 24px;margin-top:12px;max-width:780px;white-space:pre-wrap;position:relative;overflow-x:auto}
+.proto::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lar)}
+
+.fn2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;max-width:860px}
+.fnb{border:1px solid var(--line2);border-radius:12px;padding:16px 18px}
+.fnb .t{font-family:'Space Mono';font-size:9.5px;letter-spacing:2px;text-transform:uppercase;margin-bottom:9px}
+.fnb.sim{border-color:rgba(47,214,114,.3)} .fnb.sim .t{color:var(--verde)}
+.fnb.nao{border-color:rgba(255,59,59,.3)} .fnb.nao .t{color:var(--verm)}
+.fnb ul{list-style:none} .fnb li{font-size:13px;margin:6px 0;color:var(--t2);padding-left:14px;position:relative}
+.fnb li::before{content:'·';position:absolute;left:2px;color:var(--t4)}
+
+blockquote{border-left:3px solid var(--rox);padding:14px 0 14px 22px;margin-top:14px;background:rgba(123,47,255,.06);border-radius:0 11px 11px 0;max-width:820px}
+blockquote p{font-size:17px;color:#fff;font-weight:500;line-height:1.45;margin:6px 0}
+
+#tela{position:absolute;inset:0;z-index:15;pointer-events:none;touch-action:none}
+body.desenha #tela{pointer-events:auto;cursor:crosshair}
+
+#barra{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:10px;padding:11px 30px;
+  background:rgba(7,8,10,.93);backdrop-filter:blur(14px);border-top:1px solid var(--line);transition:opacity .4s,transform .4s}
+body.limpo #barra{opacity:0;transform:translateY(100%);pointer-events:none}
+body.limpo #topo .tit,body.limpo #atalhos{opacity:0}
+.bt{width:34px;height:34px;border-radius:9px;border:1px solid var(--line2);background:transparent;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.bt:hover{border-color:var(--t3);color:var(--t1)} .bt.on{background:var(--lar);border-color:var(--lar);color:#fff}
+#cores{display:flex;gap:5px}
+#cores b{width:19px;height:19px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}
+#cores b.on{border-color:#fff;transform:scale(1.15)}
+#barra .gap{flex:1}
+#atalhos{font-family:'Space Mono';font-size:9.5px;color:var(--t4)}
+#cont{font-family:'Space Mono';font-size:11.5px;color:var(--t3)}
+
+#grade{position:fixed;inset:0;z-index:50;background:rgba(7,8,10,.97);display:none;padding:34px;overflow-y:auto}
+#grade.on{display:block}
+#grade h4{font-family:'Bebas Neue';font-size:23px;letter-spacing:2px;margin-bottom:16px}
+#grade .gsec{font-family:'Space Mono';font-size:10px;letter-spacing:2px;color:var(--lar);margin:18px 0 8px}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:10px}
+.ms{border:1px solid var(--line2);border-radius:10px;padding:13px;cursor:pointer;transition:.15s;min-height:74px}
+.ms:hover{border-color:var(--lar)} .ms.at{border-color:var(--lar);background:rgba(255,77,28,.07)}
+.ms .mn{font-family:'Space Mono';font-size:9.5px;color:var(--lar)}
+.ms .mt{font-weight:600;font-size:13px;margin-top:5px;line-height:1.25}
+
+@media(max-width:900px){
+  .s{padding:22px 18px 76px}
+  .cg,.cr,.leilao,.quad,.fn2{grid-template-columns:1fr}
+  .fake{grid-template-columns:repeat(2,1fr)}
+  .sl-row{grid-template-columns:88px 1fr 58px;gap:9px}
+  #atalhos{display:none} #topo{padding:10px 16px} #barra{padding:10px 14px}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* ═══ NÚMEROS DO CENÁRIO (parte 2) ═══ */
+.grid6{display:grid!important;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:16px}
+.grid6 .nn{background:var(--panel);border:1px solid var(--line2);border-radius:11px;padding:14px 8px;text-align:center}
+.grid6 .nv{font-family:'Bebas Neue';font-size:clamp(20px,2.4vw,30px);line-height:1;color:var(--t1);display:block}
+.grid6 .nl{font-family:'Space Mono';font-size:8.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--t4);margin-top:5px;display:block}
+.grid6 .nv.vd{color:var(--verde)} .grid6 .nv.vm{color:var(--verm)} .grid6 .nv.am{color:var(--ama)}
+.espaco2{min-height:70px}
+.aviso.alerta{border-left-color:var(--ama);background:rgba(255,194,51,.07)}
+.aviso.alerta .tg{color:var(--ama)}
+@media(max-width:1100px){.grid6{grid-template-columns:repeat(3,1fr)}}
+
+/* capas de módulo e aula */
+.s[data-t^="◈"]{background:radial-gradient(ellipse at 20% 50%,rgba(255,77,28,.10),transparent 60%)}
+.s[data-t^="◈"] h1{font-size:clamp(60px,9vw,112px)}
+.s[data-t^="Aula "]{border-left:4px solid var(--lar)}
+</style>
+</head>
+<body>
+
+<div id="palco">
+  <div id="topo">
+    <span class="sec" id="t-sec">INÍCIO</span>
+    <span class="tit" id="t-tit"></span><span class="tit" id="t-tempo" style="color:var(--t3)"></span>
+    <span class="gap"></span>
+    <div id="trilha"></div>
+  </div>
+
+  <div id="slides">
+
+<!-- ═══════════ PARTE 1 · ANTES DE COMEÇAR ═══════════ -->
+
+<section class="s" data-sec="INÍCIO" data-t="Capa">
+  <div class="olho">Efeito Vendas · Curso completo</div>
+  <h1>Shopee Ads<br>do <span class="lar">zero</span> ao avançado</h1>
+  <p class="sub">Do que é uma impressão até quando migrar para Meta de ROAS. Seis módulos, dezoito aulas, dois exercícios práticos com a sua conta aberta.</p>
+  <p class="mini" style="margin-top:24px">nenhum conhecimento prévio necessário</p></section>
+<section class="s" data-sec="MÓDULO 1" data-t="◈ Módulo 1">
+  <div class="olho">Módulo 1 de 6</div>
+  <h1>Antes de anunciar</h1>
+  <p class="sub">Para quem nunca subiu um anúncio. Ao final você sabe o que é Shopee Ads, lê qualquer relatório e sabe se a sua precificação aguenta anunciar.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>O que é Shopee Ads e por que anunciar</div></div><div class="ce"><span class="cn">2</span><div>As métricas, uma por uma</div></div><div class="ce"><span class="cn">3</span><div>Você está pronto? Precificação e ROAS mínimo</div></div></div></section>
+<section class="s" data-sec="MÓDULO 1" data-t="Aula 1.1">
+  <div class="olho">Aula 1.1 · ~12 min</div>
+  <h2>O que é Shopee Ads e por que anunciar</h2>
+  <p class="sub" style="font-size:19px">Onde o anúncio aparece, o círculo que trava vendedor novo, e por que anúncio não conserta produto ruim.</p></section>
+<section class="s" data-sec="MÓDULO 1" data-t="O que é">
+  <div class="olho">Parte 1 · O que é Shopee Ads</div>
+  <h2>Nem tudo que aparece na busca<br>chegou lá <span class="lar">de graça</span></h2>
+  <p class="sub">Alguém busca "tapete de sala". Aparece uma lista. Parte dela está ali porque <b>pagou</b> — os dois primeiros, e depois um a cada três produtos.</p>
+  <div class="fake full">
+    <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 89,90</div></div></div>
+    <div class="fp ad"><span class="selo">Patrocinado</span><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 124,00</div></div></div>
+    <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 76,50</div></div></div>
+    <div class="fp"><div class="img"></div><div class="txt"><div class="l1"></div><div class="l2"></div><div class="pr">R$ 95,00</div></div></div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Onde aparece">
+  <div class="olho">Parte 1</div>
+  <h3>Seu anúncio aparece em dois lugares — e eles são bem diferentes</h3>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">NA BUSCA</div><p>Alguém digitou exatamente o que você vende. A pessoa está <b>procurando</b>. Intenção alta, concorrência alta.</p></div>
+    <div class="cd"><div class="ct2">NA DESCOBERTA</div><p>Nas áreas de "Você Também Pode Gostar". A Shopee mostra para quem tem <b>perfil parecido</b> com seu comprador. Ela não estava procurando — foi encontrada.</p></div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Por que anunciar">
+  <div class="olho">Parte 1 · Por que anunciar</div>
+  <h3>"Se meu produto é bom, ele não vende sozinho?"</h3>
+  <p class="sub">Raramente. Existe um círculo que trava todo vendedor novo:</p>
+  <div class="circ full">
+    <div class="ce"><span class="cn">1</span><div>Para <b>vender</b>, o produto precisa <b class="lar">aparecer</b></div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">2</span><div>Para <b>aparecer</b>, a Shopee precisa <b class="lar">confiar</b> que ele vende</div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">3</span><div>Para <b>confiar</b>, ela precisa ver que ele <b class="lar">já vendeu</b></div></div>
+    <div class="cseta volta">↺ e você volta ao começo</div>
+  </div>
+  <div class="aviso ok"><div class="tg">O anúncio quebra o ciclo</div><p>Você paga para aparecer <b>antes</b> de ter histórico. As primeiras vendas geram os dados que fazem a Shopee passar a te mostrar de graça depois.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="O que você compra">
+  <div class="olho">Parte 1</div>
+  <h2>Você não compra<br>só <span class="lar">vendas</span></h2>
+  <p class="sub">Compra o <b>histórico</b> que faz o algoritmo passar a confiar no seu produto. As primeiras vendas geram os dados que a Shopee usa para decidir se te mostra organicamente depois.</p>
+  <p class="sub">Na maioria das lojas que acompanhamos, <b>a maior parte do faturamento vem de anúncio</b>. Não é um extra — é o motor.</p>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Não conserta">
+  <div class="olho">Parte 1 · Você está pronto?</div>
+  <h2>Anúncio não conserta<br>produto ruim.</h2>
+  <h2 style="color:var(--verm);margin-top:6px">Ele acelera o prejuízo.</h2>
+  <p class="sub">Se você anuncia um produto que dá prejuízo, não está investindo — está perdendo dinheiro <b>mais rápido</b>. Antes de gastar o primeiro real, cinco perguntas precisam de um "sim".</p>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Aula 1.2">
+  <div class="olho">Aula 1.2 · ~22 min</div>
+  <h2>As métricas, uma por uma</h2>
+  <p class="sub" style="font-size:19px">Cada número responde uma pergunta. Aprenda a pergunta e nunca mais esquece a métrica.</p></section>
+<section class="s" data-sec="MÓDULO 1" data-t="O funil">
+  <div class="olho">Parte 2 · As métricas</div>
+  <h3>Toda venda passa por quatro etapas — e você perde gente em cada uma</h3>
+  <div class="circ full">
+    <div class="ce"><span class="cn">1</span><div><b>Ela viu</b> seu produto na lista — <span class="mini">isso é uma IMPRESSÃO</span></div></div>
+    <div class="cseta">↓ a maioria não clica</div>
+    <div class="ce"><span class="cn">2</span><div><b>Ela clicou</b> e entrou na página — <span class="mini">isso é um CLIQUE</span></div></div>
+    <div class="cseta">↓ a maioria sai sem comprar</div>
+    <div class="ce"><span class="cn">3</span><div><b>Ela comprou</b> — <span class="mini">isso é uma CONVERSÃO</span></div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">4</span><div><b>Entrou dinheiro</b> — <span class="mini">e você pagou pelo anúncio</span></div></div>
+  </div>
+  <p class="sub">Cada métrica que você vai ver mede <b>uma dessas etapas</b> ou a passagem entre duas.</p>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Números reais">
+  <div class="olho">Parte 2 · Um caso real</div>
+  <h3>Jaqueta de inverno · junho/2026 · mês fechado</h3>
+  <div class="ficha full">
+    <div class="fl"><span class="fk">Produto</span><span class="fv">Jaqueta suede · coleção inverno</span></div>
+    <div class="fl"><span class="fk">Período</span><span class="fv">01 a 30 de junho — mês inteiro</span></div>
+    <div class="fl"><span class="fk">Método de lance</span><span class="fv">GMV Max · Lance Automático</span></div>
+    <div class="fl"><span class="fk">Investimento</span><span class="fv">R$ 344,54 no mês <span class="mini">(~R$ 11,50/dia)</span></span></div>
+  </div>
+  <table class="full">
+    <thead><tr><th>Etapa</th><th>Quantidade</th><th>Métrica que sai daqui</th></tr></thead>
+    <tbody>
+      <tr><td>Apareceu para</td><td class="d">105.752 pessoas</td><td>—</td></tr>
+      <tr><td>Clicaram</td><td class="d">3.166</td><td>CTR <b>3,0%</b></td></tr>
+      <tr><td>Compraram</td><td class="d">17</td><td>Conversão <b>0,5%</b></td></tr>
+      <tr><td>Faturou</td><td class="d">R$ 5.232,80</td><td>Ticket <b>R$ 308</b> · ROAS <b class="vd">15,2×</b></td></tr>
+    </tbody>
+  </table>
+  <div class="aviso ok"><div class="tg">Repare</div><p>Conversão de apenas <b>0,5%</b> — baixíssima. Mas o ticket de <b>R$308</b> é tão alto que cada venda paga muito anúncio. Resultado: <b>ROAS 15,2×</b> com R$11 por dia.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="CTR">
+  <div class="olho">Métrica 1</div>
+  <h2>CTR</h2>
+  <p class="sub" style="font-size:20px;color:var(--lar)">"De cada 100 pessoas que viram, quantas clicaram?"</p>
+  <div class="proto full" style="max-width:560px">CTR  =  cliques  ÷  quantas vezes apareceu  × 100
+
+No exemplo:   3.166 ÷ 105.752 × 100  =  3,0%</div>
+  <p class="sub">Mede a <b>primeira passagem</b>. A pessoa ainda não entrou na sua página — ela só viu a <b>foto</b>, o <b>preço</b> e o começo do <b>título</b>. É só isso que decide o clique.</p>
+  <div class="aviso"><div class="tg">Referência</div><p>Abaixo de <b class="vm">1,5%</b> é sinal de alerta · perto de <b>2,5%</b> é normal · acima de <b class="vd">3%</b> é bom</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Conversão">
+  <div class="olho">Métrica 2</div>
+  <h2>Taxa de<br>conversão</h2>
+  <p class="sub" style="font-size:20px;color:var(--lar)">"De cada 100 que clicaram, quantas compraram?"</p>
+  <div class="proto full" style="max-width:560px">Conversão  =  vendas  ÷  cliques  × 100
+
+No exemplo:   17 ÷ 3.166 × 100  =  0,5%</div>
+  <p class="sub">Mede a <b>segunda passagem</b>. Aqui ela já está na sua página — viu preço, fotos, descrição, <b>avaliações</b> e <b>frete</b>. Se saiu sem comprar, o problema está em algum desses.</p>
+  <div class="aviso"><div class="tg">Referência</div><p>Abaixo de <b class="vm">1,3%</b> é alerta · perto de <b>2,5%</b> é normal · acima de <b class="vd">4,5%</b> é muito bom</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Ticket e GMV">
+  <div class="olho">Métricas 3 e 4</div>
+  <h3>Ticket médio e faturamento</h3>
+  <div class="proto full" style="max-width:600px">Ticket  =  faturamento  ÷  número de vendas
+
+No exemplo:   R$ 5.233 ÷ 17  =  R$ 308 por venda</div>
+  <p class="sub"><b>Ticket</b> é quanto vale cada venda. <b>Faturamento (ou GMV)</b> é o total que entrou.</p>
+  <div class="aviso az"><div class="tg">Por que o ticket importa tanto</div><p>Anunciar um produto de <b>R$30</b> custa praticamente o <b>mesmo</b> que anunciar um de <b>R$100</b>. Mesma aparição, mesmo clique. Mas o segundo traz três vezes mais dinheiro na mesma venda.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="ROAS">
+  <div class="olho">Métrica 5 · a mais usada e a mais mal usada</div>
+  <h2>ROAS</h2>
+  <p class="sub" style="font-size:20px;color:var(--lar)">"Para cada R$1 que gastei em anúncio, quanto voltou?"</p>
+  <div class="proto full" style="max-width:560px">ROAS  =  faturamento  ÷  gasto com anúncio
+
+No exemplo:   R$ 5.233 ÷ R$ 345  =  15,2×
+
+Ou seja: cada R$1 investido virou R$15,20 de venda.</div>
+  <p class="sub">Você também vai ver o <b>ACOS</b> — é a mesma coisa de cabeça para baixo: quanto % do faturamento foi para o anúncio. ROAS 8× é o mesmo que ACOS 12,5%.</p>
+  <div class="aviso erro"><div class="tg">Guarde isso</div><p>Não existe "ROAS bom" solto no ar. <b>Depende da sua margem</b> — e a gente vê isso já já.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="CPM">
+  <div class="olho">Métrica 6</div>
+  <h2>CPM</h2>
+  <p class="sub" style="font-size:20px;color:var(--lar)">"Quanto custa aparecer mil vezes?"</p>
+  <p class="sub">É assim que a Shopee cobra hoje: <b>por mil aparições</b>, não por clique. Você paga <b>mesmo que ninguém clique</b>.</p>
+  <div class="aviso erro"><div class="tg">Por isso a foto e o preço importam tanto</div><p>Você já pagou pela aparição. Se a foto não faz a pessoa clicar, <b>o dinheiro foi embora do mesmo jeito</b>.</p></div>
+  <div class="aviso az"><div class="tg">E o mais importante</div><p><b>Você não escolhe quanto paga.</b> Quem calcula é o algoritmo — e o próximo bloco é sobre exatamente como ele faz essa conta.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Tudo junto">
+  <div class="olho">Parte 2 · Fechando</div>
+  <h3>Como tudo se conecta</h3>
+  <div class="proto full" style="max-width:700px">Faturamento  =  aparições × CTR × conversão × ticket
+
+              quantas         quantas      quantas    quanto
+              te viram        clicaram     compraram  cada uma
+                                                      gastou</div>
+  <p class="sub">Os quatro se <b>multiplicam</b>. Melhorar o CTR em 20% e a conversão em 20% não dá 40% — dá <b class="lar">44%</b>, porque um monta em cima do outro.</p>
+  <div class="aviso ok"><div class="tg">A pergunta que resolve qualquer diagnóstico</div><p>Produto indo mal? Pergunte <b>nesta ordem</b>: está aparecendo? Estão clicando? Estão comprando? Vale o quanto deveria? <b>O primeiro "não" é o seu problema.</b></p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Aula 1.3">
+  <div class="olho">Aula 1.3 · ~15 min</div>
+  <h2>Você está pronto?</h2>
+  <p class="sub" style="font-size:19px">Os cinco pré-requisitos, o que sai do preço, o degrau da comissão e o ROAS mínimo — o número que só você tem.</p></section>
+<section class="s" data-sec="MÓDULO 1" data-t="5 pré-requisitos">
+  <div class="olho">Parte 1 · Marque o que você já tem</div>
+  <h3>Os cinco pré-requisitos</h3>
+  <div class="chk" id="chk">
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Sei quanto sobra em cada venda</div><div class="cdd">Preço menos custo, comissão, frete e embalagem</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">A foto principal mostra o produto com clareza</div><div class="cdd">É o único elemento que compete na tela cheia de concorrentes</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">O produto tem avaliações</div><div class="cdd">Produto zerado converte muito menos</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Tenho estoque para dez vezes mais venda</div><div class="cdd">Anúncio funcionando com estoque acabando é o pior cenário</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Meu preço está na faixa do mercado</div><div class="cdd">Busque seu produto na Shopee e compare</div></div></div>
+  </div>
+  <div class="vered nao" id="vered">0 de 5 · conserte antes de anunciar</div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="O que sai do preço">
+  <div class="olho">Parte 1 · Sua precificação aguenta?</div>
+  <h3>Você vende por R$79,90. Quanto entra no seu bolso?</h3>
+  <div class="qp">
+    <div class="l top"><span class="a">Preço de venda</span><span class="b2">R$ 79,90</span></div>
+    <div class="l"><span class="a">− custo do produto</span><span class="b2">− R$ 32,00</span></div>
+    <div class="l"><span class="a">− comissão Shopee</span><span class="b2">− R$ 19,98</span></div>
+    <div class="l"><span class="a">− frete e embalagem</span><span class="b2">− R$ 6,00</span></div>
+    <div class="l fim"><span class="a">Sobra</span><span class="b2">R$ 21,92</span></div>
+  </div>
+  <p class="sub">Sobrou <b class="vd">R$21,92</b> — <b>27% do preço</b>. É esse número que decide tudo o que vem a seguir.</p>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Degrau da comissão">
+  <div class="olho">Parte 1</div>
+  <h3>A comissão tem degraus. E um deles é uma armadilha.</h3>
+  <p class="sub">Arraste o preço e veja o que acontece.</p>
+  <div class="calc full" style="max-width:640px">
+    <div class="sl-row"><label>Preço de venda</label><input type="range" id="sl" min="40" max="220" value="70"><span class="val" id="d-preco">R$70</span></div>
+    <div class="cr">
+      <div class="r"><div class="rl">Comissão</div><div class="rv" id="d-com">—</div><div class="rs" id="d-faixa"></div></div>
+      <div class="r"><div class="rl">% do preço</div><div class="rv" id="d-pct">—</div><div class="rs">quanto a Shopee leva</div></div>
+      <div class="r"><div class="rl">Sobra bruta</div><div class="rv vd" id="d-sobra">—</div><div class="rs">antes dos seus custos</div></div>
+    </div>
+    <div class="aviso erro" id="alerta-d" style="display:none;margin-top:12px"><div class="tg">Armadilha</div><p>Passou de R$79,99 — a comissão saltou <b>R$7,20</b> por um centavo. Produto entre R$80 e R$85? Quase sempre vale baixar para R$79,90.</p></div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="ROAS mínimo">
+  <div class="olho">Parte 1 · O número mágico</div>
+  <h2>Não existe<br><span class="lar">"ROAS bom"</span> no vácuo</h2>
+  <p class="sub">ROAS é quanto volta para cada R$1 investido em anúncio. Todo mundo repete que "5× é bom". <b>Depende inteiramente da sua margem.</b></p>
+  <table class="full">
+    <thead><tr><th>Se sua margem é</th><th>Você precisa de</th><th>Só para empatar</th></tr></thead>
+    <tbody>
+      <tr><td>10%</td><td class="d">10,0×</td><td>cada R$1 precisa virar R$10</td></tr>
+      <tr><td>15%</td><td class="d">6,7×</td><td></td></tr>
+      <tr><td>20%</td><td class="d">5,0×</td><td>aqui "5× é bom" apenas empata</td></tr>
+      <tr><td>30%</td><td class="d">3,3×</td><td></td></tr>
+      <tr><td>40%</td><td class="d">2,5×</td><td>margem alta perdoa mais</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso erro"><div class="tg">A conclusão</div><p>Para margem de 30%, ROAS 5× dá lucro. Para margem de 15%, o <b>mesmo</b> 5× dá prejuízo. Quem anuncia sem saber a margem persegue um número que pode estar levando ao vermelho.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="Seu ROAS mínimo">
+  <div class="olho">Parte 1 · Faça agora</div>
+  <h2>Descubra o<br><span class="lar">seu</span> número</h2>
+  <p class="sub">Cada produto tem um ROAS mínimo diferente — depende do preço, do custo e da faixa de comissão dele.</p>
+  <div class="aviso ok" style="margin-top:20px"><div class="tg">Use a calculadora inteligente</div><p>Abra a <b>calculadora do sistema</b> e rode com os números do seu produto: preço, custo e frete. Ela devolve a margem real e o ROAS mínimo na hora.</p></div>
+  <p class="sub" style="margin-top:18px">Anota esse número. <b>Ele é o piso de tudo</b> — abaixo dele, cada venda que o anúncio traz sai do seu bolso.</p>
+</section>
+<section class="s" data-sec="MÓDULO 1" data-t="⏱ Exercício 1">
+  <div class="olho">Pare aqui · exercício ao vivo</div>
+  <h2>Abra sua conta<br><span class="lar">agora</span></h2>
+  <p class="sub">Central do Vendedor → Marketing → Shopee Ads → seus anúncios ativos.</p>
+  <div class="proto full" style="max-width:640px">Anote de UM produto que você já anuncia:
+
+   CTR         ______ %
+   Conversão   ______ %
+   Ticket      R$ ____
+   Retorno     ______ ×</div>
+  <p class="sub"><b>Não avance sem esses quatro números.</b> Todo o resto da aula é sobre eles.</p>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="◈ Módulo 2">
+  <div class="olho">Módulo 2 de 6</div>
+  <h1>Como o algoritmo decide</h1>
+  <p class="sub">A Shopee não entrega para quem paga mais. Entrega para quem promete vender mais. Entenda o Leilão Reverso e o que o CPM realmente revela.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>O Leilão Reverso e o simulador</div></div><div class="ce"><span class="cn">2</span><div>Lendo o CPM em par</div></div></div></section>
+<section class="s" data-sec="MÓDULO 2" data-t="Aula 2.1">
+  <div class="olho">Aula 2.1 · ~20 min</div>
+  <h2>O Leilão Reverso</h2>
+  <p class="sub" style="font-size:19px">O algoritmo é investidor, não leiloeiro. Três sinais decidem sua posição — e você vai mexer neles ao vivo.</p></section>
+<section class="s" data-sec="MÓDULO 2" data-t="O investidor">
+  <div class="olho">Parte 2 · Como o algoritmo decide</div>
+  <h2>O algoritmo não é leiloeiro.<br>É <span class="lar">investidor</span>.</h2>
+  <p class="sub">Ele tem um recurso escasso — as vezes que pode mostrar produtos na tela — e quer investir onde o retorno é maior. Ele não entrega para quem paga mais. Entrega para <b>quem promete vender mais</b>.</p>
+  <p class="sub">Por isso chamamos de <b class="lar">Leilão Reverso</b>: no leilão comum, você dá o lance. Aqui, <b>a Shopee dá o lance em você</b>.</p>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="Os 3 sinais">
+  <div class="olho">Parte 2</div>
+  <h3>Ele lê três sinais do seu produto — e decide na hora</h3>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">CTR</div><p>De cada 100 pessoas que veem, quantas clicam?<br><b>Depende da foto e do preço na vitrine.</b></p></div>
+    <div class="cd"><div class="ct2">CONVERSÃO</div><p>De cada 100 que clicam, quantas compram?<br><b>Depende da página: preço, avaliações, frete.</b></p></div>
+    <div class="cd"><div class="ct2">TICKET</div><p>Quanto vale cada venda?<br><b>Define o tamanho da aposta que ele faz em você.</b></p></div>
+  </div>
+  <p class="sub">Não existe um botão para "melhorar o anúncio". <b>Esses três números são o anúncio.</b> Eles é que decidem se você aparece na frente ou some no meio da lista.</p>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="SIMULADOR">
+  <div class="olho">Parte 2 · Simulador do leilão</div>
+  <h3>Mexa nos números e veja onde seu produto vai parar</h3>
+  <div class="leilao full">
+    <div class="calc">
+      <div class="sl-row"><label>CTR</label><input type="range" id="s-ctr" min="5" max="60" value="27" step="1"><span class="val" id="v-ctr">2,7%</span></div>
+      <div class="sl-row"><label>Conversão</label><input type="range" id="s-cv" min="5" max="80" value="25" step="1"><span class="val" id="v-cv">2,5%</span></div>
+      <div class="sl-row"><label>Ticket</label><input type="range" id="s-tk" min="15" max="250" value="50" step="5"><span class="val" id="v-tk">R$50</span></div>
+      <div class="sl-row"><label>ROAS alvo</label><input type="range" id="s-rs" min="20" max="200" value="80" step="5"><span class="val" id="v-rs">8,0×</span></div>
+      <div class="cr" style="margin-top:14px">
+        <div class="r"><div class="rl">Sua força</div><div class="rv lar" id="v-forca">—</div><div class="rs">no leilão</div></div>
+        <div class="r"><div class="rl">Aparições</div><div class="rv" id="v-imp">—</div><div class="rs">estimadas/dia</div></div>
+        <div class="r"><div class="rl">Vendas</div><div class="rv vd" id="v-vend">—</div><div class="rs">estimadas/dia</div></div>
+      </div>
+    </div>
+    <div class="disputa">
+      <div class="tt">◈ A disputa por uma vitrine</div>
+      <div id="ranking"></div>
+      <div class="veredito"><div class="vt" id="vd-t">—</div><div class="vs" id="vd-s">—</div></div>
+    </div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="O que os números gritam">
+  <div class="olho">Parte 2 · A leitura</div>
+  <h3>O que esses números gritam para você</h3>
+  <table class="full">
+    <thead><tr><th>O que você vê</th><th>O que significa</th><th>O que fazer</th></tr></thead>
+    <tbody>
+      <tr><td><b>CTR baixo</b></td><td>A vitrine não atrai — foto ou preço</td><td>Trocar foto principal antes de qualquer coisa</td></tr>
+      <tr><td><b>CTR alto, conversão baixa</b></td><td>Você atrai e decepciona</td><td>A página não entrega o que a foto promete</td></tr>
+      <tr><td><b>Conversão baixa</b></td><td>Preço, avaliações ou frete</td><td>Não adianta investir mais — some do leilão</td></tr>
+      <tr><td><b>Ticket baixo</b></td><td>Aposta pequena, pouca entrega</td><td>Combo ou kit para subir de faixa</td></tr>
+      <tr><td><b>Custo por aparição subindo</b></td><td>O algoritmo <b>confia mais</b> em você</td><td class="d">Escalar — não pausar</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">A frase que resume</div><p>Você não otimiza o anúncio. Você <b>melhora esses três números</b> — e o algoritmo reage sozinho, entregando mais.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="Aula 2.2">
+  <div class="olho">Aula 2.2 · ~8 min</div>
+  <h2>Lendo o CPM em par</h2>
+  <p class="sub" style="font-size:19px">CPM sozinho não diz nada. Alto pode ser confiança ou ralo. Baixo pode ser eficiência ou abandono.</p></section>
+<section class="s" data-sec="MÓDULO 2" data-t="Custo alto é elogio">
+  <div class="olho">Parte 2 · A leitura mais errada do mercado</div>
+  <h2>Custo por aparição subindo<br>não é <span class="vm">castigo</span>.<br>É <span class="vd">elogio</span>.</h2>
+  <p class="sub">Quando a Shopee cobra mais caro para exibir seu produto, é porque ela prevê que ele converte bem — e por isso aquela vitrine vale mais.</p>
+  <p class="sub"><b>Custo subindo com retorno estável = o algoritmo aumentou a aposta em você.</b> Quem vê isso e pausa está desligando exatamente o que estava funcionando.</p>
+</section>
+<section class="s" data-sec="MÓDULO 2" data-t="Lendo o CPM">
+  <div class="olho">Bloco 1 · Corrigindo a leitura</div>
+  <h3>O CPM sozinho não diz nada. Leia sempre em par.</h3>
+  <p class="sub">Esse é o ponto que mais confunde — e onde quase todo material erra.</p>
+  <table class="full">
+    <thead><tr><th>CPM</th><th>Retorno</th><th>O que está acontecendo</th><th>Ação</th></tr></thead>
+    <tbody>
+      <tr><td class="am">ALTO</td><td class="vd">BOM</td><td>Funil forte. O algoritmo <b>disputa</b> você e entrega inventário premium</td><td class="d">Escalar</td></tr>
+      <tr><td class="am">ALTO</td><td class="vm">RUIM</td><td>Você paga caro e não converte. Ticket não sustenta</td><td class="d">Voltar à precificação</td></tr>
+      <tr><td class="vd">BAIXO</td><td class="vd">BOM</td><td>Inventário barato. Funciona, mas <b>tem teto de volume</b></td><td class="d">Testar mais orçamento</td></tr>
+      <tr><td class="vd">BAIXO</td><td class="vm">RUIM</td><td>O algoritmo <b>desistiu</b>. Só sobra impressão residual</td><td class="d">Revisar funil e cadastro</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">A regra</div><p><b>CPM alto com retorno bom é o melhor cenário que existe</b> — significa que você venceu leilões caros e ainda lucrou. CPM baixo com retorno alto não é superioridade: é volume pequeno em inventário de sobra.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="◈ Módulo 3">
+  <div class="olho">Módulo 3 de 6</div>
+  <h1>Método de lance</h1>
+  <p class="sub">A escolha que mais trava conta de vendedor novo. Não é preferência — é maturidade do produto.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>Lance Automático × Meta de ROAS</div></div><div class="ce"><span class="cn">2</span><div>Até onde levar e quando migrar</div></div><div class="ce"><span class="cn">3</span><div>Fase de aprendizado: o que reinicia</div></div></div></section>
+<section class="s" data-sec="MÓDULO 3" data-t="Aula 3.1">
+  <div class="olho">Aula 3.1 · ~12 min</div>
+  <h2>Lance Automático × Meta de ROAS</h2>
+  <p class="sub" style="font-size:19px">Um deixa o algoritmo explorar. O outro impõe exigência. Cada um tem sua hora.</p></section>
+<section class="s" data-sec="MÓDULO 3" data-t="Os dois métodos">
+  <div class="olho">Parte 5 · A escolha que mais importa</div>
+  <h2>Lance Automático<br>ou <span class="lar">Meta de ROAS</span>?</h2>
+  <p class="sub">São os dois jeitos de dizer ao algoritmo <b>como você quer que ele gaste seu dinheiro</b>. Escolher errado é o que mais trava conta de vendedor novo.</p>
+  <p class="sub">A diferença é simples: num você deixa ele explorar. No outro você impõe uma exigência.</p>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Lance Automático">
+  <div class="olho">Método 1</div>
+  <h2>Lance Automático</h2>
+  <p class="sub" style="font-size:19px;color:var(--lar)">"Shopee, descobre para quem vender. Eu te dou o orçamento."</p>
+  <p class="sub">O algoritmo tem <b>liberdade total</b> para testar públicos, horários e posições. Ele erra bastante no começo — e é exatamente assim que ele <b>aprende</b> quem compra seu produto.</p>
+  <div class="fn2 full">
+    <div class="fnb sim">
+      <div class="t">✓ Use quando</div>
+      <ul>
+        <li>O produto é <b>novo</b> no anúncio</li>
+        <li>Ainda tem <b>menos de 30 vendas</b> pelo anúncio</li>
+        <li>Você <b>não sabe</b> ainda quem é o comprador dele</li>
+        <li>Quer <b>volume de dados</b> rápido</li>
+      </ul>
+    </div>
+    <div class="fnb nao">
+      <div class="t">✗ Aceite que</div>
+      <ul>
+        <li>O retorno vai <b>oscilar muito</b> nas primeiras semanas</li>
+        <li>Vai parecer que "está gastando à toa" — <b>não está</b></li>
+        <li>Os números dos <b>primeiros 7 dias não valem nada</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Meta de ROAS">
+  <div class="olho">Método 2</div>
+  <h2>Meta de ROAS</h2>
+  <p class="sub" style="font-size:19px;color:var(--lar)">"Shopee, só me traga venda que me dê pelo menos X de retorno."</p>
+  <p class="sub">Você impõe uma exigência. O algoritmo passa a procurar <b>só quem tem alta chance de comprar</b> — usando tudo que ele já aprendeu sobre o produto.</p>
+  <div class="fn2 full">
+    <div class="fnb sim">
+      <div class="t">✓ Use quando</div>
+      <ul>
+        <li>O produto já tem <b>histórico</b> — 30 vendas ou mais</li>
+        <li>Você já sabe <b>qual retorno ele consegue entregar</b></li>
+        <li>Quer <b>proteger a margem</b> ao escalar</li>
+        <li>O produto já está estável há algumas semanas</li>
+      </ul>
+    </div>
+    <div class="fnb nao">
+      <div class="t">✗ NÃO use quando</div>
+      <ul>
+        <li>O produto é <b>novo</b> — ele nem sabe quem é seu comprador</li>
+        <li>Você quer "forçar" um retorno que ele nunca deu</li>
+        <li>Está com pressa de resultado</li>
+      </ul>
+    </div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Aula 3.2">
+  <div class="olho">Aula 3.2 · ~15 min</div>
+  <h2>Até onde levar e quando migrar</h2>
+  <p class="sub" style="font-size:19px">As três fases do produto, o quadro de decisão, meta alta ou baixa, e a lei que nunca se quebra.</p></section>
+<section class="s" data-sec="MÓDULO 3" data-t="Até onde levar">
+  <div class="olho">Bloco 2 · A migração</div>
+  <h3>Até onde levar o Automático — e quando migrar</h3>
+  <div class="proto full">FASE 1 · DESCOBERTA          Lance Automático · R$15-30/dia
+  0 a 100 cliques            NÃO TOCAR nos primeiros 7 dias
+                             Os números aqui não valem nada
+
+FASE 2 · CALIBRAÇÃO          Ainda Automático
+  100 a 200 cliques          Aumentar orçamento se estiver vendendo
+                             Observar qual ROAS ele entrega naturalmente
+
+FASE 3 · MATURIDADE          200+ cliques E 20+ conversões
+  o produto se provou        AGORA migra para Meta de ROAS
+
+  Meta inicial = o ROAS que ele JÁ vinha dando
+  Nunca um número que ele nunca alcançou</div>
+  <div class="aviso erro"><div class="tg">A Lei da Âncora</div><p>Migrou para Meta de ROAS? <b>Nunca volte para Automático.</b> A reversão descarta todo o aprendizado e o produto volta do zero. Se a meta não estiver funcionando, <b>baixe a meta</b> — não troque o método.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Meta alta ou baixa">
+  <div class="olho">Bloco 2 · Calibrando a meta</div>
+  <h3>Quando usar meta mais alta e quando usar mais baixa</h3>
+  <p class="sub">A meta de ROAS não é só um freio de custo. Ela define <b>o quão restrito é o público</b> que o algoritmo vai procurar.</p>
+  <div class="fn2 full">
+    <div class="fnb nao">
+      <div class="t">META ALTA · público de nicho</div>
+      <ul>
+        <li>O algoritmo procura <b>só quem quase certamente compra</b></li>
+        <li>Melhora a eficiência</li>
+        <li><b>Limita muito o alcance</b></li>
+        <li>Use quando: margem apertada, estoque limitado, produto de nicho</li>
+      </ul>
+    </div>
+    <div class="fnb sim">
+      <div class="t">META BAIXA · público amplo</div>
+      <ul>
+        <li>O algoritmo <b>expande</b> para mais gente</li>
+        <li>Mais volume, menos precisão</li>
+        <li>Retorno percentual menor, faturamento maior</li>
+        <li>Use quando: margem folgada, quer crescer, produto de massa</li>
+      </ul>
+    </div>
+  </div>
+  <div class="aviso alerta"><div class="tg">O ajuste seguro</div><p>Mexa no máximo <b>±20% por vez</b> e espere <b>7 dias</b>. Saltos grandes fazem o produto sumir ou estourar o orçamento sem controle.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Quadro de decisão">
+  <div class="olho">Bloco 2 · Resumo</div>
+  <h3>O quadro que resolve a dúvida</h3>
+  <table class="full">
+    <thead><tr><th>Situação do produto</th><th>Método</th><th>Meta</th></tr></thead>
+    <tbody>
+      <tr><td>Subiu agora, zero venda</td><td class="d">Automático</td><td>—</td></tr>
+      <tr><td>Menos de 100 cliques</td><td class="d">Automático</td><td>—</td></tr>
+      <tr><td>100–200 cliques, vendendo</td><td class="d">Automático</td><td>aumentar orçamento</td></tr>
+      <tr><td>200+ cliques e 20+ vendas</td><td class="d">Meta de ROAS</td><td>= o ROAS atual dele</td></tr>
+      <tr><td>Estável e quer escalar</td><td class="d">Meta de ROAS</td><td>baixar um pouco + orçamento</td></tr>
+      <tr><td>Margem ficou apertada</td><td class="d">Meta de ROAS</td><td>subir até o ROAS precificado</td></tr>
+      <tr><td>Produto sazonal voltando</td><td class="d">Automático</td><td>o público mudou, deixe reaprender</td></tr>
+    </tbody>
+  </table>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="A Lei da Âncora">
+  <div class="olho">Parte 5 · A regra que mais custa caro quebrar</div>
+  <h2>Migrou para Meta de ROAS?<br><span class="vm">Nunca volte atrás.</span></h2>
+  <p class="sub">Quando você volta de Meta de ROAS para Lance Automático, o algoritmo <b>descarta o histórico</b> que já tinha construído. O produto volta à estaca zero — como se fosse novo.</p>
+  <div class="aviso erro"><div class="tg">Caso real da nossa operação</div><p>Um produto rodando muito bem foi revertido para Automático. O retorno <b>despencou pela metade</b> e levou semanas para se recuperar. Todo o aprendizado tinha sido jogado fora.</p></div>
+  <div class="aviso"><div class="tg">Se a Meta de ROAS não estiver funcionando</div><p>Não volte para Automático. <b>Baixe a meta</b> aos poucos até ele voltar a entregar. Você mantém o aprendizado e afrouxa a exigência.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="Aula 3.3">
+  <div class="olho">Aula 3.3 · ~10 min</div>
+  <h2>Fase de aprendizado</h2>
+  <p class="sub" style="font-size:19px">Toda alteração reinicia o aprendizado. Saiba o que reinicia e o que não — e por que escalar é seguro.</p></section>
+<section class="s" data-sec="MÓDULO 3" data-t="Você mexeu. E agora?">
+  <div class="olho">Bloco 2 · O que acontece depois</div>
+  <h2>Você mexeu.<br>O que acontece <span class="lar">agora</span>?</h2>
+  <p class="sub">Essa é a parte que quase ninguém ensina — e é onde a maioria dos sellers perde dinheiro sem perceber.</p>
+  <p class="sub">Toda alteração dispara uma reação em cadeia. Entender essa reação é o que separa quem gerencia de quem aperta botão.</p>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="A fase de aprendizado">
+  <div class="olho">Bloco 2 · O mais importante desta aula</div>
+  <h2>Toda alteração<br><span class="lar">reinicia</span> o aprendizado</h2>
+  <p class="sub">Quando você sobe um anúncio ou muda algo relevante, o algoritmo entra em <b>fase de aprendizado</b>: ele está descobrindo para quem mostrar seu produto. Leva de <b>7 a 14 dias</b>.</p>
+  <div class="proto full">O que acontece na fase de aprendizado:
+
+  Dias 1-2     Gasta e quase não vende. Parece um desastre.
+  Dias 3-5     Começa a acertar o público. Resultado oscila muito.
+  Dias 6-10    Estabiliza. AQUI os números começam a valer.
+  Dias 11-14   Calibrado. Agora você pode julgar.</div>
+  <div class="aviso erro"><div class="tg">Quem mexe todo dia</div><p>Mantém o produto <b>eternamente no dia 1</b>. Nunca sai da fase mais cara e menos eficiente. É o erro mais caro e mais comum do Shopee Ads.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 3" data-t="O que reinicia">
+  <div class="olho">Bloco 2</div>
+  <h3>O que reinicia o aprendizado — e o que não reinicia</h3>
+  <div class="fn2 full">
+    <div class="fnb nao">
+      <div class="t">⚠ REINICIA · espere 7 dias</div>
+      <ul>
+        <li>Mudar o método de lance</li>
+        <li>Alterar a meta de ROAS</li>
+        <li>Mudar o preço do produto</li>
+        <li>Trocar a foto principal</li>
+        <li>Editar o título</li>
+        <li>Pausar e religar</li>
+      </ul>
+    </div>
+    <div class="fnb sim">
+      <div class="t">✓ NÃO reinicia · pode fazer</div>
+      <ul>
+        <li>Aumentar o orçamento diário</li>
+        <li>Recarregar saldo</li>
+        <li>Ativar cupom ou frete grátis</li>
+        <li>Responder avaliações</li>
+        <li>Entrar em oferta relâmpago</li>
+        <li>Adicionar fotos secundárias</li>
+      </ul>
+    </div>
+  </div>
+  <div class="aviso ok"><div class="tg">Por isso escalar é seguro</div><p>Aumentar orçamento é uma das poucas ações que <b>não reinicia nada</b>. Você cresce sem pagar o pedágio do aprendizado.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="◈ Módulo 4">
+  <div class="olho">Módulo 4 de 6</div>
+  <h1>Diagnóstico</h1>
+  <p class="sub">O número ruim aparece no Ads. A causa quase nunca está lá. Aprenda a ordem da análise e o que fazer em cada situação.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>A ordem da análise e o ROAS precificado</div></div><div class="ce"><span class="cn">2</span><div>O que fazer em cada situação</div></div><div class="ce"><span class="cn">3</span><div>Mexe ou não mexe?</div></div></div></section>
+<section class="s" data-sec="MÓDULO 4" data-t="Aula 4.1">
+  <div class="olho">Aula 4.1 · ~10 min</div>
+  <h2>A ordem da análise</h2>
+  <p class="sub" style="font-size:19px">Precificação → Funil → Cadastro → Ferramentas → Ads. Analisar fora da ordem é mexer no anúncio quando o problema é preço.</p></section>
+<section class="s" data-sec="MÓDULO 4" data-t="A ordem">
+  <div class="olho">Bloco 1 · Mão na massa</div>
+  <h2>A ordem da<br>análise <span class="lar">nunca muda</span></h2>
+  <p class="sub">O número ruim aparece no Ads — mas a causa quase nunca está lá. Analisar na ordem errada é o que faz gente mexer no anúncio quando o problema é preço.</p>
+  <div class="circ full">
+    <div class="ce"><span class="cn">1</span><div><b>PRECIFICAÇÃO</b> — o ROAS que esse produto precisa dar já está no preço?</div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">2</span><div><b>FUNIL</b> — visitantes, carrinho, pedidos: onde está vazando?</div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">3</span><div><b>CADASTRO</b> — título, foto, categoria, atributos</div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">4</span><div><b>FERRAMENTAS</b> — cupom, frete grátis, oferta relâmpago</div></div>
+    <div class="cseta">↓</div>
+    <div class="ce"><span class="cn">5</span><div><b>ADS</b> — só agora. E aqui você só acelera o que já funciona</div></div>
+  </div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="ROAS precificado">
+  <div class="olho">Bloco 1 · A régua</div>
+  <h2>ROAS saudável é<br>o ROAS <span class="lar">precificado</span></h2>
+  <p class="sub">Não existe "ROAS bom" universal. 3:1, 8:1 — <b>nenhum número fixo é regra.</b> O ROAS certo é o que o seu preço comporta.</p>
+  <div class="fn2 full">
+    <div class="fnb sim">
+      <div class="t">① Pela margem</div>
+      <p style="font-size:15px;color:var(--t1);line-height:1.5">Quanto sobra de cada venda depois de custo, comissão e frete?</p>
+      <p style="margin-top:10px;font-family:'Space Mono';font-size:14px;color:var(--lar)">ROAS mínimo = 100 ÷ margem %</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:8px">É o ponto de empate. Abaixo dele, prejuízo.</p>
+    </div>
+    <div class="fnb sim">
+      <div class="t">② Pelo CPA embutido no preço</div>
+      <p style="font-size:15px;color:var(--t1);line-height:1.5">Quanto do preço você já reservou para pagar a mídia?</p>
+      <p style="margin-top:10px;font-family:'Space Mono';font-size:14px;color:var(--lar)">ROAS alvo = preço ÷ CPA planejado</p>
+      <p style="font-size:13px;color:var(--t2);margin-top:8px">É a meta real. Se você reservou 12%, seu alvo é ~8×.</p>
+    </div>
+  </div>
+  <div class="aviso erro"><div class="tg">O erro que trava contas</div><p>Pedir ao algoritmo um ROAS que o preço <b>não comporta</b>. Se a estrutura de custo permite 5× e você exige 12×, o produto simplesmente <b>some</b>.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Aula 4.2">
+  <div class="olho">Aula 4.2 · ~18 min</div>
+  <h2>O que fazer em cada situação</h2>
+  <p class="sub" style="font-size:19px">CTR ruim, conversão ruim, retorno alto sem volume — a sequência de investigação de cada um.</p></section>
+<section class="s" data-sec="MÓDULO 4" data-t="Onde você está">
+  <div class="olho">Parte 3 · Leitura</div>
+  <h3>Compare com o que a gente vê na prática</h3>
+  <table class="full">
+    <thead><tr><th>Métrica</th><th>Sinal de alerta</th><th>Normal</th><th>Bom</th></tr></thead>
+    <tbody>
+      <tr><td><b>CTR</b></td><td class="vm">abaixo de 1,5%</td><td>perto de 2,5%</td><td class="vd">acima de 3%</td></tr>
+      <tr><td><b>Conversão</b></td><td class="vm">abaixo de 1,3%</td><td>perto de 2,5%</td><td class="vd">acima de 4,5%</td></tr>
+      <tr><td><b>Ticket</b></td><td class="vm">abaixo de R$30</td><td>perto de R$50</td><td class="vd">acima de R$70</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso"><div class="tg">Como usar</div><p>Ache <b>qual dos três está pior</b> em relação a essa tabela. É nele que você mexe primeiro — e só nele.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="O que cada um grita">
+  <div class="olho">Parte 3</div>
+  <h3>O que o número ruim está gritando pra você</h3>
+  <table class="full">
+    <thead><tr><th>Está ruim</th><th>O problema é</th><th>O que fazer esta semana</th></tr></thead>
+    <tbody>
+      <tr><td><b>CTR</b></td><td>a <b>vitrine</b>: foto e preço que aparecem na lista</td><td class="d">Trocar a foto principal. Só isso.</td></tr>
+      <tr><td><b>Conversão</b></td><td>a <b>página</b>: preço, avaliações, frete, descrição</td><td class="d">Pedir avaliação, ativar cupom, rever frete</td></tr>
+      <tr><td><b>Ticket</b></td><td>a <b>oferta</b>: você vende pouco por venda</td><td class="d">Montar kit ou combo</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso erro"><div class="tg">O erro que quase todo mundo comete</div><p>Ver o resultado ruim e ir mexer no <b>orçamento</b> ou no <b>ROAS alvo</b>. Isso não conserta nenhum dos três. Só faz o produto aparecer menos.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="A armadilha do CTR">
+  <div class="olho">Parte 3 · Cuidado</div>
+  <h2>CTR alto com<br>conversão baixa é o<br><span class="vm">pior cenário</span></h2>
+  <p class="sub">Significa que sua foto promete o que a página não entrega. Você paga por gente entrando e saindo sem comprar.</p>
+  <p class="sub">E o algoritmo aprende que seu produto <b>desperdiça tráfego</b> — e passa a te mostrar menos.</p>
+  <div class="aviso"><div class="tg">Regra</div><p>Leia CTR e conversão <b>sempre em par</b>. Um sozinho não diz nada.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="CTR ruim">
+  <div class="olho">Bloco 3 · Situação por situação</div>
+  <h2>CTR <span class="vm">ruim</span></h2>
+  <p class="sub" style="font-size:19px">Poucas pessoas clicam no que você mostra. Mas antes de trocar a foto — <b>siga a ordem</b>.</p>
+  <div class="proto full">1º  PREÇO na vitrine    está fora da faixa do mercado?
+                        → Radar 360 mostra o preço médio praticado
+
+2º  CADASTRO            o título traz as palavras que a pessoa busca?
+                        no GMV Max, o título É a palavra-chave
+
+3º  FOTO principal      mostra o produto com clareza em 3 segundos?
+                        é o único elemento que compete na tela
+
+4º  Só então            testar novo criativo
+                        UMA mudança, 7 dias de espera</div>
+  <div class="aviso alerta"><div class="tg">Cuidado</div><p>CTR alto com conversão baixa é <b>pior</b> que CTR baixo. Significa que você atrai e decepciona — e o algoritmo aprende que seu anúncio desperdiça tráfego.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Conversão ruim">
+  <div class="olho">Bloco 3</div>
+  <h2>Conversão <span class="vm">ruim</span></h2>
+  <p class="sub" style="font-size:19px">A pessoa entrou e não comprou. O problema <b>não está no anúncio</b> — está na página.</p>
+  <div class="proto full">1º  PRECIFICAÇÃO        o preço fecha com o mercado?
+                        e o ROAS que você exige cabe nesse preço?
+
+2º  FUNIL               onde vaza: visitante → carrinho → pedido?
+                        Dados do Negócio, não o painel do Ads
+
+3º  CADASTRO            fotos secundárias, descrição, medidas
+                        a dúvida que trava a compra está aí
+
+4º  FERRAMENTAS         cupom · frete grátis · oferta relâmpago
+                        são o empurrão final
+
+5º  AVALIAÇÕES          produto zerado converte muito menos</div>
+  <div class="aviso az"><div class="tg">Por que a ordem importa</div><p>Conversão é a variável que o algoritmo usa <b>duas vezes</b> — no lance e na nota de qualidade. Melhorar conversão tem efeito composto, maior que qualquer outra alavanca. Mas só se você mexer no lugar certo.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Volume baixo">
+  <div class="olho">Bloco 3</div>
+  <h2>Retorno alto,<br>volume <span class="vm">baixo</span></h2>
+  <p class="sub" style="font-size:19px">O caso mais mal interpretado do Shopee Ads.</p>
+  <div class="aviso alerta"><div class="tg">O diagnóstico</div><p>ROAS de 20× ou 30× sobre pouquíssimas vendas <b>não é excelência</b> — é sinal de que você está comprando só as impressões baratas, as que ninguém disputa. Volume pequeno em inventário residual.</p></div>
+  <div class="aviso ok"><div class="tg">O que fazer</div><p><b>Aumentar orçamento e/ou baixar a meta de ROAS.</b> Você vai ver o retorno percentual cair — e isso é <b>esperado e correto</b>. O objetivo nunca foi o maior ROAS: é <b>ROAS bom COM volume</b>.</p></div>
+  <p class="sub"><b>Retorno é pedágio, não é troféu.</b> Um ROAS de 25× sobre R$2 mil não constrói operação. Um de 8× sobre R$80 mil constrói.</p>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Aula 4.3">
+  <div class="olho">Aula 4.3 · ~15 min</div>
+  <h2>Mexe ou não mexe?</h2>
+  <p class="sub" style="font-size:19px">Seis situações reais. Decida antes de eu mostrar a resposta.</p></section>
+<section class="s" data-sec="MÓDULO 4" data-t="O jogo">
+  <div class="olho">Bloco 3 · O jogo do mexe ou não mexe</div>
+  <h2>Mexe<br>ou <span class="lar">não mexe</span>?</h2>
+  <p class="sub">Seis situações. Responde antes de eu mostrar. Vale ponto.</p>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 1">
+  <div class="olho">Situação 1</div>
+  <h3>"Subi o anúncio há 4 dias. Gastou R$60 e não vendeu nada."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE</div><p>Está no <b>dia 4 do aprendizado</b>. Os números desse período não valem nada. Mexer agora reinicia tudo e você vai pagar o dia 1 de novo. <b>Espere até o dia 7, no mínimo.</b></p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 2">
+  <div class="olho">Situação 2</div>
+  <h3>"Meu campeão rodava 12× e ontem caiu para 8×."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE</div><p>Um dia ruim não é tendência. Pode ser dia da semana, pode ser concorrente em promoção, pode ser só oscilação. <b>Olhe a semana, não o dia.</b> E lembre: as vendas dos últimos dias ainda estão sendo contabilizadas — o número que você vê está subestimado.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 3">
+  <div class="olho">Situação 3</div>
+  <h3>"Produto com 40 vendas/mês, ROAS estável em 9× há 6 semanas. Quero crescer."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso ok"><div class="tg">PODE MEXER — e deve</div><p>Tem volume, tem estabilidade, tem histórico. <b>Aumente o orçamento em 20%</b> e espere 7 dias. Aumentar orçamento não reinicia aprendizado.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 4">
+  <div class="olho">Situação 4</div>
+  <h3>"Produto com 6 vendas no mês e ROAS de 2×."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso alerta"><div class="tg">NÃO DÁ PARA JULGAR AINDA</div><p>Seis vendas não formam estatística. Esse ROAS de 2× pode virar 8× no mês que vem sozinho. <b>Abaixo de 30 vendas no mês, você não tem informação suficiente para decidir nada.</b></p></div>
+  <p class="sub">A única ação válida: deixar rodar para acumular dados, ou dar mais orçamento para acelerar isso.</p>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 5">
+  <div class="olho">Situação 5</div>
+  <h3>"Quero testar um preço novo no meu produto que mais vende."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso erro"><div class="tg">NÃO MEXE no campeão</div><p>Mudar preço <b>reinicia o aprendizado</b>. Você vai jogar fora meses de calibração do seu melhor produto para testar uma hipótese. <b>Teste em outro produto</b> — e se der certo, aí sim considere.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="Situação 6">
+  <div class="olho">Situação 6</div>
+  <h3>"Meu CTR está em 0,9% há três semanas."</h3>
+  <div class="espaco2"></div>
+  <div class="aviso ok"><div class="tg">PODE MEXER</div><p>Três semanas é tendência, não oscilação. CTR abaixo de 1,5% é problema de vitrine. <b>Troque a foto principal</b> — e só ela. Depois espere 7 dias antes de avaliar ou mexer em qualquer outra coisa.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 4" data-t="A tabela final">
+  <div class="olho">Bloco 3 · Fechando</div>
+  <h3>A tabela do mexe ou não mexe</h3>
+  <table class="full">
+    <thead><tr><th>Situação</th><th>Decisão</th></tr></thead>
+    <tbody>
+      <tr><td>Anúncio com menos de 7 dias</td><td class="vm">Não mexe</td></tr>
+      <tr><td>Menos de 30 vendas no mês</td><td class="vm">Não mexe — não há leitura</td></tr>
+      <tr><td>Um dia ruim isolado</td><td class="vm">Não mexe</td></tr>
+      <tr><td>Produto campeão indo bem</td><td class="vm">Não mexe — só escala</td></tr>
+      <tr><td>Últimos 7 dias</td><td class="vm">Não avalia — atribuição incompleta</td></tr>
+      <tr><td>Tendência de 3+ semanas</td><td class="vd">Pode mexer — uma coisa só</td></tr>
+      <tr><td>30+ vendas e ROAS estável</td><td class="vd">Pode escalar</td></tr>
+      <tr><td>Margem comprovadamente negativa</td><td class="vd">Pode pausar</td></tr>
+    </tbody>
+  </table>
+</section>
+<section class="s" data-sec="MÓDULO 5" data-t="◈ Módulo 5">
+  <div class="olho">Módulo 5 de 6</div>
+  <h1>Operação e escala</h1>
+  <p class="sub">O ritmo de quem gerencia bem, os sinais que autorizam escalar, e como crescer sem quebrar.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>Os primeiros 30 dias</div></div><div class="ce"><span class="cn">2</span><div>Ritmo de análise e ferramentas</div></div><div class="ce"><span class="cn">3</span><div>Escala</div></div></div></section>
+<section class="s" data-sec="MÓDULO 5" data-t="Aula 5.1">
+  <div class="olho">Aula 5.1 · ~8 min</div>
+  <h2>Os primeiros 30 dias</h2>
+  <p class="sub" style="font-size:19px">O protocolo de lançamento: o que fazer e, principalmente, o que não fazer.</p></section>
+<section class="s" data-sec="MÓDULO 5" data-t="Lançamento">
+  <div class="olho">Parte 5 · Produto novo</div>
+  <h3>O que fazer nos primeiros 30 dias</h3>
+  <div class="proto full">Dias 0-7     Lance Automático. NÃO TOCAR EM NADA.
+             Os números deste período não valem nada.
+
+Dias 8-30    Só observar. Deixar acumular vendas.
+             Nenhuma decisão antes de 30 vendas.
+
+Depois de 30 vendas — aí sim você decide:
+
+   retorno muito baixo   o problema é a OFERTA, não o anúncio
+                         mexer em preço, foto, proposta
+
+   retorno mediano       manter e trabalhar a conversão
+
+   retorno bom           aumentar orçamento 20% por semana
+
+   retorno muito bom     escalar com convicção</div>
+</section>
+<section class="s" data-sec="MÓDULO 5" data-t="Aula 5.2">
+  <div class="olho">Aula 5.2 · ~10 min</div>
+  <h2>Ritmo de análise</h2>
+  <p class="sub" style="font-size:19px">Diário, semanal, mensal e nunca. E onde olhar cada coisa.</p></section>
+<section class="s" data-sec="MÓDULO 5" data-t="O calendário">
+  <div class="olho">Bloco 4 · De quanto em quanto tempo</div>
+  <h3>O calendário de quem gerencia bem</h3>
+  <div class="proto full">TODO DIA          Só duas coisas:
+                  · o orçamento travou ou zerou?
+                  · algum produto rompeu estoque?
+                  Nada além disso. Não é hora de analisar.
+
+TODA SEMANA       Análise de desempenho:
+                  · CTR, conversão, ticket e ROAS por produto
+                  · comparar com a semana anterior fechada
+                  · escolher UMA alteração por produto
+
+A CADA 7 DIAS     Depois de qualquer alteração:
+                  · não mexer em mais nada
+                  · não julgar o resultado antes disso
+
+TODO MÊS          Visão de loja:
+                  · quais produtos carregam o faturamento
+                  · onde está indo o orçamento
+                  · o que virou kit, o que saiu do Ads
+
+NUNCA             · julgar os últimos 7 dias
+                  · comparar mês em curso com mês fechado
+                  · mexer em produto na fase de aprendizado</div>
+</section>
+<section class="s" data-sec="MÓDULO 5" data-t="Onde olhar">
+  <div class="olho">Bloco 4 · Ferramentas</div>
+  <h3>Onde olhar cada coisa</h3>
+  <table class="full">
+    <thead><tr><th>O que você precisa ver</th><th>Onde está</th></tr></thead>
+    <tbody>
+      <tr><td>CTR, conversão, ROAS por anúncio</td><td>Central do Vendedor → Marketing → Shopee Ads</td></tr>
+      <tr><td>Visitantes, carrinho, pedidos da loja</td><td>Central do Vendedor → Dados do Negócio</td></tr>
+      <tr><td>Quais produtos carregam o faturamento</td><td>Dados do Negócio → Produtos</td></tr>
+      <tr><td>De onde vem o tráfego</td><td>Dados do Negócio → Tráfego</td></tr>
+      <tr><td>Preço do mercado e concorrência</td><td class="d">Radar 360</td></tr>
+      <tr><td>Margem e ROAS mínimo</td><td class="d">Calculadora Seller.IA</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso az"><div class="tg">O erro de ferramenta mais comum</div><p>Olhar só o painel do Ads. Ele mostra o que o <b>anúncio</b> fez — não mostra o que aconteceu na <b>página</b>. Conversão ruim quase sempre se diagnostica em Dados do Negócio, não no Ads.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 5" data-t="Aula 5.3">
+  <div class="olho">Aula 5.3 · ~12 min</div>
+  <h2>Escala</h2>
+  <p class="sub" style="font-size:19px">Os cinco sinais, o protocolo de +20% e o que esperar do ROAS.</p></section>
+<section class="s" data-sec="MÓDULO 5" data-t="Os sinais">
+  <div class="olho">Bloco 5 · Escala</div>
+  <h3>Os cinco sinais que autorizam escalar</h3>
+  <div class="check full" id="chk2">
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">30 ou mais vendas no mês</div><div class="cdd">abaixo disso não há leitura confiável</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">ROAS acima do mínimo da sua margem</div><div class="cdd">e estável por pelo menos 2 semanas</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Fora da fase de aprendizado</div><div class="cdd">mais de 14 dias sem alteração relevante</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Estoque para dez vezes mais venda</div><div class="cdd">escalar e romper estoque é o pior cenário</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Capacidade de atender o volume</div><div class="cdd">envio, atendimento, embalagem</div></div></div>
+  </div>
+  <div class="vered nao" id="vered2">0 de 5 · ainda não é hora de escalar</div>
+</section>
+<section class="s" data-sec="MÓDULO 5" data-t="Como escalar">
+  <div class="olho">Bloco 5 · O protocolo</div>
+  <h3>Como escalar sem quebrar</h3>
+  <div class="proto full">+20% de orçamento por semana
+7 dias entre cada aumento
+nenhuma outra alteração no período
+
+Semana 1   R$ 30/dia  →  R$ 36/dia   espera
+Semana 2   R$ 36/dia  →  R$ 43/dia   espera
+Semana 3   R$ 43/dia  →  R$ 52/dia   espera
+Semana 4   R$ 52/dia  →  R$ 62/dia
+
+Em um mês: o dobro do investimento, sem sobressalto.</div>
+  <div class="aviso ok"><div class="tg">O que esperar do ROAS</div><p>Ele vai cair um pouco — <b>até 5% é normal e esperado</b>. Você está alcançando gente menos qualificada, é o custo de crescer. <b>Não pare por isso.</b></p></div>
+  <div class="aviso erro"><div class="tg">Quando parar de verdade</div><p>Estoque acabando · margem comprometida · você não dá conta de enviar. <b>Nunca por queda pequena de ROAS.</b></p></div>
+</section>
+<section class="s" data-sec="MÓDULO 6" data-t="◈ Módulo 6">
+  <div class="olho">Módulo 6 de 6</div>
+  <h1>Palavras-chave</h1>
+  <p class="sub">GMV Max × Anúncio de Busca. E por que o título virou o seu anúncio.</p>
+  <div class="circ full" style="margin-top:22px"><div class="ce"><span class="cn">1</span><div>Dois mundos de anúncio</div></div><div class="ce"><span class="cn">2</span><div>Regras do Anúncio de Busca</div></div><div class="ce"><span class="cn">3</span><div>O título é o anúncio</div></div></div></section>
+<section class="s" data-sec="MÓDULO 6" data-t="Aula 6.1">
+  <div class="olho">Aula 6.1 · ~14 min</div>
+  <h2>Palavras-chave e Anúncio de Busca</h2>
+  <p class="sub" style="font-size:19px">Dois mundos, as regras de quem usa busca manual, e o gargalo invisível do título.</p></section>
+<section class="s" data-sec="MÓDULO 6" data-t="Dois mundos">
+  <div class="olho">Bloco 6 · Anúncios de busca</div>
+  <h3>Existem dois mundos de anúncio na Shopee</h3>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">GMV MAX</div><p>Automático. <b>Você não escolhe palavra-chave.</b> O algoritmo decide tudo a partir do seu título e do histórico.</p><p style="margin-top:8px;color:var(--t1)">É o que a maioria usa hoje.</p></div>
+    <div class="cd"><div class="ct2">ANÚNCIO DE BUSCA</div><p>Manual. <b>Você escolhe as palavras</b> e dá lance em cada uma. Controle total, trabalho maior.</p><p style="margin-top:8px;color:var(--t1)">Para quem quer disputar termos específicos.</p></div>
+  </div>
+  <div class="aviso az"><div class="tg">A consequência do GMV Max</div><p>Se você não escolhe palavra-chave, <b>o título passa a ser a sua palavra-chave</b>. Título fraco limita os leilões em que o produto sequer entra — e nenhum ajuste de lance conserta isso.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 6" data-t="Como escolher">
+  <div class="olho">Bloco 6</div>
+  <h3>Se você vai usar Anúncio de Busca</h3>
+  <table class="full">
+    <thead><tr><th>Regra</th><th>Por quê</th></tr></thead>
+    <tbody>
+      <tr><td><b>10 a 15 palavras</b> por anúncio</td><td>é a recomendação da Shopee — dá para até 200, mas dilui</td></tr>
+      <tr><td>Prefira <b>fundo de funil</b></td><td>"vestido longo plus size" converte muito mais que "vestido"</td></tr>
+      <tr><td>Comece com <b>lance baixo</b></td><td>suba só depois de ver o desempenho</td></tr>
+      <tr><td><b>Um produto</b> por campanha</td><td>facilita entender o que funcionou</td></tr>
+      <tr><td>Revise em <b>2 semanas</b></td><td>pause as que gastam sem vender</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso"><div class="tg">Taxa premium</div><p>Você pode aumentar o lance para posições específicas em até <b>300%</b>. Se não tiver certeza, <b>deixe em 0%</b> — revise o desempenho depois de 2 semanas e só então considere aumentar.</p></div>
+</section>
+<section class="s" data-sec="MÓDULO 6" data-t="O título">
+  <div class="olho">Bloco 6 · O que mais importa</div>
+  <h2>Seu título é<br>seu <span class="lar">anúncio</span></h2>
+  <p class="sub">No GMV Max não existe seleção manual de palavra-chave. A Shopee monta a correspondência a partir de três coisas:</p>
+  <div class="circ full">
+    <div class="ce"><span class="cn">1</span><div><b>O título do produto</b> — a fonte principal das palavras</div></div>
+    <div class="cseta">+</div>
+    <div class="ce"><span class="cn">2</span><div><b>A intenção de quem busca</b> — o que a pessoa realmente quer</div></div>
+    <div class="cseta">+</div>
+    <div class="ce"><span class="cn">3</span><div><b>O histórico do seu anúncio</b> — o que já funcionou antes</div></div>
+  </div>
+  <div class="aviso erro"><div class="tg">O gargalo invisível</div><p>Título ruim não aparece em métrica nenhuma. Seu CTR pode estar ótimo — <b>nas poucas buscas em que você entra</b>. Você nunca vê o que perdeu.</p></div>
+</section>
+<section class="s" data-sec="FECHAMENTO" data-t="⏱ Exercício final">
+  <div class="olho">Pare aqui · exercício ao vivo</div>
+  <h2>Analise <span class="lar">um</span> produto<br>na ordem certa</h2>
+  <div class="proto full" style="max-width:720px">Escolha UM produto e responda na ordem:
+
+  1. PRECIFICAÇÃO
+     Qual o ROAS mínimo dele?  ________
+     Qual ROAS ele está dando? ________
+     Cabe no preço?  ( ) sim  ( ) não
+
+  2. FUNIL
+     Onde vaza: visitante → carrinho → pedido?  ____________
+
+  3. CADASTRO
+     Título traz as palavras que buscam?  ( ) sim  ( ) não
+
+  4. MÉTODO DE LANCE
+     Quantos cliques acumulados?  ______
+     Está no método certo para essa fase?  ( ) sim  ( ) não
+
+  5. A UMA ação desta semana:  ____________________________</div>
+</section>
+<section class="s" data-sec="FECHAMENTO" data-t="Leve isto">
+  <div class="olho">Fechamento do curso</div>
+  <h2>Dez coisas<br>para levar</h2>
+  <div class="cards full">
+    <div class="cd"><div class="ct2">1 · SUA MARGEM</div><p>Sem saber quanto sobra, nenhum ROAS significa nada.</p></div>
+    <div class="cd"><div class="ct2">2 · TRÊS NÚMEROS</div><p>CTR, conversão e ticket <b>são</b> o anúncio.</p></div>
+    <div class="cd"><div class="ct2">3 · A ORDEM</div><p>Precificação → Funil → Cadastro → Ferramentas → Ads.</p></div>
+    <div class="cd"><div class="ct2">4 · ROAS PRECIFICADO</div><p>Não existe número mágico. O ROAS certo é o que o preço comporta.</p></div>
+    <div class="cd"><div class="ct2">5 · CPM EM PAR</div><p>Alto com retorno bom é o melhor cenário. Sozinho não diz nada.</p></div>
+    <div class="cd"><div class="ct2">6 · AUTOMÁTICO ATÉ PROVAR</div><p>200 cliques e 20 vendas. Só então Meta de ROAS.</p></div>
+    <div class="cd"><div class="ct2">7 · NUNCA VOLTA</div><p>Migrou para Meta? Baixe a meta, não troque o método.</p></div>
+    <div class="cd"><div class="ct2">8 · SETE DIAS</div><p>Toda alteração pede 7 dias de silêncio.</p></div>
+    <div class="cd"><div class="ct2">9 · 30 VENDAS</div><p>Abaixo disso você não tem dado, tem palpite.</p></div>
+    <div class="cd"><div class="ct2">10 · ROAS COM VOLUME</div><p>Retorno é pedágio, não troféu.</p></div>
+  </div></section>
+<section class="s" data-sec="FECHAMENTO" data-t="Perguntas">
+  <div class="olho">Agora é com vocês</div>
+  <h1>Perguntas</h1>
+  <p class="sub">Traga o número do seu produto que a gente diagnostica junto — ao vivo.</p>
+</section>
+
+
+
+
+  </div>
+  <div id="faixa"></div>
+  <canvas id="tela"></canvas>
+</div>
+
+<div id="barra">
+  <button class="bt" id="ant" title="Anterior"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+  <button class="bt" id="prox" title="Próximo"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+  <button class="bt" id="pena" title="Desenhar (D)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></button>
+  <div id="cores">
+    <b data-c="#ff4d1c" class="on" style="background:#ff4d1c"></b>
+    <b data-c="#ffffff" style="background:#fff"></b>
+    <b data-c="#2fd672" style="background:#2fd672"></b>
+    <b data-c="#3d9bff" style="background:#3d9bff"></b>
+  </div>
+  <button class="bt" id="limpa" title="Apagar (L)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+  <span class="gap"></span>
+  <span id="atalhos">← → NAVEGA · D DESENHA · L LIMPA · G GRADE · H ESCONDE · F TELA CHEIA</span>
+  <button class="bt" id="bgrade" title="Grade (G)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></button>
+  <button class="bt" id="btela" title="Tela cheia (F)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+  <span id="cont">01 / 24</span>
+</div>
+
+<div id="grade"><h4>MAPA DO CURSO · clique para ir</h4><div id="mg"></div></div>
+
+<script>
+(function(){
+  const slides=[...document.querySelectorAll('.s')], total=slides.length;
+  let atual=0, desenhando=false, pintando=false, cor='#ff4d1c';
+  const desenhos={};
+
+  // trilha
+  const tr=document.getElementById('trilha');
+  tr.innerHTML=slides.map((s,i)=>`<i data-i="${i}" style="width:${Math.max(8,Math.floor(260/total))}px"></i>`).join('');
+  const marcas=[...tr.children];
+  tr.onclick=e=>{ if(e.target.dataset.i!==undefined) mostra(+e.target.dataset.i); };
+
+  // ═══ CANVAS ═══
+  const tela=document.getElementById('tela'), ctx=tela.getContext('2d');
+  function dim(){
+    const r=devicePixelRatio||1;
+    tela.width=innerWidth*r; tela.height=innerHeight*r;
+    tela.style.width=innerWidth+'px'; tela.style.height=innerHeight+'px';
+    ctx.setTransform(r,0,0,r,0,0); ctx.lineCap='round'; ctx.lineJoin='round';
+    restaura();
+  }
+  function restaura(){
+    ctx.clearRect(0,0,innerWidth,innerHeight);
+    const d=desenhos[atual];
+    if(d){const i=new Image(); i.onload=()=>ctx.drawImage(i,0,0,innerWidth,innerHeight); i.src=d;}
+  }
+  const pos=e=>{const r=tela.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+  tela.addEventListener('pointerdown',e=>{
+    if(!desenhando && e.pointerType!=='pen') return;
+    pintando=true; tela.setPointerCapture(e.pointerId);
+    const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y);
+    ctx.strokeStyle=cor; ctx.lineWidth=e.pointerType==='pen'?Math.max(1.8,(e.pressure||.5)*7):3.2;
+  });
+  tela.addEventListener('pointermove',e=>{
+    if(!pintando)return; const p=pos(e);
+    if(e.pointerType==='pen') ctx.lineWidth=Math.max(1.8,(e.pressure||.5)*7);
+    ctx.lineTo(p.x,p.y); ctx.stroke();
+  });
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>tela.addEventListener(ev,()=>{
+    if(pintando){pintando=false; desenhos[atual]=tela.toDataURL();}
+  }));
+  document.addEventListener('pointerdown',e=>{if(e.pointerType==='pen')tela.style.pointerEvents='auto'},true);
+
+  // ═══ NAVEGAÇÃO — sem revelação progressiva ═══
+  function mostra(i){
+    slides[atual].classList.remove('on');
+    atual=(i+total)%total;
+    slides[atual].classList.add('on');
+    marcas.forEach((m,k)=>m.className=k===atual?'on':(k<atual?'foi':''));
+    document.getElementById('t-sec').textContent=slides[atual].dataset.sec||'';
+    document.getElementById('t-tit').textContent=slides[atual].dataset.t||'';
+    const tt=document.getElementById('t-tempo');
+    if(tt){const m=Math.round((atual+1)/total*95);tt.textContent='· ~'+m+' min';}
+    document.getElementById('cont').textContent=String(atual+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    restaura(); marcaGrade();
+  }
+  const avanca=()=>{ if(atual<total-1) mostra(atual+1); };
+  const volta=()=>{ if(atual>0) mostra(atual-1); };
+
+  // ═══ CHECKLIST (dois: pré-requisitos e sinais de escala) ═══
+  [['chk','vered','5 de 5 · você está pronto para anunciar','conserte antes de anunciar'],
+   ['chk2','vered2','5 de 5 · pode escalar com segurança','ainda não é hora de escalar']].forEach(([cid,vid,okTxt,naoTxt])=>{
+    const chk=document.getElementById(cid), vd=document.getElementById(vid);
+    if(!chk||!vd) return;
+    chk.addEventListener('click',e=>{
+      const ci=e.target.closest('.ci'); if(!ci)return;
+      ci.classList.toggle('ok');
+      const n=chk.querySelectorAll('.ci.ok').length;
+      vd.textContent = n===5?okTxt:n+' de 5 · '+naoTxt;
+      vd.className='vered '+(n===5?'sim':'nao');
+    });
+  });
+
+  // ═══ COMISSÃO ═══
+  function comissao(p){
+    if(p<=79.99) return p*0.20+4;
+    if(p<=99.99) return p*0.14+16;
+    if(p<=199.99) return p*0.14+20;
+    return p*0.14+26;
+  }
+  function faixaTxt(p){return p<=79.99?'20% + R$4':p<=99.99?'14% + R$16':p<=199.99?'14% + R$20':'14% + R$26'}
+  const sl=document.getElementById('sl');
+  function attSl(){
+    const p=+sl.value, c=comissao(p), pct=c/p*100;
+    document.getElementById('d-preco').textContent='R$'+p;
+    document.getElementById('d-com').textContent='R$'+c.toFixed(2);
+    document.getElementById('d-faixa').textContent=faixaTxt(p);
+    const el=document.getElementById('d-pct');
+    el.textContent=pct.toFixed(1)+'%';
+    el.className='rv '+(pct>30?'vm':pct>26?'am':'vd');
+    document.getElementById('d-sobra').textContent='R$'+(p-c).toFixed(2);
+    document.getElementById('alerta-d').style.display=(p>=80&&p<=88)?'':'none';
+  }
+  sl.addEventListener('input',attSl); attSl();
+
+  // ═══ SIMULADOR DE LEILÃO ═══
+  const CONC=[
+    {nome:'Concorrente A', f:0.72},
+    {nome:'Concorrente B', f:0.48},
+    {nome:'Concorrente C', f:0.31},
+    {nome:'Concorrente D', f:0.19},
+    {nome:'Concorrente E', f:0.11}
+  ];
+  function simular(){
+    const ctr=+document.getElementById('s-ctr').value/10;
+    const cv=+document.getElementById('s-cv').value/10;
+    const tk=+document.getElementById('s-tk').value;
+    const rs=+document.getElementById('s-rs').value/10;
+    document.getElementById('v-ctr').textContent=ctr.toFixed(1).replace('.',',')+'%';
+    document.getElementById('v-cv').textContent=cv.toFixed(1).replace('.',',')+'%';
+    document.getElementById('v-tk').textContent='R$'+tk;
+    document.getElementById('v-rs').textContent=rs.toFixed(1).replace('.',',')+'×';
+
+    // força relativa em escala logarítmica (como leilões reais se comportam)
+    const bruto=(ctr/100)*(cv/100)*tk/rs;
+    const PISO=Math.log(0.00003), TETO=Math.log(0.06);
+    const forca=Math.max(0,Math.min(1,(Math.log(Math.max(bruto,1e-9))-PISO)/(TETO-PISO)));
+    document.getElementById('v-forca').textContent=Math.round(forca*100)+'%';
+
+    const todos=[...CONC.map(c=>({...c})),{nome:'SEU PRODUTO',f:forca,eu:true}]
+      .sort((a,b)=>b.f-a.f);
+    const VAGAS=4;
+    document.getElementById('ranking').innerHTML=todos.slice(0,6).map((c,i)=>
+      `<div class="vaga ${c.eu?'eu':''} ${i>=VAGAS?'fora':''}">
+        <span class="pos">${i+1}º</span><span class="nm">${c.nome}</span>
+        <span class="fc">${i<VAGAS?'aparece':'não aparece'}</span>
+      </div>`).join('');
+
+    const minha=todos.findIndex(c=>c.eu)+1;
+    const dentro=minha<=VAGAS;
+    const imp=Math.round(Math.pow(forca,2)*4200);
+    const vend=Math.max(0,Math.round(imp*(ctr/100)*(cv/100)));
+    document.getElementById('v-imp').textContent=dentro?imp.toLocaleString('pt-BR'):'~0';
+    document.getElementById('v-vend').textContent=dentro?vend:'0';
+    const vt=document.getElementById('vd-t'), vs=document.getElementById('vd-s');
+    if(!dentro){vt.textContent='FORA DO JOGO';vt.style.color='var(--verm)';
+      vs.textContent='Seu produto quase não aparece. Melhore foto, preço ou avaliações — ou reduza a exigência de retorno.';}
+    else if(minha===1){vt.textContent='1º LUGAR';vt.style.color='var(--verde)';
+      vs.textContent='Seu produto domina a vitrine. Este é o momento de escalar.';}
+    else {vt.textContent=minha+'º LUGAR';vt.style.color='var(--ama)';
+      vs.textContent='Você aparece, mas há espaço para subir. Qual dos três números dá para melhorar?';}
+  }
+  ['s-ctr','s-cv','s-tk','s-rs'].forEach(id=>document.getElementById(id).addEventListener('input',simular));
+  simular();
+
+  // ═══ BOTÕES ═══
+  document.getElementById('prox').onclick=avanca;
+  document.getElementById('ant').onclick=volta;
+  const pena=document.getElementById('pena');
+  pena.onclick=()=>{desenhando=!desenhando;document.body.classList.toggle('desenha',desenhando);pena.classList.toggle('on',desenhando)};
+  document.getElementById('limpa').onclick=()=>{ctx.clearRect(0,0,innerWidth,innerHeight);delete desenhos[atual]};
+  document.querySelectorAll('#cores b').forEach(b=>b.onclick=()=>{
+    cor=b.dataset.c;
+    document.querySelectorAll('#cores b').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on'); if(!desenhando) pena.click();
+  });
+  document.getElementById('btela').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+
+  // ═══ GRADE ═══
+  const grade=document.getElementById('grade'), mg=document.getElementById('mg');
+  let html='', secAtual='';
+  slides.forEach((s,i)=>{
+    if(s.dataset.sec!==secAtual){
+      if(secAtual) html+='</div>';
+      secAtual=s.dataset.sec;
+      html+=`<div class="gsec">◈ ${secAtual}</div><div class="mg">`;
+    }
+    html+=`<div class="ms" data-i="${i}"><div class="mn">${String(i+1).padStart(2,'0')}</div><div class="mt">${s.dataset.t}</div></div>`;
+  });
+  html+='</div>';
+  mg.outerHTML='<div id="mg">'+html+'</div>';
+  const mgEl=document.getElementById('mg');
+  const marcaGrade=()=>mgEl.querySelectorAll('.ms').forEach(c=>c.classList.toggle('at',+c.dataset.i===atual));
+  mgEl.onclick=e=>{const c=e.target.closest('.ms'); if(c){mostra(+c.dataset.i);grade.classList.remove('on')}};
+  document.getElementById('bgrade').onclick=()=>grade.classList.toggle('on');
+
+  // ═══ MODO GRAVAÇÃO ═══
+  let ocio, travado=false;
+  function acorda(){
+    if(travado)return;
+    document.body.classList.remove('limpo');
+    clearTimeout(ocio); ocio=setTimeout(()=>document.body.classList.add('limpo'),3000);
+  }
+  ['mousemove','keydown','pointerdown'].forEach(ev=>addEventListener(ev,acorda));
+
+  addEventListener('keydown',e=>{
+    if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;
+    const k=e.key.toLowerCase();
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();avanca()}
+    else if(e.key==='ArrowLeft'){e.preventDefault();volta()}
+    else if(k==='d')pena.click();
+    else if(k==='l')document.getElementById('limpa').click();
+    else if(k==='g')grade.classList.toggle('on');
+    else if(k==='f')document.getElementById('btela').click();
+    else if(k==='h'){travado=!travado;document.body.classList.toggle('limpo',travado);clearTimeout(ocio)}
+    else if(e.key==='Escape')grade.classList.remove('on');
+    else if(e.key==='Home')mostra(0);
+    else if(e.key==='End')mostra(total-1);
+  });
+
+  document.getElementById('slides').addEventListener('click',e=>{
+    if(desenhando||e.target.closest('.ci,input,.calc,.disputa'))return;
+    (e.clientX>innerWidth*0.3)?avanca():volta();
+  });
+
+  addEventListener('resize',dim);
+  dim(); mostra(0); acorda();
+})();
+</script>
+</body>
+</html>
