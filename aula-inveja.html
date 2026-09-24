@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>O algoritmo não aceita inveja</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+:root{--bg:#07080a;--panel:#0e1116;--panel2:#141922;--line:#1c222b;--line2:#2a323d;
+--lar:#ff4d1c;--lar2:#ff7a52;--rox:#7B2FFF;--verde:#2fd672;--ama:#ffc233;--azul:#3d9bff;--verm:#ff3b3b;
+--t1:#f4f6f9;--t2:#9aa2b1;--t3:#5b6472;--t4:#39414d}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--t1);font-family:'Outfit',sans-serif;-webkit-font-smoothing:antialiased;display:flex}
+
+#lateral{width:242px;flex-shrink:0;background:#0a0c0f;border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:40;transition:transform .3s}
+body.limpo #lateral{transform:translateX(-100%);position:absolute;height:100%}
+#lateral .marca{padding:16px 18px 13px;border-bottom:1px solid var(--line)}
+#lateral .marca b{font-family:'Bebas Neue';font-size:17px;letter-spacing:1.4px;color:var(--lar);font-weight:400;display:block;line-height:1.05}
+#lateral .marca span{display:block;font-family:'Space Mono';font-size:8.5px;letter-spacing:2px;color:var(--t4);margin-top:3px}
+#nav{flex:1;overflow-y:auto;padding:8px 0}
+#nav::-webkit-scrollbar{width:4px}#nav::-webkit-scrollbar-thumb{background:var(--line2);border-radius:2px}
+.mod-h{display:flex;align-items:center;gap:8px;padding:9px 16px;cursor:pointer;font-size:12px;font-weight:600;color:var(--t2);transition:.15s}
+.mod-h:hover{color:var(--t1);background:var(--panel)}
+.mod-h .mn{font-family:'Space Mono';font-size:8.5px;color:var(--lar);width:18px}
+.mod-h .seta{margin-left:auto;font-size:9px;color:var(--t4);transition:.2s}
+.mod.aberto .mod-h .seta{transform:rotate(90deg)}
+.aulas{display:none}.mod.aberto .aulas{display:block}
+.aula{padding:6px 16px 6px 42px;font-size:11.5px;color:var(--t3);cursor:pointer;border-left:2px solid transparent;transition:.15s}
+.aula:hover{color:var(--t1)}
+.aula.atual{color:var(--lar);border-left-color:var(--lar);background:rgba(255,77,28,.06)}
+#lateral .rodape{padding:10px 16px;border-top:1px solid var(--line);font-family:'Space Mono';font-size:8.5px;color:var(--t4);letter-spacing:1px}
+
+#palco{flex:1;position:relative;display:flex;flex-direction:column;min-width:0}
+#topo{display:flex;align-items:center;gap:10px;padding:10px 24px;flex-shrink:0;border-bottom:1px solid var(--line)}
+#crumb{font-family:'Space Mono';font-size:9.5px;letter-spacing:1.5px;color:var(--t3)}
+#crumb b{color:var(--lar);font-weight:400}
+#barra-prog{height:3px;background:var(--line);flex-shrink:0}
+#prog{display:block;height:100%;background:var(--lar);width:0;transition:width .3s}
+#slides{flex:1;position:relative;overflow:hidden}
+.s{position:absolute;inset:0;padding:28px 50px 70px;padding-right:calc(50px + 290px);display:none;flex-direction:column;justify-content:center;overflow-y:auto}
+.s.on{display:flex;animation:ent .34s cubic-bezier(.2,.8,.25,1)}
+@keyframes ent{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+#faixa{position:absolute;top:0;right:0;bottom:0;width:290px;pointer-events:none;z-index:5;border-left:1px dashed var(--line2);
+background-image:radial-gradient(circle,rgba(42,50,61,.5) 1px,transparent 1px);background-size:22px 22px}
+#faixa::after{content:'ÁREA DE DESENHO';position:absolute;top:13px;left:50%;transform:translateX(-50%);font-family:'Space Mono';font-size:8px;letter-spacing:2px;color:var(--t4)}
+@media(max-width:1200px){#faixa{display:none}.s{padding-right:50px}}
+
+.olho{font-family:'Space Mono';font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--lar);margin-bottom:11px}
+h1{font-family:'Bebas Neue';font-size:clamp(46px,7.4vw,94px);line-height:.88;letter-spacing:1.4px}
+h2{font-family:'Bebas Neue';font-size:clamp(28px,4.2vw,52px);line-height:.98;letter-spacing:1.1px}
+h3{font-weight:600;font-size:clamp(17px,1.9vw,24px);line-height:1.3}
+.sub{font-size:clamp(13.5px,1.45vw,16.5px);color:var(--t2);line-height:1.5;max-width:700px;margin-top:9px}
+.mini{font-family:'Space Mono';font-size:10px;color:var(--t4);letter-spacing:1px}
+b{color:#fff;font-weight:600}
+.lar{color:var(--lar)}.vd{color:var(--verde)}.am{color:var(--ama)}.rx{color:var(--rox)}.vm{color:var(--verm)}.az{color:var(--azul)}
+.big{font-family:'Bebas Neue';font-size:clamp(50px,8vw,116px);line-height:.85;color:var(--lar)}
+.big small{display:block;font-family:'Space Mono';font-size:10.5px;letter-spacing:2px;color:var(--t3);margin-top:8px}
+
+/* ═══ ANIMAÇÕES ═══ */
+@keyframes flut{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes pulsa{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.07);opacity:.85}}
+@keyframes esteira{from{transform:translateX(-14%)}to{transform:translateX(114%)}}
+@keyframes cresce{from{width:0}}
+@keyframes sobe{from{height:0}}
+@keyframes girar{to{transform:rotate(360deg)}}
+@keyframes pisca{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes entrada{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.s.on .anim>*{animation:entrada .5s backwards}
+.s.on .anim>*:nth-child(2){animation-delay:.1s}
+.s.on .anim>*:nth-child(3){animation-delay:.2s}
+.s.on .anim>*:nth-child(4){animation-delay:.3s}
+.s.on .anim>*:nth-child(5){animation-delay:.4s}
+
+/* duas lojas conversando */
+.duo{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;margin-top:16px;max-width:760px}
+.lojinha{background:var(--panel);border:1px solid var(--line2);border-radius:14px;padding:18px;text-align:center;position:relative}
+.lojinha .icone{font-size:34px;animation:flut 3.4s ease-in-out infinite}
+.lojinha .nm{font-family:'Bebas Neue';font-size:21px;letter-spacing:1px;margin-top:6px}
+.lojinha .dado{font-family:'Space Mono';font-size:12px;color:var(--t2);margin-top:3px}
+.lojinha.forte{border-color:var(--rox)}.lojinha.forte .nm{color:var(--rox)}
+.lojinha.lar{border-color:var(--lar)}.lojinha.lar .nm{color:var(--lar)}
+.raio{font-family:'Bebas Neue';font-size:26px;color:var(--verm);animation:pulsa 1.5s ease-in-out infinite;white-space:nowrap}
+.balao{background:var(--panel2);border:1px solid var(--line2);border-radius:12px;padding:11px 15px;font-size:14px;margin-top:12px;position:relative;max-width:520px}
+.balao::before{content:'';position:absolute;top:-7px;left:26px;width:12px;height:12px;background:var(--panel2);border-left:1px solid var(--line2);border-top:1px solid var(--line2);transform:rotate(45deg)}
+
+/* caixas de estoque */
+.estoque{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.est{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:16px 18px;border-top:3px solid var(--c)}
+.est .tt{font-family:'Bebas Neue';font-size:20px;letter-spacing:1px;color:var(--c)}
+.est .cx{display:flex;flex-wrap:wrap;gap:3px;margin:10px 0}
+.est .cx i{width:11px;height:11px;border-radius:2px;background:var(--c);opacity:.28;display:block}
+.est .cx i.on{opacity:1;animation:pulsa 2s ease-in-out infinite}
+.est .ln{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px solid var(--line)}
+.est .ln:last-child{border:none}
+.est .ln b{font-family:'Space Mono'}
+.est .destaque{background:var(--bg);border-radius:8px;padding:9px;margin-top:8px;text-align:center}
+.est .destaque .v{font-family:'Bebas Neue';font-size:27px;color:var(--c);line-height:1}
+.est .destaque .l{font-size:9.5px;color:var(--t3);font-family:'Space Mono';letter-spacing:1px;text-transform:uppercase}
+
+/* esteira de pedidos */
+.esteira{position:relative;height:66px;background:var(--panel);border:1px solid var(--line2);border-radius:11px;overflow:hidden;margin-top:9px}
+.esteira .rot{position:absolute;left:12px;top:8px;font-family:'Space Mono';font-size:9px;letter-spacing:1px;color:var(--t3);z-index:2}
+.esteira .pk{position:absolute;top:28px;width:20px;height:20px;border-radius:4px;background:var(--c);animation:esteira linear infinite}
+.esteira .cont{position:absolute;right:12px;top:22px;font-family:'Bebas Neue';font-size:24px;color:var(--c);z-index:2}
+
+/* barras comparativas */
+.barras{margin-top:12px;max-width:720px}
+.br{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:12px;margin:9px 0}
+.br .bl{font-size:13px;font-weight:600}
+.br .bt{height:26px;background:var(--panel2);border-radius:6px;overflow:hidden}
+.br .bt i{display:block;height:100%;border-radius:6px;animation:cresce 1.1s cubic-bezier(.2,.9,.3,1)}
+.br .bv{font-family:'Bebas Neue';font-size:20px;text-align:right}
+
+.calc{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:16px 18px;margin-top:10px}
+.calc.dest{border-color:var(--lar)}
+.sl-row{display:grid;grid-template-columns:96px 1fr 70px;align-items:center;gap:11px;margin-bottom:9px}
+.sl-row label{font-family:'Space Mono';font-size:9.5px;letter-spacing:1px;color:var(--t3);text-transform:uppercase}
+.sl-row .val{font-family:'Bebas Neue';font-size:20px;text-align:right;color:var(--lar)}
+input[type=range]{-webkit-appearance:none;width:100%;height:5px;border-radius:3px;background:var(--line2);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--lar);cursor:pointer;box-shadow:0 0 11px rgba(255,77,28,.5)}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--lar);cursor:pointer;border:none}
+.cr{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
+.cr .r{background:var(--bg);border-radius:9px;padding:11px;text-align:center}
+.cr .rl{font-family:'Space Mono';font-size:8px;color:var(--t4);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px}
+.cr .rv{font-family:'Bebas Neue';font-size:25px;line-height:1}
+.cr .rs{font-size:9.5px;color:var(--t3);margin-top:2px}
+.duascol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+
+.leilao{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.disputa{background:var(--panel);border:1px solid var(--line2);border-radius:13px;padding:14px 16px;display:flex;flex-direction:column}
+.disputa .tt{font-family:'Space Mono';font-size:9px;letter-spacing:2px;color:var(--t3);text-transform:uppercase;margin-bottom:10px}
+.vaga{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;margin-bottom:4px;background:var(--panel2);border:1px solid transparent;transition:.45s}
+.vaga .pos{font-family:'Bebas Neue';font-size:16px;width:19px;color:var(--t4)}
+.vaga .nm{flex:1;font-size:12.5px;color:var(--t2)}.vaga .fc{font-family:'Space Mono';font-size:10.5px;color:var(--t3)}
+.vaga.eu{background:rgba(255,77,28,.13);border-color:var(--lar)}.vaga.eu .nm{color:#fff;font-weight:600}.vaga.eu .pos,.vaga.eu .fc{color:var(--lar)}
+.vaga.fora{opacity:.32}
+.veredito{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);text-align:center}
+.veredito .vt{font-family:'Bebas Neue';font-size:26px;line-height:1}.veredito .vs{font-size:11.5px;color:var(--t2);margin-top:4px}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:10px;margin-top:11px}
+.cd{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:14px}
+.cd .ct2{font-family:'Bebas Neue';font-size:16px;letter-spacing:1px;color:var(--lar);margin-bottom:5px}
+.cd p{font-size:12.5px;color:var(--t2);line-height:1.45}
+.cd.g{border-color:rgba(47,214,114,.3)}.cd.g .ct2{color:var(--verde)}
+.cd.r{border-color:rgba(255,59,59,.3)}.cd.r .ct2{color:var(--verm)}
+.cd.a{border-color:rgba(255,194,51,.3)}.cd.a .ct2{color:var(--ama)}
+.cd.b{border-color:rgba(61,155,255,.3)}.cd.b .ct2{color:var(--azul)}
+.cd.x{border-color:rgba(123,47,255,.3)}.cd.x .ct2{color:var(--rox)}
+
+.aviso{border-left:3px solid var(--ama);padding:11px 16px;margin-top:11px;background:rgba(255,194,51,.06);border-radius:0 10px 10px 0;max-width:760px}
+.aviso .tg{font-family:'Space Mono';font-size:8.5px;letter-spacing:2px;text-transform:uppercase;color:var(--ama);margin-bottom:4px}
+.aviso p{font-size:13.5px;line-height:1.45}
+.aviso.erro{border-color:var(--verm);background:rgba(255,59,59,.06)}.aviso.erro .tg{color:var(--verm)}
+.aviso.ok{border-color:var(--verde);background:rgba(47,214,114,.06)}.aviso.ok .tg{color:var(--verde)}
+.aviso.az{border-color:var(--azul);background:rgba(61,155,255,.06)}.aviso.az .tg{color:var(--azul)}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:10px;max-width:740px}
+th{color:var(--t4);padding:6px 10px;text-align:left;font-family:'Space Mono';font-size:8.5px;letter-spacing:1px;text-transform:uppercase;border-bottom:1px solid var(--line2)}
+td{padding:7px 10px;border-bottom:1px solid var(--line);color:#e2e6ed}td.d{color:var(--lar);font-weight:700}
+.proto{font-family:'Space Mono';font-size:12px;line-height:1.75;background:linear-gradient(135deg,#0f1318,#0a0c0f);border:1px solid var(--line2);border-radius:12px;padding:14px 18px;margin-top:10px;max-width:720px;white-space:pre-wrap;position:relative}
+.proto::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--lar)}
+.chk{display:flex;flex-direction:column;gap:5px;margin-top:11px;max-width:700px}
+.ci{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 13px;cursor:pointer;transition:.15s}
+.ci:hover{border-color:var(--line2)}
+.ci .cx{flex-shrink:0;width:19px;height:19px;border-radius:5px;border:2px solid var(--t4);display:flex;align-items:center;justify-content:center;transition:.15s}
+.ci .cx svg{width:10px;height:10px;opacity:0}
+.ci.ok{border-color:rgba(47,214,114,.4)}.ci.ok .cx{background:var(--verde);border-color:var(--verde)}.ci.ok .cx svg{opacity:1}
+.ci .ct{font-size:13.5px;color:#fff}.ci .cdd{font-size:11.5px;color:var(--t2)}
+.vered{margin-top:9px;font-family:'Space Mono';font-size:11.5px;letter-spacing:1px;padding:9px;border-radius:9px;text-align:center}
+.vered.nao{background:rgba(255,59,59,.09);color:var(--verm)}.vered.sim{background:rgba(47,214,114,.11);color:var(--verde)}
+blockquote{border-left:3px solid var(--rox);padding:12px 0 12px 20px;margin-top:12px;background:rgba(123,47,255,.06);border-radius:0 11px 11px 0;max-width:780px}
+blockquote p{font-size:16px;color:#fff;font-weight:500;line-height:1.45;margin:5px 0}
+
+#tela{position:absolute;inset:0;z-index:15;pointer-events:none;touch-action:none}
+body.desenha #tela{pointer-events:auto;cursor:crosshair}
+#barra{position:absolute;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:8px;padding:9px 24px;background:rgba(7,8,10,.93);backdrop-filter:blur(14px);border-top:1px solid var(--line);transition:.4s}
+body.limpo #barra{opacity:0;transform:translateY(100%);pointer-events:none}
+body.limpo #topo{opacity:.25}
+.bt{width:31px;height:31px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s}
+.bt:hover{border-color:var(--t3);color:var(--t1)}.bt.on{background:var(--lar);border-color:var(--lar);color:#fff}
+#cores{display:flex;gap:4px}#cores b{width:17px;height:17px;border-radius:50%;cursor:pointer;border:2px solid transparent}
+#cores b.on{border-color:#fff;transform:scale(1.15)}
+#barra .gap{flex:1}#atalhos{font-family:'Space Mono';font-size:8.5px;color:var(--t4)}
+#cont{font-family:'Space Mono';font-size:10.5px;color:var(--t3)}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style></head>
+<body>
+
+<aside id="lateral">
+  <div class="marca"><b>O ALGORITMO NÃO<br>ACEITA INVEJA</b><span>EFEITO VENDAS</span></div>
+  <div id="nav"></div>
+  <div class="rodape" id="rodape">—</div>
+</aside>
+
+<div id="palco">
+  <div id="topo">
+    <button class="bt" id="menu-bt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+    <span id="crumb"></span>
+  </div>
+  <div id="barra-prog"><i id="prog"></i></div>
+  <div id="slides">
+
+<!-- ════════ ABERTURA ════════ -->
+<section class="s" data-m="0" data-a="0" data-t="Capa">
+  <div class="olho">Efeito Vendas · Aula ao vivo</div>
+  <h1>O algoritmo<br>não aceita<br><span class="lar">inveja</span></h1>
+  <p class="sub">Por que duas lojas parecidas nunca terão o mesmo resultado — e por que a comparação errada faz você tomar a decisão errada.</p>
+</section>
+
+<section class="s" data-m="0" data-a="0" data-t="A cena">
+  <div class="olho">A cena de sempre</div>
+  <h3>Duas lojas conversando no grupo</h3>
+  <div class="duo anim">
+    <div class="lojinha lar"><div class="icone">🏠</div><div class="nm">LOJA 1</div><div class="dado">ROAS 6×</div></div>
+    <div class="raio">≠</div>
+    <div class="lojinha forte"><div class="icone">🏡</div><div class="nm">LOJA 2</div><div class="dado">ROAS 20×</div></div>
+  </div>
+  <div class="balao">"A gente vende quase a mesma coisa. Por que o número dela é três vezes o meu? O que ela sabe que eu não sei?"</div>
+  <p class="sub" style="font-size:18px;margin-top:14px">A resposta é desconfortável: <b>ela não sabe nada que você não saiba.</b> Ela comprou diferente, vende diferente e está em outro momento.</p>
+</section>
+
+<section class="s" data-m="0" data-a="0" data-t="O que a inveja faz">
+  <div class="olho">Abertura</div>
+  <h2>A inveja olha o placar.<br>O jogo é <span class="lar">outro</span>.</h2>
+  <div class="cards anim">
+    <div class="cd r"><div class="ct2">O QUE A INVEJA VÊ</div><p>Um número solto: "ROAS 20×". Sem contexto, sem custo, sem tempo, sem capital.</p></div>
+    <div class="cd g"><div class="ct2">O QUE O JOGO TEM</div><p>Compra, preço, margem, ticket, conversão, CTR, histórico, canais e capital parado.</p></div>
+  </div>
+  <div class="aviso erro"><div class="tg">O custo de comparar errado</div><p>Quem persegue o número da outra loja <b>muda o que estava funcionando</b>: mexe no preço, pausa anúncio, exige ROAS que a própria margem não comporta. E piora.</p></div>
+</section>
+
+<!-- ════════ MÓDULO 1 · A COMPARAÇÃO QUE NÃO FECHA ════════ -->
+<section class="s" data-m="1" data-a="1" data-t="Três lojas">
+  <div class="olho">1.1 · Três lojas hipotéticas</div>
+  <h3>Mesma categoria. Três realidades.</h3>
+  <table class="full">
+    <thead><tr><th>Indicador</th><th>Loja 1</th><th>Loja 2</th><th>Loja 3</th></tr></thead>
+    <tbody>
+      <tr><td>Ticket médio</td><td>R$ 35</td><td>R$ 46</td><td class="d">R$ 70</td></tr>
+      <tr><td>Conversão da loja</td><td class="d">3,2%</td><td>2,8%</td><td>2,2%</td></tr>
+      <tr><td>CTR do anúncio</td><td>3,1%</td><td>3,7%</td><td>3,8%</td></tr>
+      <tr><td>Conversão do anúncio</td><td>3,5%</td><td class="d">4,1%</td><td>2,1%</td></tr>
+      <tr><td>Custo por mil aparições</td><td>R$ 7,50</td><td class="d">R$ 3,60</td><td>R$ 8,30</td></tr>
+      <tr><td>Meses anunciando</td><td>4</td><td class="d">7</td><td>4</td></tr>
+      <tr><td><b>ROAS</b></td><td><b>6×</b></td><td><b class="rx">20×</b></td><td><b>7,5×</b></td></tr>
+    </tbody>
+  </table>
+  <p class="sub">Olhe a coluna do ROAS e depois volte para as outras linhas. <b>Nenhuma delas é igual.</b></p>
+</section>
+
+<section class="s" data-m="1" data-a="1" data-t="ROAS é resultado">
+  <div class="olho">1.1</div>
+  <h2>ROAS não é uma nota.<br>É um <span class="lar">resultado</span>.</h2>
+  <div class="proto full" style="font-size:14px;text-align:center">ROAS  =  ticket × conversão × CTR ÷ custo por aparição</div>
+  <p class="sub" style="font-size:17px">Quatro variáveis multiplicadas. Se uma loja é melhor em três delas e ainda paga metade pela aparição, o ROAS dela <b>tem que</b> ser maior. Não é mérito misterioso — é aritmética.</p>
+  <div class="aviso az"><div class="tg">A consequência</div><p>Não existe "melhorar o ROAS". Existe <b>melhorar uma das quatro</b> — e cada uma se conserta em um lugar diferente da operação.</p></div>
+</section>
+
+<section class="s" data-m="1" data-a="2" data-t="A decomposição">
+  <div class="olho">1.2 · De onde vem a diferença</div>
+  <h3>Por que o ROAS da Loja 2 é 3,3× o da Loja 1</h3>
+  <div class="barras anim">
+    <div class="br"><span class="bl">Ticket médio<br><span class="mini">R$35 vs R$46</span></span><span class="bt"><i style="width:31%;background:var(--rox)"></i></span><span class="bv rx">1,31×</span></div>
+    <div class="br"><span class="bl">CTR<br><span class="mini">3,1% vs 3,7%</span></span><span class="bt"><i style="width:19%;background:var(--rox)"></i></span><span class="bv rx">1,19×</span></div>
+    <div class="br"><span class="bl">Conversão do anúncio<br><span class="mini">3,5% vs 4,1%</span></span><span class="bt"><i style="width:17%;background:var(--rox)"></i></span><span class="bv rx">1,17×</span></div>
+    <div class="br"><span class="bl">Custo por aparição<br><span class="mini">R$7,50 vs R$3,60</span></span><span class="bt"><i style="width:100%;background:var(--rox)"></i></span><span class="bv rx">2,07×</span></div>
+  </div>
+  <div class="aviso"><div class="tg">Leia o maior fator</div><p>A maior vantagem dela não é venda nem anúncio: é <b>pagar metade por aparição</b>. Isso vem de categoria, concorrência e histórico da conta. <b>Não se copia.</b></p></div>
+</section>
+
+<section class="s" data-m="1" data-a="2" data-t="Ticket não salva">
+  <div class="olho">1.2 · A prova contrária</div>
+  <h2>Ticket alto <span class="lar">sozinho</span><br>não resolve nada</h2>
+  <div class="duo anim" style="max-width:700px">
+    <div class="lojinha lar"><div class="icone">🧺</div><div class="nm">LOJA 1</div><div class="dado">ticket R$35</div><div class="dado">conversão 3,5%</div><div class="dado" style="color:var(--verde);font-size:15px">ROAS 6×</div></div>
+    <div class="raio" style="color:var(--t3);font-size:18px">vs</div>
+    <div class="lojinha"><div class="icone">📦</div><div class="nm">LOJA 3</div><div class="dado">ticket R$70</div><div class="dado">conversão 2,1%</div><div class="dado" style="color:var(--ama);font-size:15px">ROAS 7,5×</div></div>
+  </div>
+  <p class="sub" style="font-size:17px">A Loja 3 vende pelo <b>dobro</b> do preço e o ROAS dela é só 1,2 vez maior — porque converte 40% menos. <b>Subir preço sem sustentar conversão não entrega resultado.</b></p>
+</section>
+
+<section class="s" data-m="1" data-a="3" data-t="Cada uma tem sua força">
+  <div class="olho">1.3</div>
+  <h3>A loja do "pior" ROAS lidera em outra coisa</h3>
+  <div class="cards anim">
+    <div class="cd g"><div class="ct2">LOJA 1 · ROAS 6×</div><p><b>Melhor conversão de loja das três: 3,2%.</b> Quem entra na página dela, compra.</p></div>
+    <div class="cd x"><div class="ct2">LOJA 2 · ROAS 20×</div><p>Melhor custo de mídia e 7 meses de histórico. E tem afiliados trazendo venda.</p></div>
+    <div class="cd b"><div class="ct2">LOJA 3 · ROAS 7,5×</div><p>Maior ticket. Precisa de menos pedidos para faturar o mesmo.</p></div>
+  </div>
+  <blockquote><p>Inveja compara <b>um</b> número. Gestão compara <b>o conjunto</b> — e descobre que cada loja já ganha em alguma coisa.</p></blockquote>
+</section>
+
+<!-- ════════ MÓDULO 2 · O PILAR COMPRA ════════ -->
+<section class="s" data-m="2" data-a="1" data-t="Começa na compra">
+  <div class="olho">2.1 · O pilar Compra</div>
+  <h2>O resultado do anúncio<br>foi decidido <span class="lar">antes</span><br>de você anunciar</h2>
+  <p class="sub" style="font-size:18px">No dia em que você escolheu <b>o que comprar e por quanto</b>, você definiu o seu ticket, a sua margem, o seu ROAS mínimo e quantos pedidos vai precisar embalar por mês.</p>
+  <p class="sub">Nenhum ajuste de campanha desfaz uma compra malfeita. E nenhuma comparação faz sentido entre quem comprou coisas diferentes.</p>
+</section>
+
+<section class="s" data-m="2" data-a="1" data-t="Duas compradoras">
+  <div class="olho">2.1 · Duas compradoras</div>
+  <h3>As duas compram 1.000 itens. O resto é tudo diferente.</h3>
+  <div class="estoque anim">
+    <div class="est" style="--c:var(--rox)">
+      <div class="tt">LOJA ALTA</div>
+      <div class="cx">SLOTS_ALTA</div>
+      <div class="ln"><span>Custo por item</span><b>R$ 70</b></div>
+      <div class="ln"><span>Itens comprados</span><b>1.000</b></div>
+      <div class="ln"><span>Preço de venda</span><b>R$ 180</b></div>
+      <div class="destaque"><div class="v">R$ 70.000</div><div class="l">capital investido no estoque</div></div>
+    </div>
+    <div class="est" style="--c:var(--lar)">
+      <div class="tt">LOJA BAIXA</div>
+      <div class="cx">SLOTS_BAIXA</div>
+      <div class="ln"><span>Custo por item</span><b>R$ 12</b></div>
+      <div class="ln"><span>Itens comprados</span><b>1.000</b></div>
+      <div class="ln"><span>Preço de venda</span><b>R$ 35</b></div>
+      <div class="destaque"><div class="v">R$ 12.000</div><div class="l">capital investido no estoque</div></div>
+    </div>
+  </div>
+  <p class="sub">Mesma quantidade de caixas no depósito. <b>Seis vezes de diferença no dinheiro parado.</b></p>
+</section>
+
+<section class="s" data-m="2" data-a="2" data-t="A conta de cada uma">
+  <div class="olho">2.2 · O que sobra de cada venda</div>
+  <table class="full">
+    <thead><tr><th>Por unidade vendida</th><th class="rx">Loja Alta</th><th class="lar">Loja Baixa</th></tr></thead>
+    <tbody>
+      <tr><td>Preço de venda</td><td>R$ 180,00</td><td>R$ 35,00</td></tr>
+      <tr><td>− custo do produto</td><td>− R$ 70,00</td><td>− R$ 12,00</td></tr>
+      <tr><td>− comissão da plataforma</td><td>− R$ 45,20</td><td>− R$ 11,00</td></tr>
+      <tr><td>− frete e embalagem</td><td>− R$ 10,00</td><td>− R$ 6,00</td></tr>
+      <tr><td><b>Sobra por venda</b></td><td><b class="vd">R$ 54,80</b></td><td><b class="am">R$ 6,00</b></td></tr>
+      <tr><td><b>Margem</b></td><td><b>30,4%</b></td><td><b>17,1%</b></td></tr>
+      <tr><td><b>ROAS mínimo (100 ÷ margem)</b></td><td class="d">3,3×</td><td class="d">5,8×</td></tr>
+    </tbody>
+  </table>
+  <div class="aviso erro"><div class="tg">Aqui já acabou a discussão</div><p>A Loja Baixa precisa de <b>5,8×</b> só para empatar. A Loja Alta lucra a partir de <b>3,3×</b>. Se as duas perseguirem "ROAS 8×", uma está confortável e a outra está no limite — <b>com o mesmo número na tela</b>.</p></div>
+</section>
+
+<section class="s" data-m="2" data-a="2" data-t="Quantas vendas">
+  <div class="olho">2.2 · O mesmo lucro</div>
+  <h3>Quantas vendas para colocar R$ 10.000 no bolso?</h3>
+  <div class="barras anim">
+    <div class="br"><span class="bl">Loja Alta<br><span class="mini">R$54,80 por venda</span></span><span class="bt"><i style="width:11%;background:var(--rox)"></i></span><span class="bv rx">182</span></div>
+    <div class="br"><span class="bl">Loja Baixa<br><span class="mini">R$6,00 por venda</span></span><span class="bt"><i style="width:100%;background:var(--lar)"></i></span><span class="bv lar">1.667</span></div>
+  </div>
+  <div class="aviso erro" style="margin-top:14px"><div class="tg">Olhe de novo para o estoque</div><p>A Loja Baixa comprou <b>1.000 itens</b>. Para tirar R$ 10 mil de lucro ela precisaria vender <b>1.667</b>. <b>Não cabe.</b> Ela teria que comprar de novo, vender tudo, e ainda assim não chegaria lá em um ciclo.</p></div>
+  <p class="sub">A Loja Alta chega ao mesmo lucro vendendo <b>18% do estoque</b>.</p>
+</section>
+
+<section class="s" data-m="2" data-a="3" data-t="Quem trabalha mais">
+  <div class="olho">2.3 · O trabalho invisível</div>
+  <h2>Mesmo lucro,<br><span class="lar">nove vezes</span> mais trabalho</h2>
+  <div class="esteira" style="--c:var(--rox)"><span class="rot">LOJA ALTA · 182 pedidos</span><span class="cont">182</span>
+    <i class="pk" style="animation-duration:6s;animation-delay:0s"></i><i class="pk" style="animation-duration:6s;animation-delay:3s"></i></div>
+  <div class="esteira" style="--c:var(--lar)"><span class="rot">LOJA BAIXA · 1.667 pedidos</span><span class="cont">1.667</span>
+    <i class="pk" style="animation-duration:.9s;animation-delay:0s"></i><i class="pk" style="animation-duration:.9s;animation-delay:.15s"></i><i class="pk" style="animation-duration:.9s;animation-delay:.3s"></i><i class="pk" style="animation-duration:.9s;animation-delay:.45s"></i><i class="pk" style="animation-duration:.9s;animation-delay:.6s"></i><i class="pk" style="animation-duration:.9s;animation-delay:.75s"></i></div>
+  <div class="cards anim" style="margin-top:14px">
+    <div class="cd"><div class="ct2">EMBALAGEM</div><p>1.667 pacotes contra 182. Todo mês.</p></div>
+    <div class="cd"><div class="ct2">ATENDIMENTO</div><p>Nove vezes mais perguntas e reclamações.</p></div>
+    <div class="cd"><div class="ct2">DEVOLUÇÕES</div><p>Nove vezes mais chance de problema e avaliação ruim.</p></div>
+    <div class="cd"><div class="ct2">ERRO CARO</div><p>Um pedido errado come <b>a margem de 9 vendas</b> na Loja Baixa. Na Alta, de uma fração.</p></div>
+  </div>
+</section>
+
+<section class="s" data-m="2" data-a="3" data-t="O outro lado">
+  <div class="olho">2.3 · Mas não é tão simples</div>
+  <h3>A Loja Alta paga por essa vantagem</h3>
+  <div class="cards anim">
+    <div class="cd r"><div class="ct2">CAPITAL PARADO</div><p><b>R$ 70 mil</b> presos no estoque contra R$ 12 mil. Se o produto não girar, é esse dinheiro que trava.</p></div>
+    <div class="cd r"><div class="ct2">RISCO CONCENTRADO</div><p>Errou o produto? Perdeu 70 mil. A Loja Baixa erra e perde 12 mil.</p></div>
+    <div class="cd a"><div class="ct2">DECISÃO MAIS LENTA</div><p>Ticket alto costuma converter menos porque a compra é mais pensada.</p></div>
+    <div class="cd g"><div class="ct2">A VANTAGEM DA BAIXA</div><p>Testa mais, erra barato, aprende rápido e gira o dinheiro várias vezes no ano.</p></div>
+  </div>
+  <div class="aviso az"><div class="tg">Não existe estratégia melhor</div><p>Existe <b>estratégia diferente</b>, com riscos diferentes. O erro não é escolher uma — é escolher uma e <b>querer o resultado da outra</b>.</p></div>
+</section>
+
+<section class="s" data-m="2" data-a="4" data-t="CALCULADORA">
+  <div class="olho">2.4 · Faça a sua conta</div>
+  <h3>Mexa nos números da sua compra</h3>
+  <div class="calc dest full">
+    <div class="duascol" style="margin:0 0 10px">
+      <div>
+        <div class="sl-row"><label>Custo un.</label><input type="range" id="c-custo" min="5" max="200" value="70" step="1"><span class="val" id="v-custo">R$70</span></div>
+        <div class="sl-row"><label>Preço venda</label><input type="range" id="c-preco" min="15" max="500" value="180" step="5"><span class="val" id="v-preco">R$180</span></div>
+      </div>
+      <div>
+        <div class="sl-row"><label>Qtd comprada</label><input type="range" id="c-qtd" min="100" max="3000" value="1000" step="50"><span class="val" id="v-qtd">1000</span></div>
+        <div class="sl-row"><label>Lucro alvo</label><input type="range" id="c-alvo" min="2000" max="50000" value="10000" step="1000"><span class="val" id="v-alvo">R$10k</span></div>
+      </div>
+    </div>
+    <div class="cr">
+      <div class="r"><div class="rl">Capital no estoque</div><div class="rv" id="r-cap">—</div><div class="rs">dinheiro parado</div></div>
+      <div class="rd r"><div class="rl">Sobra por venda</div><div class="rv vd" id="r-marg">—</div><div class="rs" id="r-margp"></div></div>
+      <div class="r"><div class="rl">ROAS mínimo</div><div class="rv lar" id="r-roas">—</div><div class="rs">para não ter prejuízo</div></div>
+      <div class="r"><div class="rl">Vendas p/ o alvo</div><div class="rv" id="r-vendas">—</div><div class="rs" id="r-cabe"></div></div>
+    </div>
+  </div>
+  <div class="aviso" id="aviso-calc"><div class="tg">Leitura</div><p id="txt-calc">Mexa nos controles e veja o que muda.</p></div>
+</section>
+
+<!-- ════════ MÓDULO 3 · O QUE O ALGORITMO LÊ ════════ -->
+<section class="s" data-m="3" data-a="1" data-t="O algoritmo é investidor">
+  <div class="olho">3.1 · O que o algoritmo faz com isso</div>
+  <h2>Ele não é leiloeiro.<br>É <span class="lar">investidor</span>.</h2>
+  <p class="sub" style="font-size:18px">A plataforma tem um recurso escasso: as vezes que pode mostrar um produto. Ela entrega para <b>quem promete devolver mais por aparição</b> — e essa promessa é feita de ticket, conversão e CTR.</p>
+  <div class="aviso az"><div class="tg">Por isso a compra importa tanto</div><p>Quem vende caro e converte bem <b>promete mais por aparição</b> — e por isso o algoritmo entrega mais. A vantagem começou no fornecedor, não na campanha.</p></div>
+</section>
+
+<section class="s" data-m="3" data-a="1" data-t="SIMULADOR">
+  <div class="olho">3.1 · O leilão ao vivo</div>
+  <h3>Mexa e veja quem aparece</h3>
+  <div class="leilao full">
+    <div class="calc">
+      <div class="sl-row"><label>CTR</label><input type="range" id="s-ctr" min="5" max="60" value="27"><span class="val" id="sv-ctr">2,7%</span></div>
+      <div class="sl-row"><label>Conversão</label><input type="range" id="s-cv" min="5" max="80" value="25"><span class="val" id="sv-cv">2,5%</span></div>
+      <div class="sl-row"><label>Ticket</label><input type="range" id="s-tk" min="15" max="250" value="50" step="5"><span class="val" id="sv-tk">R$50</span></div>
+      <div class="sl-row"><label>Meta ROAS</label><input type="range" id="s-rs" min="20" max="200" value="80" step="5"><span class="val" id="sv-rs">8,0×</span></div>
+      <div class="cr" style="grid-template-columns:repeat(3,1fr);margin-top:11px">
+        <div class="r"><div class="rl">Força</div><div class="rv lar" id="sv-forca">—</div><div class="rs">no leilão</div></div>
+        <div class="r"><div class="rl">Aparições</div><div class="rv" id="sv-imp">—</div><div class="rs">/dia</div></div>
+        <div class="r"><div class="rl">Vendas</div><div class="rv vd" id="sv-vend">—</div><div class="rs">/dia</div></div>
+      </div>
+    </div>
+    <div class="disputa"><div class="tt">◈ disputa por uma vitrine</div><div id="ranking"></div>
+      <div class="veredito"><div class="vt" id="vd-t">—</div><div class="vs" id="vd-s">—</div></div></div>
+  </div>
+</section>
+
+<section class="s" data-m="3" data-a="2" data-t="O tempo">
+  <div class="olho">3.2 · A variável que ninguém posta no grupo</div>
+  <h2>Ninguém começou<br>onde <span class="lar">está hoje</span></h2>
+  <table class="full">
+    <thead><tr><th>Mês de anúncio</th><th>Mês 1</th><th>Mês 2</th><th>Mês 3</th><th>Mês 4</th><th>Mês 5</th><th>Mês 6</th><th>Mês 7</th></tr></thead>
+    <tbody>
+      <tr><td class="rx"><b>Loja 2</b> (a do ROAS 20×)</td><td>5,5×</td><td>8,4×</td><td>10,9×</td><td>17,6×</td><td>21,2×</td><td>20,2×</td><td class="d">16,2×</td></tr>
+      <tr><td class="lar"><b>Loja 1</b></td><td>4,7×</td><td>4,5×</td><td>6,5×</td><td class="d">6,5×</td><td>—</td><td>—</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <p class="sub" style="font-size:17px">A loja que hoje roda 20× <b>começou em 5,5×</b> e levou quatro meses para passar de 15×. Quando você compara o seu mês 4 com o mês 7 dela, você compara <b>duas fases diferentes da mesma curva</b>.</p>
+  <div class="aviso"><div class="tg">O que o algoritmo acumula</div><p>Histórico é da <b>conta</b>. Não se transfere, não se compra, não se copia. Só se constrói — em meses.</p></div>
+</section>
+
+<section class="s" data-m="3" data-a="2" data-t="Canais">
+  <div class="olho">3.2</div>
+  <h3>E tem o que nem aparece na conversa</h3>
+  <div class="cards anim">
+    <div class="cd x"><div class="ct2">LOJA 2</div><p><b>16% das vendas vêm de afiliados.</b> Venda sem custo de anúncio, que melhora o resultado geral.</p></div>
+    <div class="cd"><div class="ct2">LOJA 1</div><p>2% de afiliados. Depende quase toda de Ads.</p></div>
+    <div class="cd"><div class="ct2">LOJA 3</div><p>41% orgânico. Menos dependente, mas cresce mais devagar.</p></div>
+  </div>
+  <p class="sub">Quando alguém te mostra o ROAS, não está te mostrando <b>de onde vem o resto do faturamento</b>.</p>
+</section>
+
+<!-- ════════ MÓDULO 4 · A RÉGUA CERTA ════════ -->
+<section class="s" data-m="4" data-a="1" data-t="ROAS precificado">
+  <div class="olho">4.1 · A régua</div>
+  <div class="big">ROAS saudável<br>é o ROAS<br><span style="color:#fff">precificado</span></div>
+  <p class="sub" style="margin-top:16px;font-size:17px">Não existe número universal. 3×, 8×, 20× — <b>nenhum é regra</b>. O seu ROAS certo sai da sua margem, que saiu da sua compra.</p>
+  <div class="proto full" style="max-width:520px">ROAS mínimo  =  100 ÷ margem %
+
+  margem 30%  →  3,3×      margem 17%  →  5,8×
+  margem 25%  →  4,0×      margem 12%  →  8,3×</div>
+</section>
+
+<section class="s" data-m="4" data-a="1" data-t="5 perguntas">
+  <div class="olho">4.1 · Antes de se comparar</div>
+  <h3>Cinco perguntas. Se não souber responder, não compare.</h3>
+  <div class="chk full" id="chk">
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Quanto ela pagou no produto?</div><div class="cdd">sem isso, a margem dela é invisível</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Há quantos meses ela anuncia?</div><div class="cdd">o histórico da conta vale meses de aprendizado</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Qual o ticket médio dela?</div><div class="cdd">muda o ROAS possível e o ROAS necessário</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Quanto ela paga por mil aparições?</div><div class="cdd">pode ser metade do seu — e não depende dela</div></div></div>
+    <div class="ci"><div class="cx"><svg viewBox="0 0 24 24" fill="none" stroke="#04180c" stroke-width="3.5"><path d="M20 6L9 17l-5-5"/></svg></div><div><div class="ct">Quanto do faturamento dela não vem de Ads?</div><div class="cdd">afiliados e orgânico mudam tudo</div></div></div>
+  </div>
+  <div class="vered nao" id="vered">0 de 5 · você não tem base para comparar</div>
+</section>
+
+<section class="s" data-m="4" data-a="2" data-t="Você contra você">
+  <div class="olho">4.2 · A única comparação útil</div>
+  <h2>Você contra <span class="lar">você</span></h2>
+  <div class="cards anim">
+    <div class="cd g"><div class="ct2">1 · SUA MARGEM</div><p>Ela veio da sua compra. Define o seu piso de ROAS.</p></div>
+    <div class="cd g"><div class="ct2">2 · SUA CURVA</div><p>Mês 1, mês 2, mês 3. Está subindo?</p></div>
+    <div class="cd g"><div class="ct2">3 · SUA CONVERSÃO</div><p>A variável que mais pesa. Melhorou?</p></div>
+    <div class="cd g"><div class="ct2">4 · SEU TICKET</div><p>Subiu sem derrubar a conversão?</p></div>
+    <div class="cd g"><div class="ct2">5 · SEU LUCRO</div><p>Não o ROAS. O que sobrou no fim do mês.</p></div>
+  </div>
+  <blockquote><p>O algoritmo não sabe que a sua amiga existe. Ele lê <b>o seu</b> histórico, <b>o seu</b> ticket, <b>a sua</b> conversão.</p></blockquote>
+</section>
+
+<section class="s" data-m="4" data-a="2" data-t="⏱ Exercício">
+  <div class="olho">Pare aqui · exercício</div>
+  <h2>A conta que você<br>nunca fez</h2>
+  <div class="proto full" style="max-width:660px">Pegue UM produto seu:
+
+  Custo por unidade      R$ ______
+  Preço de venda         R$ ______
+  Comissão + frete       R$ ______
+  ────────────────────────────────
+  Sobra por venda        R$ ______
+  Margem                    ______ %
+  SEU ROAS MÍNIMO           ______ ×   (100 ÷ margem)
+
+  Quantas vendas para R$ 10.000 de lucro?  ______
+  Isso cabe no seu estoque atual?   ( ) sim   ( ) não</div>
+  <p class="sub"><b>Esse número é seu.</b> Não é o da sua amiga, não é o do grupo, não é o do vídeo.</p>
+</section>
+
+<section class="s" data-m="4" data-a="3" data-t="Leve isto">
+  <div class="olho">Fechamento</div>
+  <h2>Oito frases</h2>
+  <div class="cards anim">
+    <div class="cd"><div class="ct2">1</div><p>ROAS não é nota — é ticket × conversão × CTR ÷ custo de aparição.</p></div>
+    <div class="cd"><div class="ct2">2</div><p>O resultado do anúncio foi decidido na <b>compra</b>.</p></div>
+    <div class="cd"><div class="ct2">3</div><p>Margem 30% lucra a 3,3×. Margem 17% só empata a 5,8×.</p></div>
+    <div class="cd"><div class="ct2">4</div><p>Mesmo lucro pode significar <b>nove vezes mais trabalho</b>.</p></div>
+    <div class="cd"><div class="ct2">5</div><p>Ticket alto sem conversão não entrega ROAS.</p></div>
+    <div class="cd"><div class="ct2">6</div><p>Ninguém começou onde está hoje. A curva leva meses.</p></div>
+    <div class="cd"><div class="ct2">7</div><p>O que você não vê: capital parado, risco e canais.</p></div>
+    <div class="cd"><div class="ct2">8</div><p>O seu ROAS certo é o que <b>o seu preço</b> comporta.</p></div>
+  </div>
+</section>
+
+<section class="s" data-m="4" data-a="3" data-t="Perguntas">
+  <div class="olho">Agora é com vocês</div>
+  <h1>Perguntas</h1>
+  <p class="sub">Traga os números do seu produto que a gente faz a conta junto.</p>
+</section>
+
+  </div>
+  <div id="faixa"></div>
+  <canvas id="tela"></canvas>
+  <div id="barra">
+    <button class="bt" id="ant"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="bt" id="prox"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+    <button class="bt" id="pena" title="Desenhar (D)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/></svg></button>
+    <div id="cores"><b data-c="#ff4d1c" class="on" style="background:#ff4d1c"></b><b data-c="#ffffff" style="background:#fff"></b><b data-c="#2fd672" style="background:#2fd672"></b><b data-c="#3d9bff" style="background:#3d9bff"></b></div>
+    <button class="bt" id="limpa" title="Apagar (L)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg></button>
+    <span class="gap"></span><span id="atalhos">← → · D DESENHA · L LIMPA · H ESCONDE · F TELA</span>
+    <button class="bt" id="btela"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+    <span id="cont">01 / 00</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  // caixas do estoque
+  document.querySelectorAll('.est .cx').forEach(el=>{
+    const alta = el.textContent.includes('ALTA');
+    el.innerHTML = Array.from({length:60},(_,i)=>`<i class="${i%7===0?'on':''}" style="animation-delay:${i*.05}s"></i>`).join('');
+  });
+
+  const MODS={0:'Abertura',1:'A comparação que não fecha',2:'O pilar Compra',3:'O que o algoritmo lê',4:'A régua certa'};
+  const AULAS={'1.1':'Três lojas, três realidades','1.2':'De onde vem a diferença','1.3':'Cada uma tem sua força',
+    '2.1':'Começa na compra','2.2':'A conta de cada uma','2.3':'Trabalho, capital e risco','2.4':'Calculadora da compra',
+    '3.1':'O leilão','3.2':'Tempo e canais','4.1':'ROAS precificado','4.2':'Você contra você','4.3':'Fechamento'};
+  const slides=[...document.querySelectorAll('.s')], total=slides.length;
+  let atual=0, desenhando=false, pintando=false, cor='#ff4d1c';
+  const desenhos={};
+
+  const nav=document.getElementById('nav'); const est={};
+  slides.forEach((s,i)=>{const k=s.dataset.m+'.'+s.dataset.a;
+    if(!est[s.dataset.m]) est[s.dataset.m]={};
+    if(!est[s.dataset.m][k]) est[s.dataset.m][k]={ini:i,fim:i};
+    est[s.dataset.m][k].fim=i;});
+  nav.innerHTML=Object.keys(est).sort((a,b)=>+a-+b).map(m=>{
+    const so = m==='0';
+    return `<div class="mod" data-m="${m}"><div class="mod-h"><span class="mn">${so?'◈':String(m).padStart(2,'0')}</span>${MODS[m]}<span class="seta">▶</span></div><div class="aulas">`+
+      Object.keys(est[m]).map(k=>`<div class="aula" data-ini="${est[m][k].ini}" data-fim="${est[m][k].fim}">${so?slides[est[m][k].ini].dataset.t:k+' · '+(AULAS[k]||k)}</div>`).join('')+'</div></div>';
+  }).join('');
+  nav.querySelectorAll('.mod-h').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('aberto'));
+  nav.querySelectorAll('.aula').forEach(a=>a.onclick=()=>mostra(+a.dataset.ini));
+
+  function atualizaNav(){
+    const s=slides[atual];
+    nav.querySelectorAll('.mod').forEach(m=>{if(m.dataset.m===s.dataset.m)m.classList.add('aberto','ativo');else m.classList.remove('ativo')});
+    nav.querySelectorAll('.aula').forEach(a=>{const at=atual>=+a.dataset.ini&&atual<=+a.dataset.fim;a.classList.toggle('atual',at);if(at)a.scrollIntoView({block:'nearest'})});
+    const k=s.dataset.m+'.'+s.dataset.a;
+    document.getElementById('crumb').innerHTML=`<b>${MODS[s.dataset.m]}</b>${AULAS[k]?' · '+AULAS[k]:''} · ${s.dataset.t}`;
+    document.getElementById('rodape').textContent=`SLIDE ${atual+1} DE ${total}`;
+    document.getElementById('prog').style.width=((atual+1)/total*100)+'%';
+  }
+
+  const tela=document.getElementById('tela'),ctx=tela.getContext('2d'),palco=document.getElementById('palco');
+  function dim(){const r=devicePixelRatio||1,W=palco.clientWidth,H=palco.clientHeight;
+    tela.width=W*r;tela.height=H*r;tela.style.width=W+'px';tela.style.height=H+'px';
+    ctx.setTransform(r,0,0,r,0,0);ctx.lineCap='round';ctx.lineJoin='round';restaura();}
+  function restaura(){ctx.clearRect(0,0,palco.clientWidth,palco.clientHeight);const d=desenhos[atual];
+    if(d){const i=new Image();i.onload=()=>ctx.drawImage(i,0,0,palco.clientWidth,palco.clientHeight);i.src=d;}}
+  const pos=e=>{const r=tela.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}};
+  tela.addEventListener('pointerdown',e=>{if(!desenhando&&e.pointerType!=='pen')return;pintando=true;tela.setPointerCapture(e.pointerId);
+    const p=pos(e);ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.strokeStyle=cor;ctx.lineWidth=e.pointerType==='pen'?Math.max(1.8,(e.pressure||.5)*7):3.2;});
+  tela.addEventListener('pointermove',e=>{if(!pintando)return;const p=pos(e);if(e.pointerType==='pen')ctx.lineWidth=Math.max(1.8,(e.pressure||.5)*7);ctx.lineTo(p.x,p.y);ctx.stroke();});
+  ['pointerup','pointercancel','pointerleave'].forEach(ev=>tela.addEventListener(ev,()=>{if(pintando){pintando=false;desenhos[atual]=tela.toDataURL();}}));
+
+  function mostra(i){slides[atual].classList.remove('on');atual=(i+total)%total;slides[atual].classList.add('on');
+    document.getElementById('cont').textContent=String(atual+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    atualizaNav();restaura();}
+  const avanca=()=>{if(atual<total-1)mostra(atual+1)},volta=()=>{if(atual>0)mostra(atual-1)};
+
+  const chk=document.getElementById('chk'),vd=document.getElementById('vered');
+  chk.addEventListener('click',e=>{const ci=e.target.closest('.ci');if(!ci)return;ci.classList.toggle('ok');
+    const n=chk.querySelectorAll('.ci.ok').length;
+    vd.textContent=n===5?'5 de 5 · agora sim dá para comparar':n+' de 5 · você não tem base para comparar';
+    vd.className='vered '+(n===5?'sim':'nao');});
+
+  // ═══ CALCULADORA DA COMPRA ═══
+  function comissao(p){if(p<=79.99)return p*0.20+4;if(p<=99.99)return p*0.14+16;if(p<=199.99)return p*0.14+20;return p*0.14+26;}
+  const brl=v=>'R$'+v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+  function calc(){
+    const cu=+document.getElementById('c-custo').value, pr=+document.getElementById('c-preco').value;
+    const qt=+document.getElementById('c-qtd').value, alvo=+document.getElementById('c-alvo').value;
+    document.getElementById('v-custo').textContent='R$'+cu;
+    document.getElementById('v-preco').textContent='R$'+pr;
+    document.getElementById('v-qtd').textContent=qt.toLocaleString('pt-BR');
+    document.getElementById('v-alvo').textContent='R$'+Math.round(alvo/1000)+'k';
+    const fr = pr<80?6:10, cm=comissao(pr), m=pr-cu-cm-fr, mp=pr?m/pr*100:0;
+    document.getElementById('r-cap').textContent=brl(cu*qt);
+    const em=document.getElementById('r-marg'); em.textContent='R$'+m.toFixed(2).replace('.',',');
+    em.className='rv '+(m>0?'vd':'vm');
+    document.getElementById('r-margp').textContent=mp.toFixed(1).replace('.',',')+'% de margem';
+    const er=document.getElementById('r-roas');
+    er.textContent = mp>0 ? (100/mp).toFixed(1).replace('.',',')+'×' : '∞';
+    er.className='rv '+(mp>0?'lar':'vm');
+    const ev=document.getElementById('r-vendas'), ec=document.getElementById('r-cabe');
+    if(m<=0){ ev.textContent='—'; ev.className='rv vm'; ec.textContent='prejuízo por venda'; }
+    else{
+      const n=Math.ceil(alvo/m); ev.textContent=n.toLocaleString('pt-BR');
+      const cabe=n<=qt; ev.className='rv '+(cabe?'vd':'vm');
+      ec.textContent = cabe ? Math.round(n/qt*100)+'% do estoque' : 'NÃO cabe no estoque';
+    }
+    const t=document.getElementById('txt-calc'), box=document.getElementById('aviso-calc');
+    if(m<=0){ t.innerHTML='Com esse preço você <b>perde dinheiro em cada venda</b>. Nenhum ROAS conserta isso.'; box.className='aviso erro'; }
+    else if(mp<15){ t.innerHTML=`Margem de <b>${mp.toFixed(1).replace('.',',')}%</b> exige ROAS de <b>${(100/mp).toFixed(1).replace('.',',')}×</b> só para empatar. É uma operação de volume: muito pedido para pouco lucro.`; box.className='aviso erro'; }
+    else if(mp<25){ t.innerHTML=`Margem de <b>${mp.toFixed(1).replace('.',',')}%</b>. Dá para trabalhar, mas cada erro custa caro — um pedido perdido come a margem de várias vendas.`; box.className='aviso'; }
+    else { t.innerHTML=`Margem de <b>${mp.toFixed(1).replace('.',',')}%</b>: confortável. Você lucra a partir de <b>${(100/mp).toFixed(1).replace('.',',')}×</b> e precisa de menos pedidos — menos trabalho para o mesmo lucro.`; box.className='aviso ok'; }
+  }
+  ['c-custo','c-preco','c-qtd','c-alvo'].forEach(id=>document.getElementById(id).addEventListener('input',calc)); calc();
+
+  // ═══ SIMULADOR DO LEILÃO ═══
+  const CONC=[{nome:'Concorrente A',f:.72},{nome:'Concorrente B',f:.48},{nome:'Concorrente C',f:.31},{nome:'Concorrente D',f:.19},{nome:'Concorrente E',f:.11}];
+  function simular(){
+    const ctr=+document.getElementById('s-ctr').value/10,cv=+document.getElementById('s-cv').value/10,
+          tk=+document.getElementById('s-tk').value,rs=+document.getElementById('s-rs').value/10;
+    document.getElementById('sv-ctr').textContent=ctr.toFixed(1).replace('.',',')+'%';
+    document.getElementById('sv-cv').textContent=cv.toFixed(1).replace('.',',')+'%';
+    document.getElementById('sv-tk').textContent='R$'+tk;
+    document.getElementById('sv-rs').textContent=rs.toFixed(1).replace('.',',')+'×';
+    const bruto=(ctr/100)*(cv/100)*tk/rs,PISO=Math.log(0.00003),TETO=Math.log(0.06);
+    const forca=Math.max(0,Math.min(1,(Math.log(Math.max(bruto,1e-9))-PISO)/(TETO-PISO)));
+    document.getElementById('sv-forca').textContent=Math.round(forca*100)+'%';
+    const todos=[...CONC.map(c=>({...c})),{nome:'SEU PRODUTO',f:forca,eu:true}].sort((a,b)=>b.f-a.f),V=4;
+    document.getElementById('ranking').innerHTML=todos.slice(0,6).map((c,i)=>`<div class="vaga ${c.eu?'eu':''} ${i>=V?'fora':''}"><span class="pos">${i+1}º</span><span class="nm">${c.nome}</span><span class="fc">${i<V?'aparece':'não aparece'}</span></div>`).join('');
+    const minha=todos.findIndex(c=>c.eu)+1,dentro=minha<=V,imp=Math.round(Math.pow(forca,2)*4200),vend=Math.max(0,Math.round(imp*(ctr/100)*(cv/100)));
+    document.getElementById('sv-imp').textContent=dentro?imp.toLocaleString('pt-BR'):'~0';
+    document.getElementById('sv-vend').textContent=dentro?vend:'0';
+    const vt=document.getElementById('vd-t'),vs=document.getElementById('vd-s');
+    if(!dentro){vt.textContent='FORA DO JOGO';vt.style.color='var(--verm)';vs.textContent='Exigir demais estrangula o alcance.';}
+    else if(minha===1){vt.textContent='1º LUGAR';vt.style.color='var(--verde)';vs.textContent='Domina a vitrine.';}
+    else{vt.textContent=minha+'º LUGAR';vt.style.color='var(--ama)';vs.textContent='Qual dos três dá para melhorar?';}
+  }
+  ['s-ctr','s-cv','s-tk','s-rs'].forEach(id=>document.getElementById(id).addEventListener('input',simular)); simular();
+
+  document.getElementById('prox').onclick=avanca; document.getElementById('ant').onclick=volta;
+  const pena=document.getElementById('pena');
+  pena.onclick=()=>{desenhando=!desenhando;document.body.classList.toggle('desenha',desenhando);pena.classList.toggle('on',desenhando)};
+  document.getElementById('limpa').onclick=()=>{ctx.clearRect(0,0,palco.clientWidth,palco.clientHeight);delete desenhos[atual]};
+  document.querySelectorAll('#cores b').forEach(b=>b.onclick=()=>{cor=b.dataset.c;document.querySelectorAll('#cores b').forEach(x=>x.classList.remove('on'));b.classList.add('on');if(!desenhando)pena.click();});
+  document.getElementById('btela').onclick=()=>document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  document.getElementById('menu-bt').onclick=()=>document.body.classList.toggle('limpo');
+
+  let ocio,travado=false;
+  function acorda(){if(travado)return;document.body.classList.remove('limpo');clearTimeout(ocio);ocio=setTimeout(()=>document.body.classList.add('limpo'),4500);}
+  ['mousemove','keydown','pointerdown'].forEach(ev=>addEventListener(ev,acorda));
+  addEventListener('keydown',e=>{if(['INPUT','TEXTAREA'].includes(e.target.tagName))return;const k=e.key.toLowerCase();
+    if(e.key==='ArrowRight'||e.key===' '){e.preventDefault();avanca()}else if(e.key==='ArrowLeft'){e.preventDefault();volta()}
+    else if(k==='d')pena.click();else if(k==='l')document.getElementById('limpa').click();else if(k==='f')document.getElementById('btela').click();
+    else if(k==='h'){travado=!travado;document.body.classList.toggle('limpo',travado);clearTimeout(ocio)}
+    else if(e.key==='Home')mostra(0);else if(e.key==='End')mostra(total-1);});
+  document.getElementById('slides').addEventListener('click',e=>{if(desenhando||e.target.closest('.ci,input,.calc,.disputa'))return;(e.clientX>innerWidth*0.4)?avanca():volta();});
+  addEventListener('resize',dim); dim(); mostra(0); acorda();
+})();
+</script>
+</body></html>
